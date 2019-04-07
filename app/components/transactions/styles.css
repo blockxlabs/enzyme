@@ -1,0 +1,102 @@
+.transaction-container {
+  /* height: calc(100vh - 55px - 83px - 96px - 75px); */
+  height: calc(100vh - 55px - 83px - 130px - 36px);
+}
+
+.transaction-item-container-pointer {
+  display: grid;
+  grid-template-columns: 0.44fr 3fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    'left main      .'
+    'left secondary right';
+  padding-left: 15px;
+  background-color: white;
+  height: 40px;
+  cursor: pointer;
+}
+
+.transaction-item-container-none {
+  display: grid;
+  grid-template-columns: 0.44fr 3fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    'left main      .'
+    'left secondary right';
+  padding-left: 15px;
+  background-color: white;
+  height: 40px;
+}
+
+.transaction-item-left-icon {
+  grid-area: left;
+  justify-self: left;
+  align-self: center;
+}
+
+.transaction-item-main {
+  grid-area: main;
+  justify-self: flex-start;
+  align-self: flex-end;
+  font-size: 12px;
+}
+.transaction-item-secondary {
+  grid-area: secondary;
+  justify-self: flex-start;
+  align-self: flex-start;
+  font-size: 12px;
+}
+.transaction-item-right {
+  grid-area: right;
+  justify-self: flex-start;
+  align-self: flex-start;
+}
+
+.transaction-item-pill {
+  width: 68px;
+  height: 15px;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #00a200;
+  background: #00a200;
+  color: #ffffff;
+  margin-top: 3px;
+}
+
+.transaction-item-status-text {
+  text-align: center;
+  font-size: 8px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 10px;
+  grid-template-areas: 'title';
+  align-items: start;
+  width: 329.5px;
+  height: 21px;
+  margin-left: 13px;
+  margin-top: 14px;
+}
+
+.title-class {
+  grid-area: title;
+  font-size: 18px;
+  font-family: 'Roboto-Medium';
+}
+
+.transactions-list-class {
+  overflow: auto;
+  width: 357px;
+  /* height: 185px;*/
+  height: calc(100vh - 55px - 83px - 130px - 36px - 26px - 13px - 14px);
+  padding-top: 14px;
+}
+
+.no-transaction-class {
+  font-style: oblique;
+  margin-left: 13px;
+  color: #707070;
+}

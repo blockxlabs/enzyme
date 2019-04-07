@@ -1,0 +1,174 @@
+body {
+  background: #f5f5f6;
+  min-height: 600px !important;
+  height: 600px !important;
+  max-height: 600px !important;
+  width: 360px;
+  max-width: 360px;
+  min-width: 360px;
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+button:hover,
+a:hover,
+.clickable-icon:hover {
+  cursor: pointer;
+}
+::-webkit-scrollbar-track {
+  background: transparent !important ;
+}
+
+p {
+  margin: 0px;
+}
+
+@font-face {
+  font-family: "Roboto-Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Regular"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Regular.ttf")
+      format("trueType");
+}
+@font-face {
+  font-family: "Roboto-Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Italic"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Italic.ttf")
+      format("trueType");
+}
+
+@font-face {
+  font-family: "Roboto-Black";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Black"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Black.ttf") format("trueType");
+}
+@font-face {
+  font-family: "Roboto-BlackItalic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-BlackItalic"),
+    url("../../browser/assets/fonts/Roboto/Roboto-BlackItalic.ttf")
+      format("trueType");
+}
+@font-face {
+  font-family: "Roboto-Light";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Light"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Light.ttf") format("trueType");
+}
+@font-face {
+  font-family: "Roboto-LightItalic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-LightItalic"),
+    url("../../browser/assets/fonts/Roboto/Roboto-LightItalic.ttf")
+      format("trueType");
+}
+@font-face {
+  font-family: "Roboto-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Bold"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Bold.ttf") format("trueType");
+}
+@font-face {
+  font-family: "Roboto-BoldItalic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-BoldItalic"),
+    url("../../browser/assets/fonts/Roboto/Roboto-BoldItalic.ttf")
+      format("trueType");
+}
+@font-face {
+  font-family: "Roboto-Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Medium"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Medium.ttf")
+      format("trueType");
+}
+@font-face {
+  font-family: "Roboto-MediumItalic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-MediumItalic"),
+    url("../../browser/assets/fonts/Roboto/Roboto-MediumItalic.ttf")
+      format("trueType");
+}
+@font-face {
+  font-family: "Roboto-Thin";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-Thin"),
+    url("../../browser/assets/fonts/Roboto/Roboto-Thin.ttf") format("trueType");
+}
+@font-face {
+  font-family: "Roboto-ThinItalic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Roboto-ThinItalic"),
+    url("../../browser/assets/fonts/Roboto/Roboto-ThinItalic.ttf")
+      format("trueType");
+}
+
+@font-face {
+  font-family: "Helvetica-Neue-Light";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Helvetica-Neue-Light"),
+    url("../../browser/assets/fonts/HelveticaNeue/HelveticaNeue-Light.ttf")
+      format("trueType");
+}
+
+@font-face {
+  font-family: "RobotoMono-Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("RobotoMono-Regular"),
+    url("../../browser/assets/fonts/RobotoMono/RobotoMono-Regular.ttf")
+      format("trueType");
+}
+
+@font-face {
+  font-family: "Helvetica-Neue-Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Helvetica-Neue-Medium"),
+    url("../../browser/assets/fonts/HelveticaNeue/HelveticaNeue-Medium.ttf")
+      format("trueType");
+}
+
+.offlineError {
+  height: 30px !important;
+  color: #fff;
+  padding-left: 5px;
+  padding-top: 3px;
+  font-family: "Roboto-Regular";
+}
+
+.block-ui-message-container {
+  position: absolute;
+  top: 46% !important;
+  left: 43% !important;
+  right: 0;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  z-index: 10001;
+}

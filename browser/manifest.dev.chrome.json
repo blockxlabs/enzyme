@@ -1,0 +1,36 @@
+{
+  "version": "0.0.0",
+  "background": {
+    "scripts": ["./extension/background.js"],
+    "persistent": "false"
+  },
+  "name": "Polkadot",
+  "manifest_version": 2,
+  "description": "Polkadot wallet",
+  "browser_action": {
+    "default_title": "Polkadot wallet",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/icon-16.png",
+    "32": "img/icon-32.png",
+    "128": "img/icon-128.png"
+  },
+  "web_accessible_resources": ["inject.html", "contentScript.js"],
+  "run_at": "document_start",
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "notifications",
+    "contextMenus",
+    "management",
+    "tabs",
+    "storage",
+    "activeTab",
+    "https://*/*",
+    "http://*/*",
+    "wss://*/*"
+  ],
+  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000 http://127.0.0.1:8545/  https://api.coingecko.com/ http://192.168.1.201:8545/ wss://poc3-rpc.polkadot.io/ 'unsafe-eval'; connect-src * data:; style-src * 'unsafe-inline'  'unsafe-eval' blob:; img-src * data:; font-src 'self' http://localhost:3000 http://127.0.0.1:8545/ https://localhost:3000 https://fonts.gstatic.com/ https://api.coingecko.com/ http://192.168.1.201:8545/ wss://poc3-rpc.polkadot.io/ 'unsafe-eval' data: ;"
+}

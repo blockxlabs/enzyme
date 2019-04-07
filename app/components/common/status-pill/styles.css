@@ -1,0 +1,12 @@
+.pillstatus-text {
+  text-align: center;
+  font-size: 8px;
+}
+
+.pillstatus-box {
+  width: 68px;
+  height: 15px;
+  border-radius: 5px;
+  border: 1px solid;
+  margin-top: 3px;
+}

@@ -1,0 +1,46 @@
+.tokens-class {
+  background: #00695c;
+  height: 496px;
+  overflow-y: scroll;
+}
+.wallet-home-page {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 515px;
+}
+
+.wallet-home-page::-webkit-scrollbar {
+  width: 0px !important;
+}
+
+.wallet-home-page::-webkit-scrollbar-track {
+  background: transparent !important ;
+  width: 0px;
+}
+
+.wallet-home-page::-webkit-scrollbar-thumb {
+  background: #b2b2b2 !important ;
+  border-radius: 25px !important ;
+}
+
+.wallet-home-page::-webkit-scrollbar-thumb:hover {
+  background: #555 !important ;
+  border-radius: 25px !important ;
+}
+
+.wallet-home-page-dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas: "token-details-transaction token-list";
+}
+
+.wallet-home-page-dashboard-token-details-transaction {
+  grid-area: token-details-transaction;
+  width: 360px;
+}
+
+.wallet-home-page-dashboard-token-list {
+  grid-area: token-list;
+  height: 496px;
+}

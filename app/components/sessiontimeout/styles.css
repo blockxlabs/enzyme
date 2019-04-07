@@ -1,0 +1,41 @@
+.settings-session-timeout {
+  grid-area: session-timeout;
+  display: grid;
+  grid-template-areas:
+    'session-timeout-label'
+    'session-timeout-content';
+  padding-left: 20px;
+  padding-top: 12px;
+}
+.settings-session-timeout-label {
+  grid-area: session-timeout-label;
+  margin-bottom: 13px;
+}
+
+.settings-session-timeout-content {
+  grid-area: session-timeout-content;
+  display: grid;
+  grid-template-areas:
+    'session-timeout-input session-timeout-button'
+    'export-padding export-padding';
+  grid-template-columns: fit-content(100%);
+  grid-template-rows: auto 20px;
+  padding-left: 27px;
+}
+
+.settings-session-timeout-input {
+  grid-area: session-timeout-input;
+  align-self: flex-end;
+  justify-self: center;
+}
+
+.settings-session-timeout-button {
+  grid-area: session-timeout-button;
+  align-self: flex-end;
+  justify-self: right;
+  margin-right: 20px;
+}
+
+.settings-export-padding {
+  grid-area: export-padding;
+}

@@ -1,0 +1,33 @@
+.button-md {
+  background-color: #ffffff;
+  width: 153.58px;
+  height: 35.63px;
+  border-radius: 4px;
+  border: 1px #ffffff;
+  color: #d75fa0;
+  font-size: 16px;
+  border-style: solid;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto-Regular";
+}
+
+.button-md-enable {
+  background-color: #ffffff;
+  width: 153.58px;
+  height: 35.63px;
+  border-radius: 4px;
+  border: 1px #ffffff;
+  color: #d75fa0;
+  font-size: 16px;
+  border-style: solid;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto-Regular";
+}
+
+.button-md-enabled:active {
+  opacity: 0.4;
+}
+
+.button-md-enabled:hover {
+  opacity: 0.4;
+}

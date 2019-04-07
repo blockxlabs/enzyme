@@ -1,0 +1,33 @@
+.button-sm {
+  background-color: #ffffff;
+  width: 99.93px;
+  height: 39.87px;
+  border-radius: 4px;
+  border: 1px #ffffff;
+  color: #d75fa0;
+  font-size: 16px;
+  border-style: solid;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto-Medium";
+}
+
+.button-sm-enable {
+  background-color: #ffffff;
+  width: 99.93px;
+  height: 39.87px;
+  border-radius: 4px;
+  border: 1px #ffffff;
+  color: #d75fa0;
+  font-size: 16px;
+  border-style: solid;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto-Medium";
+}
+
+.button-sm-enabled:active {
+  opacity: 0.4;
+}
+
+.button-sm-enabled:hover {
+  opacity: 0.4;
+}

@@ -1,0 +1,20 @@
+.button-xs {
+  background-color: #ffffff;
+  width: 97.58px;
+  height: 34px;
+  border-radius: 4px;
+  border: 1px #e2e2e2;
+  color: #000000;
+  font-size: 14px;
+  border-style: solid;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto-Medium";
+}
+
+.button-xs:active {
+  opacity: 0.4;
+}
+
+.button-xs:hover {
+  opacity: 0.4;
+}

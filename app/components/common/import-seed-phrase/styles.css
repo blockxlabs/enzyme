@@ -1,0 +1,23 @@
+.import-seed-phrase-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 17px;
+  padding-left: 18px;
+  padding-right: 18px;
+  text-align: left;
+}
+
+.import-seed-phrase-title {
+  font-family: "Roboto-Regular";
+  font-size: 14px;
+}
+
+.import-seed-phrase-description {
+  font-family: "Roboto-light";
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.import-seed-phrase-input {
+  margin-top: 17px;
+}

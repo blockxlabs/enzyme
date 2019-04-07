@@ -1,0 +1,97 @@
+.confirm-view-grid-container {
+  background-color: #ffffff;
+  display: grid;
+  grid-template-areas:
+    "."
+    "from-to"
+    "from-to-divider"
+    "amount"
+    "amount-divider"
+    "nrg-price"
+    "nrg-price-divider"
+    "nrg-limit"
+    "nrg-limit-divider"
+    "hex-data";
+  height: 100vh - 69px;
+}
+
+.confirm-view-from-to {
+  grid-area: from-to;
+  display: grid;
+  grid-template-areas: "from to";
+  grid-template-columns: repeat(2, 1fr);
+  height: 98px;
+  width: 357px;
+  padding: 0 27px;
+}
+
+.confirm-view-from {
+  grid-area: from;
+  align-self: center;
+  justify-content: flex-start;
+}
+.confirm-view-to {
+  grid-area: to;
+  align-self: center;
+  justify-content: flex-start;
+}
+
+.confirm-view-amount {
+  grid-area: amount;
+  align-self: center;
+  justify-content: flex-start;
+  height: 90px;
+  padding: 16px 27px;
+}
+
+.confirm-view-details {
+  display: grid;
+  grid-template: "left right";
+  grid-template-columns: auto 1fr;
+  align-self: center;
+  align-self: flex-end;
+  margin-top: 6px;
+}
+
+.confirm-view-details-value {
+  grid-area: left;
+  align-self: flex-end;
+}
+
+.confirm-view-details-value-unit {
+  grid-area: right;
+  align-self: flex-end;
+  padding-left: 10px;
+}
+
+.confirm-view-nrg-price {
+  grid-area: nrg-price;
+  padding: 16px 27px;
+}
+
+.confirm-view-nrg-limit {
+  grid-area: nrg-limit;
+  padding: 16px 27px;
+}
+
+.confirm-view-hex-data {
+  grid-area: hex-data;
+  padding: 16px 27px;
+  height: 112px;
+}
+
+.send-grid-from-to-divider {
+  grid-area: from-to-divider;
+}
+
+.send-grid-amount-divider {
+  grid-area: amount-divider;
+}
+
+.send-grid-nrg-price-divider {
+  grid-area: nrg-price-divider;
+}
+
+.send-grid-nrg-limit-divider {
+  grid-area: nrg-limit-divider;
+}

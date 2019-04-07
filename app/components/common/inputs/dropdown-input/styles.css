@@ -1,0 +1,117 @@
+.wallet-dropdown-input {
+  width: 316.34px;
+  height: 48.3px;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  background-color: white;
+  border-color: #d5d5d5;
+  color: #000000;
+  transition: border-color 200ms ease-in-out;
+}
+
+.wallet-dropdown-input-error {
+  border-color: #ff0000;
+}
+.wallet-dropdown-input-error > input::placeholder {
+  color: #ff0000;
+  text-align: left;
+}
+
+.wallet-hidden-input::placeholder {
+  text-align: left !important;
+}
+
+.wallet-hidden-input {
+  grid-area: wallet-input;
+  font-family: "Roboto-Italic";
+  font-size: 14px;
+  padding: 16px;
+  background-color: transparent;
+  border: none;
+  height: 48.3px;
+  width: 316.34px;
+}
+
+.wallet-dropdown-input-component {
+  width: 316.34px;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d5d5d5;
+  border-top-width: 0px;
+  border-top-style: none;
+  position: absolute;
+  display: block;
+  margin-left: 0px;
+  margin-right: 0px;
+  overflow: hidden;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.wallet-dropdown-input-component-scroll {
+  overflow-y: scroll;
+}
+
+.wallet-dropdown-input-no-border {
+  display: none;
+}
+.wallet-dropdown-input-component::-webkit-scrollbar {
+  width: 25px !important;
+}
+
+.wallet-dropdown-input-component::-webkit-scrollbar-track {
+  background: transparent !important ;
+}
+
+.wallet-dropdown-input-component::-webkit-scrollbar-thumb {
+  background: #b2b2b2 !important ;
+  border-radius: 25px !important ;
+  background-clip: padding-box !important ;
+  border: 7px solid rgba(0, 0, 0, 0) !important ;
+}
+
+.wallet-dropdown-input-component::-webkit-scrollbar-thumb:hover {
+  background: #555 !important ;
+  border-radius: 25px !important ;
+  background-clip: padding-box !important ;
+  border: 7px solid rgba(0, 0, 0, 0) !important ;
+}
+
+.wallet-dropdown-input-component-elements {
+  display: grid;
+  grid-template-areas: "name address";
+  grid-template-columns: auto 3fr;
+  padding: 15px 16px 15px 16px;
+  grid-column-gap: 5px;
+  transition: color 200ms ease-in-out;
+}
+
+.wallet-dropdown-input-component-elements-selected * p {
+  color: #268670 !important;
+}
+
+.wallet-dropdown-input-component-elements-selected * p {
+  color: #33c7a5 !important;
+}
+
+.wallet-dropdown-input-component-elements-name {
+  grid-area: name;
+  justify-items: left;
+  align-self: center;
+}
+
+.wallet-dropdown-input-component-elements-address {
+  grid-area: address;
+  justify-self: left;
+  align-self: center;
+}
+
+.wallet-dropdown-input-component-elements-divider {
+  width: calc(100% - 16px - 16px) !important;
+  margin-left: 16px;
+}
+.wallet-dropdown-input-component-elements-divider-scroll {
+  width: calc(100% - 16px - 6px) !important;
+}

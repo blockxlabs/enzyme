@@ -1,0 +1,30 @@
+.header-container {
+  display: flex;
+  flex-direction: row;
+  background-color: #000000;
+  height: 50px;
+  width: 100%;
+  opacity: 100%;
+  align-items: center;
+  padding: 14px 132.5px;
+  justify-content: space-between;
+}
+
+.header-logo {
+  height: 23px;
+  width: 23px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  align-self: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  height: 23px;
+}
+
+.header-text {
+  font-size: 18px;
+  color: #ffffff;
+  align-self: center;
+  justify-self: center;
+}

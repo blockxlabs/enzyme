@@ -1,0 +1,7 @@
+.wallet-button-disabled {
+  opacity: 0.5;
+}
+
+.wallet-button-color-transition {
+  transition: all 250ms ease-in-out;
+}

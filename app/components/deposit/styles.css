@@ -1,0 +1,52 @@
+.deposit-grid-container {
+  display: grid;
+  background-color: #ebebeb;
+  grid-template-areas:
+    'qr-code'
+    'address'
+    'copy-to-clipboard';
+  padding: 17px;
+  height: 421px;
+  width: 360px;
+  max-width: 360px;
+  min-width: 360px;
+  overflow: hidden;
+  grid-template-rows: 1fr 0.5fr 0.5fr;
+}
+.deposit-grid-wallet-name {
+  grid-area: wallet-name;
+  width: 70px;
+  align-self: center;
+  justify-self: center;
+}
+.deposit-grid-wallet-copy-clipboard-icon {
+  grid-area: copy-clipboard-icon;
+  cursor: pointer;
+}
+.deposit-grid-address {
+  grid-area: address;
+  justify-self: center;
+  align-self: flex-start;
+}
+
+.deposit-grid-copy-to-clipboard {
+  grid-area: copy-to-clipboard;
+  justify-self: center;
+  align-self: flex-end;
+  margin-bottom: 26px;
+}
+
+.deposit-grid-qr-code {
+  grid-area: qr-code;
+  justify-self: center;
+  align-self: center;
+  padding: 17px;
+}
+
+.deposit-title {
+  font-size: 18px;
+}
+
+.deposit-wallet-address {
+  font-size: 16px;
+}

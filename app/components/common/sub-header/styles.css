@@ -1,0 +1,29 @@
+.subheader-shadow {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.subheader-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  grid-template-areas: 'icon title';
+  padding: 12px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: white;
+  height: 55px;
+}
+
+.subheader-title {
+  grid-area: title;
+  align-self: center;
+  justify-content: flex-start;
+}
+
+.subheader-icon {
+  grid-area: icon;
+  align-self: center;
+  justify-content: center;
+  padding-left: 17px;
+  padding-right: 17px;
+}

@@ -1,0 +1,45 @@
+.settings-grid-container {
+  display: grid;
+  grid-template-areas:
+    "export-seed-words"
+    "export-seed-words-divider"
+    "session-timeout";
+  background-color: #004d40;
+}
+
+.settings-export-seed-words {
+  grid-area: export-seed-words;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+}
+
+.settings-export-seed-words-divider {
+  grid-area: export-seed-words-divider;
+  color: #ffffff;
+  opacity: 0.2;
+  height: 1px;
+}
+
+.settings-session-timeout {
+  grid-area: session-timeout;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+}
+
+.settings-title {
+  font-size: 15px;
+  line-height: 1;
+  color: #ffffff;
+  display: inline;
+  padding-left: 12px;
+}
+
+.settings-icon {
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.settings-session-timeout-highlighted,
+.settings-export-seed-words-highlighted {
+  background-color: #3d6d8e;
+}

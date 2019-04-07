@@ -1,0 +1,22 @@
+.wallet-multiline-input {
+  width: 320px;
+  height: 100px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto-Regular";
+  font-size: 16px;
+  padding: 18px;
+  transition: border-color 200ms ease-in-out;
+}
+
+.wallet-multiline-error {
+  border-color: #ff0000;
+  opacity: 0.6;
+}
+.wallet-multiline-error::placeholder {
+  color: #ff0000;
+  opacity: 0.6;
+}

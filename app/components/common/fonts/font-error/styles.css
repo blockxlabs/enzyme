@@ -1,0 +1,8 @@
+.wallet-font-error {
+  font-family: "Roboto-Regular";
+  font-size: 9.5px;
+  position: absolute;
+  color: #ff0000;
+  padding-left: 16px;
+  padding-top: 3px;
+}

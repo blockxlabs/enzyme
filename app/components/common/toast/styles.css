@@ -1,0 +1,28 @@
+.toast-message-container {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas: "icon message";
+}
+
+.toast-message-icon {
+  grid-area: icon;
+  justify-self: center;
+  align-self: center;
+}
+
+.toast-message-message {
+  grid-area: message;
+  padding-left: 4px;
+}
+
+.toast-message-custom-container {
+  display: grid;
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas: "customMessage";
+ }
+
+.toast-message-custom-message {
+  grid-area: customMessage;
+  padding-left: 4px;
+}

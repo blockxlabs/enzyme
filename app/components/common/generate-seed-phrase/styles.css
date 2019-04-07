@@ -1,0 +1,44 @@
+.seed-phrase-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 17px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.seed-phrase-title {
+  font-family: "Roboto-Regular";
+  font-size: 14px;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 400;
+}
+
+.seed-phrase-description {
+  font-family: "Roboto-Light";
+  font-size: 12px;
+  margin-top: 6px;
+  color: rgba(0, 0, 0, 1);
+}
+
+.seed-phrase-text-area {
+  margin-top: 17px;
+}
+
+.seed-phrase-copy {
+  font-family: "Roboto-Regular";
+  font-size: 12px;
+  margin-left: 18px;
+  cursor: pointer;
+  height: 16px;
+  width: 74px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.seed-phrase-copy:hover {
+  opacity: 0.5;
+}
+
+.seed-phrase-copy:active {
+  opacity: 1;
+}

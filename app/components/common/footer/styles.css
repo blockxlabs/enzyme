@@ -1,0 +1,21 @@
+.footer-container {
+  background-color: #d75fa0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas: "footer-content";
+  grid-gap: 10px;
+  padding: 10px;
+  height: 60px;
+  max-width: 360px;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.footer-content {
+  grid-area: footer-content;
+  justify-self: center;
+  align-self: center;
+}

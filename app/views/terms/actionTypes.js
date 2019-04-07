@@ -1,0 +1,1 @@
+export const TERMS_STORE_AGREE = 'TERMS/STORE_AGREE';
