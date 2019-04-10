@@ -52,3 +52,7 @@ Coming soon.
 ### Receive DOTs
 
 Coming soon.
+
+## Links
+
+License: [AGPL v3](https://github.com/blockxlabs/enzyme/blob/master/LICENSE.md)
