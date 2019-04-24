@@ -7,4 +7,4 @@ To get around this, simply go to https://localhost:3000
 Click "Show Advanced"
 Click "Proceed to localhost (unsafe)"
 
-![ssl workaround](./docs/images/ssl-workaround.png)
+![ssl workaround](./docs/docs/images/ssl-workaround.png)
