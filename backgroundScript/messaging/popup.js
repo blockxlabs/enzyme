@@ -46,19 +46,18 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.getCurrentAccount(request, sendResponse);
             break;
           }
-          case MessageTypes.BG_NETWORKS_CURRENT: {
+
+          //Network
+          case MessageTypes.BG_NETWORK_CURRENT: {
             ResponseService.getCurrentNetwork(request, sendResponse);
             break;
           }
-          case MessageTypes.BG_NETWORKS_STATUS: {
-            ResponseService.handleDefault(request, sendResponse);
+          case MessageTypes.BG_NETWORK_UPDATE: {
+            ResponseService.updateCurrentNetwork(request, sendResponse);
             break;
           }
+
           // Transactions
-          case MessageTypes.BG_TXN_UNIT_CONVERTER: {
-            ResponseService.convertUnit(request, sendResponse);
-            break;
-          }
           case MessageTypes.BG_TXN_FEE: {
             ResponseService.getTransactionFees(request, sendResponse);
             break;
@@ -67,12 +66,12 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.submitTransaction(request, sendResponse);
             break;
           }
-          case MessageTypes.BG_TXN_LIST_TXNS: {
-            ResponseService.handleDefault(request, sendResponse);
+          case MessageTypes.BG_TXN_LIST: {
+            ResponseService.getTransactions(request, sendResponse);
             break;
           }
-          case MessageTypes.BG_TXN_STATUS: {
-            ResponseService.handleDefault(request, sendResponse);
+          case MessageTypes.BG_TXN_GET: {
+            ResponseService.getTransaction(request, sendResponse);
             break;
           }
           default:

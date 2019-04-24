@@ -1,0 +1,34 @@
+.confirm-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm-form-amount-divider {
+  margin-top: 42px;
+}
+
+.confirm-form-total-amount-divider {
+  margin-top: 12px;
+}
+
+.confirm-form-amount-container,
+.confirm-form-fee-container,
+.confirm-form-total-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 38.83px;
+  padding-left: 28px;
+}
+
+.confirm-form-amount-container {
+  margin-top: 10px;
+}
+
+.confirm-form-fee-container {
+  margin-top: 23px;
+}
+
+.confirm-form-total-container {
+  margin-top: 12px;
+}

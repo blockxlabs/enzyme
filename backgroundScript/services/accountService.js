@@ -1,31 +1,10 @@
 import * as Wallet from '../apis/dotWallet';
 import { getStore } from '../store/storeProvider';
-import * as balanceActions from '../actions/balances';
 import * as accountActions from '../actions/accounts';
 import * as StorageServices from '../../lib/services/extension/storage';
 import { ACCOUNTS } from '../../lib/constants/storageKeys';
+import { updatesAccountsState, updateCurrentAccountState } from './appService';
 
-// TO DO: KHP  Feching Balance move to  watcher services
-export const fetchCurrentBalance = async () => {
-  const { networkState } = getStore().getState();
-  const { networkFullUrl } = networkState.currentNetwork;
-  const newBalance = await Wallet.getBalance(networkFullUrl);
-  getStore.dispatch(balanceActions.fetchAccountBalance(newBalance));
-};
-
-const updatesAccounts = async accounts => {
-  getStore().dispatch(accountActions.updateAccountList(accounts));
-};
-
-const updateCurrentAccount = async account => {
-  getStore().dispatch(accountActions.changeCurrentAccount(account));
-};
-
-const updateAccountState = async accountsReducerObj => {
-  const { accounts, currentAccount } = accountsReducerObj;
-  // persistence reducer from localstorage
-  await Promise.all([updatesAccounts(accounts), updateCurrentAccount(currentAccount)]);
-};
 const constructAlias = str => str.substring(0, 2) + str.substring(str.length - 3, str.length - 1);
 
 const createAccountWithSeed = seedWords => {
@@ -59,14 +38,10 @@ const storingAccounts = async () => {
   return result;
 };
 
+// isOnboarding Require
 export const getAccounts = async () => {
   const localAccountObj = await StorageServices.getLocalStorage(ACCOUNTS);
   return localAccountObj;
-};
-export const decryptAccounts = async (accounts, hashKey) => {
-  const decryptAccounts = StorageServices.decrypt({ ...accounts }, hashKey);
-  await updateAccountState(decryptAccounts);
-  return decryptAccounts;
 };
 
 export const createAccount = async (seedWords, isOnBoarding) => {
@@ -81,8 +56,8 @@ export const createAccount = async (seedWords, isOnBoarding) => {
   // update reducer state and store
   // persistence
   await Promise.all([
-    updatesAccounts(newAccounts),
-    updateCurrentAccount(account),
+    updatesAccountsState(newAccounts),
+    updateCurrentAccountState(account),
     storingAccounts(),
   ]);
 

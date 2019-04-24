@@ -4,8 +4,9 @@ import './styles.css';
 
 class Footer extends Component {
   render() {
+    const { ...otherProps } = this.props;
     return (
-      <Animated.div className="footer-container" {...this.props}>
+      <Animated.div className="footer-container" {...otherProps}>
         <div className="footer-content">{this.props.children}</div>
       </Animated.div>
     );

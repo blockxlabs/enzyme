@@ -4,6 +4,7 @@ const initialState = {
   success: false,
   error: null,
   seedWords: '',
+  score: 0,
 };
 
 const reducer = (state = { initialState }, action) => {
@@ -25,6 +26,13 @@ const reducer = (state = { initialState }, action) => {
         ...state,
         ...{
           error: action.error,
+        },
+      };
+    case Types.UPDATE_PASSWORD_METER_SCORE:
+      return {
+        ...state,
+        ...{
+          score: action.score,
         },
       };
     default:

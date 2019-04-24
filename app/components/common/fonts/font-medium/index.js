@@ -2,17 +2,17 @@ import React, { PureComponent } from 'react';
 
 export default class FontMedium extends PureComponent {
   render() {
-    const { style, children, ...otherProps } = this.props;
+    const { text, style, ...otherProps } = this.props;
     return (
-      <p
+      <div
         style={{
           fontFamily: 'Roboto-Medium',
           ...style,
         }}
         {...otherProps}
       >
-        {children}
-      </p>
+        {text}
+      </div>
     );
   }
 }

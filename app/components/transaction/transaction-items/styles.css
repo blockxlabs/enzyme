@@ -1,0 +1,9 @@
+.transaction-item {
+  display: flex;
+  flex-direction: row;
+  padding-left: 18px;
+  padding-top: 14px;
+  padding-right: 12px;
+  height: 74px;
+  width: 360px;
+}

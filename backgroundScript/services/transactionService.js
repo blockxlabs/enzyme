@@ -1,10 +1,57 @@
 /* eslint-disable no-unused-vars */
+import moment from 'moment';
 import * as TransactionTypes from '../../lib/constants/transaction';
 import * as FeeService from './feeService';
+import { getStore } from '../store/storeProvider';
+import * as StorageServices from '../../lib/services/extension/storage';
+import { TRANSACTIONS } from '../../lib/constants/storageKeys';
+import * as transactionActions from '../actions/transactions';
+import { updateTransactionsState } from './appService';
 
-// TODO : KP :  Implement correct unit  converter function .
-// This is just dummy code for converting;
-export const convertUnit = (value, currentUnit, convertInto) => '1000000';
+const storingTransactions = async () => {
+  // storing Transactions reducer state to local storage.
+  const { appState, transactionState } = getStore().getState();
+  const encryptedTransactionState = StorageServices.encrypt(transactionState, appState.hashKey);
+  const result = await StorageServices.setLocalStorage(TRANSACTIONS, encryptedTransactionState);
+  return result;
+};
+
+//  update transaction State
+const updateTransaction = async transaction => {
+  getStore().dispatch(transactionActions.fetchTransaction(transaction));
+};
+
+const updateTransactionObj = (transaction, txnHash, txnStatus) => ({
+  ...transaction,
+  status: txnStatus,
+  date: moment().format(),
+  txnHash,
+});
+
+export const mergeTransactions = async newTransaction => {
+  const { transactionArr } = getStore().getState().transactionState;
+  // remove Pending duplicate TXN and overide with new Status
+  const pendingTransactionIndex = transactionArr.findIndex(
+    x => x.txnHash === newTransaction.txnHash,
+  );
+  if (pendingTransactionIndex > -1) {
+    transactionArr.splice(pendingTransactionIndex, 1, newTransaction);
+  } else {
+    transactionArr.push(newTransaction);
+  }
+  return transactionArr;
+};
+
+// filter transactions
+export const filterTransactions = async (transactions, network, address) => {
+  if (network !== undefined) {
+    transactions = transactions.filter(tx => tx.internal.network.value === network.value);
+  }
+  if (address !== undefined) {
+    transactions = transactions.filter(tx => tx.internal.address === address);
+  }
+  return transactions;
+};
 
 export const getTransactionFees = async (txnType, toAddress) => {
   switch (txnType) {
@@ -17,16 +64,14 @@ export const getTransactionFees = async (txnType, toAddress) => {
   }
 };
 
-// TODO : KP :  Implement  transaction function .
-// This is just dummy code for Transaction;
-export const submitTransaction = async transaction => {
-  const {
-    txnType,
-    metadata: {
-      from, to, value, dependingontype
-    },
-    internal: { address },
-  } = transaction;
-
-  return transaction;
+export const updateTransactionState = async (transaction, txnHash, txnStatus) => {
+  const newTransaction = updateTransactionObj(transaction, txnHash, txnStatus);
+  const newTransactionArr = await mergeTransactions(newTransaction);
+  if (txnStatus === TransactionTypes.PENDING) {
+    await updateTransaction(newTransaction);
+  } else {
+    await updateTransaction(undefined);
+  }
+  await updateTransactionsState(newTransactionArr);
+  await storingTransactions();
 };

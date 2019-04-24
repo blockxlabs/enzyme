@@ -5,7 +5,8 @@ const initialState = {
   success: false,
   error: null,
   account: undefined,
-  balance: [],
+  balances: [],
+  balance: '0',
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,6 +40,13 @@ const reducer = (state = initialState, action) => {
         },
       };
     case Types.UPDATE_ACCOUNT_BALANCE:
+      return {
+        ...state,
+        ...{
+          balances: action.balances,
+        },
+      };
+    case Types.UPDATE_SELECTED_ACCOUNT_BALANCE:
       return {
         ...state,
         ...{

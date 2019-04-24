@@ -2,17 +2,17 @@ import React, { PureComponent } from 'react';
 
 export default class FontRegular extends PureComponent {
   render() {
-    const { style, children, ...otherProps } = this.props;
+    const { style, text, ...otherProps } = this.props;
     return (
-      <p
+      <div
         style={{
           fontFamily: 'Roboto-Regular',
           ...style,
         }}
         {...otherProps}
       >
-        {children}
-      </p>
+        {text}
+      </div>
     );
   }
 }

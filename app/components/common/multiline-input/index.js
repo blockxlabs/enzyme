@@ -17,10 +17,11 @@ export default class MultilineInput extends PureComponent {
       <div
         style={{ height, width }}
         className={walletInputClassNames}
-        value={value}
         onChange={onChange}
         {...otherProps}
-      />
+      >
+        {value}
+      </div>
     );
   }
 }

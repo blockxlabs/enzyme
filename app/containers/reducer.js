@@ -1,8 +1,8 @@
 import * as Types from './actionTypes';
-import { SIGN_IN_PAGE } from '../constants/navigation';
+import { LOADER_OVERLAY } from '../constants/navigation';
 
 const initialState = {
-  page: SIGN_IN_PAGE,
+  page: LOADER_OVERLAY,
   isLoading: false,
   isOnBoarded: false,
 };

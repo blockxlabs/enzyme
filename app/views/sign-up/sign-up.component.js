@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import zxcvbn from 'zxcvbn';
-import Button from '@material-ui/core/Button';
-import FontRegular from '../../components/common/fonts/font-regular';
-import FontLight from '../../components/common/fonts/font-light';
-import Password from '../../components/common/password';
+import PropTypes from 'prop-types';
+import EnzymePassword from '../../components/common/password/enzyme-password';
+import ContentHeader from '../../components/common/content-header';
+import PasswordStrength from '../../components/common/password/password-strength';
+import FooterButton from '../../components/common/footer-button';
 import './styles.css';
 
 const errorMessage = 'Must be 8 characters or more in length.';
@@ -15,7 +15,6 @@ export default class SignUp extends Component {
       password: '',
       isError: false,
       label: 'Password',
-      score: 0,
       errorText: '',
     };
     this.passwordInput = React.createRef();
@@ -24,15 +23,15 @@ export default class SignUp extends Component {
   handleOnChange = prop => e => {
     const { value } = e.target;
     const { password } = this.state;
-    let { score, isError } = this.state;
-    const result = zxcvbn(value);
-    ({ score } = result);
+    let { isError } = this.state;
+
+    this.props.setPasswordMeterScore(value);
+
     if (isError && password && password.length >= 8) {
       isError = false;
     }
     this.setState({
       [prop]: value,
-      score,
       isError,
     });
   };
@@ -41,12 +40,12 @@ export default class SignUp extends Component {
     const { password } = this.state;
     let { errorText } = this.state;
     let isError = false;
-    this.passwordInput.focus();
+    if (password !== '') {
+      this.passwordInput.focus();
+    }
     if (password && password.length < 8) {
       isError = true;
       errorText = errorMessage;
-    } else {
-      this.passwordInput.blur();
     }
     this.setState({ isError, errorText });
   };
@@ -69,52 +68,51 @@ export default class SignUp extends Component {
   };
 
   render() {
+    const { score } = this.props;
     const {
-      isError, score, password, label, errorText
+      isError, password, label, errorText
     } = this.state;
     return (
-      <div>
-        <div className="sign-up-container">
-          <div className="sign-up-header-container">
-            <div className="sign-up-header-title">
-              <FontRegular>Create a password to secure your account</FontRegular>
-            </div>
-            <div className="sign-up-header-description">
-              <FontLight style={{ fontSize: '12px' }}>
-                The password is used to protect your Enigma seed phrase(s) so that other Chrome
-                extensions can&#39;t access them.
-              </FontLight>
-            </div>
-          </div>
-          <div className="sign-up-create-password-container">
-            <Password
-              onChange={this.handleOnChange}
-              isError={isError}
-              onBlur={this.handleOnBlur}
-              inputRef={input => {
-                this.passwordInput = input;
-              }}
-              password={password}
-              errorMessage={isError ? errorText : null}
-              label={label}
-            >
-              <div className="sign-up-password-meter">
-                <FontRegular>
-                  Password strength
-                  <meter max="4" value={score} min="0" />
-                </FontRegular>
-              </div>
-            </Password>
-          </div>
-          <div className="sign-up-create-button">
-            <Button onClick={this.handleClick}>Create</Button>
-          </div>
-        </div>
+      <div className="sign-up-container">
+        <ContentHeader
+          className="sign-up-content-header"
+          title="Create a password to secure your account"
+          description="The password is used to protect your Enigma seed phrase(s) so that other Chrome extensions can't access them."
+        />
+        <EnzymePassword
+          className="sign-up-password"
+          onChange={this.handleOnChange}
+          isError={isError}
+          onBlur={this.handleOnBlur}
+          inputRef={input => {
+            this.passwordInput = input;
+          }}
+          password={password}
+          errorMessage={isError ? errorText : null}
+          label={label}
+          handleClickShowPassword={this.handleClickShowPassword}
+        />
+        <PasswordStrength
+          className="sign-up-password-meter"
+          title="Password Strength"
+          max="4"
+          score={score}
+          min="0"
+        />
+        <FooterButton onClick={this.handleClick} name="create" />
       </div>
     );
   }
 }
 
-SignUp.defaultProps = {};
+SignUp.defaultProps = {
+  signUp: undefined,
+  setPasswordMeterScore: undefined,
+  score: 0,
+};
 
-SignUp.propTypes = {};
+SignUp.propTypes = {
+  signUp: PropTypes.func,
+  setPasswordMeterScore: PropTypes.func,
+  score: PropTypes.number,
+};

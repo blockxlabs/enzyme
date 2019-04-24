@@ -1,0 +1,43 @@
+.display-none {
+  display: none;
+}
+
+.enzyme-logo {
+  width: 36px;
+  height: 28px;
+}
+
+.enzyme-banner {
+  width: 94px;
+  height: 23px;
+}
+
+.enzyme-header {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(0, 0, 0, 1);
+  padding: 11px 17.1px 11px 15px;
+  height: 50px;
+  width: 360px;
+  align-items: center;
+}
+
+.enzyme-header-banner {
+  justify-content: center;
+}
+
+.enzyme-header-boarded {
+  justify-content: space-between;
+}
+
+.enzyme-network {
+}
+
+.enzyme-config {
+  display: flex;
+  flex-direction: row;
+}
+
+.enzyme-settings {
+  margin-left: 16px;
+}

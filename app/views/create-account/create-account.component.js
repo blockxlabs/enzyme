@@ -1,52 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Button from '@material-ui/core/Button';
-import GenerateSeedPhrase from '../../components/common/generate-seed-phrase';
-import ImportSeedPhrase from '../../components/common/import-seed-phrase';
 import EnzymeValidator from '../../utils/enzyme-validator';
 import validator from '../../utils/enzyme-validator/validator';
-import './styles.css';
 import { DASHBOARD_PAGE } from '../../constants/navigation';
+import CreateAccountForm from '../../components/account/create-account-form';
+import EnzymeTabs from '../../components/common/enzyme-tabs';
 
-const styles = () => ({
-  root: {
-    flexGrow: 1,
-  },
-  tabsRoot: {
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-  },
-  tabsIndicator: {
-    backgroundColor: 'rgba(215, 95, 160, 1)',
-    height: '2px',
-  },
-  tabRoot: {
-    color: 'rgba(0, 0, 0, 0.6)',
-    width: '180px',
-    height: '48px',
-    textTransform: 'capitalise',
-    fontSize: '14px',
-    fontFamily: 'Roboto-Medium',
-    '&:hover': {
-      color: 'rgba(215, 95, 160, 1)',
-      opacity: 1,
-    },
-    '&$tabSelected': {
-      color: 'rgba(215, 95, 160, 1)',
-      fontSize: '14px',
-    },
-    '&:focus': {
-      color: 'rgba(215, 95, 160, 1)',
-    },
-  },
-  tabSelected: {},
-});
-const TO_DASHBOARD_BUTTON_TEXT = 'DASHBOARD';
-const IMPORT_BUTTON_TEXT = 'IMPORT';
+const TO_DASHBOARD_BUTTON_TEXT = 'dashboard';
+const IMPORT_BUTTON_TEXT = 'import';
 
-class CreateAccount extends Component {
+export default class CreateAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +17,7 @@ class CreateAccount extends Component {
       importedSeedPhrase: '',
       isError: false,
       errorMessage: '',
+      labels: ['generate', 'import'],
     };
     this.validator = new EnzymeValidator(validator.importSeedPhraseValidation);
   }
@@ -131,50 +95,28 @@ class CreateAccount extends Component {
   };
 
   render() {
-    const { classes, seedWords } = this.props;
+    const { seedWords } = this.props;
     const {
-      value, importedSeedPhrase, isError, errorMessage
+      value, importedSeedPhrase, isError, errorMessage, labels
     } = this.state;
 
     return (
-      <div className={classes.root}>
-        <Tabs
+      <div>
+        <EnzymeTabs value={value} onChange={this.handleChange} labels={labels} />
+        <CreateAccountForm
           value={value}
-          onChange={this.handleChange}
-          classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
-        >
-          <Tab
-            disableRipple
-            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label="Generate"
-          />
-          <Tab
-            disableRipple
-            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label="Import"
-          />
-        </Tabs>
-        <div className="create-account-content-container">
-          {value === 0 && (
-            <div>
-              <GenerateSeedPhrase seedWords={seedWords} />
-              <Button onClick={this.handleClick}>{TO_DASHBOARD_BUTTON_TEXT}</Button>
-            </div>
-          )}
-          {value === 1 && (
-            <div>
-              <ImportSeedPhrase
-                onChange={this.handleImportSeedWordsChange}
-                seedWords={importedSeedPhrase}
-                isError={isError}
-                errorMessage={errorMessage}
-                handleSeedWordImportOnMount={this.handleSeedWordImportOnMount}
-                onBlur={this.handleSeedWordsImportOnBlur}
-              />
-              <Button onClick={this.handleImportSeedWordClick}>{IMPORT_BUTTON_TEXT}</Button>
-            </div>
-          )}
-        </div>
+          generatedSeedWords={seedWords}
+          importedSeedWords={importedSeedPhrase}
+          onGenerateClick={this.handleClick}
+          onImportClick={this.handleImportSeedWordClick}
+          generateButtonName={TO_DASHBOARD_BUTTON_TEXT}
+          importButtonName={IMPORT_BUTTON_TEXT}
+          onChange={this.handleImportSeedWordsChange}
+          isError={isError}
+          errorMessage={errorMessage}
+          handleSeedWordImportOnMount={this.handleSeedWordImportOnMount}
+          onBlur={this.handleSeedWordsImportOnBlur}
+        />
       </div>
     );
   }
@@ -204,5 +146,3 @@ CreateAccount.getDerivedStateFromProps = (props, state) => {
   }
   return { isError, errorMessage };
 };
-
-export default withStyles(styles)(CreateAccount);

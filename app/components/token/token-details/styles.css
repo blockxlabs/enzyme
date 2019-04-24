@@ -1,0 +1,12 @@
+.token-balance {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 1);
+}
+
+.token-detail-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

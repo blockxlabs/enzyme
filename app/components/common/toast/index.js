@@ -14,9 +14,11 @@ const success = msg => (
     <div className="toast-message-icon">
       <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#FFFFFF', fontSize: '19px' }} />
     </div>
-    <div className="toast-message-message">
-      <FontRegular style={{ fontSize: '14px', color: '#FFFFFF' }}>{msg}</FontRegular>
-    </div>
+    <FontRegular
+      className="toast-message-message"
+      style={{ fontSize: '14px', color: '#FFFFFF' }}
+      text={msg}
+    />
   </div>
 );
 
@@ -33,9 +35,11 @@ const info = (msg, isCustom) => {
       <div className="toast-message-icon">
         <FontAwesomeIcon icon={faInfoCircle} style={{ color: '#FFFFFF', fontSize: '19px' }} />
       </div>
-      <div className="toast-message-message">
-        <FontRegular style={{ fontSize: '14px', color: '#FFFFFF' }}>{msg}</FontRegular>
-      </div>
+      <FontRegular
+        className="toast-message-message"
+        style={{ fontSize: '14px', color: '#FFFFFF' }}
+        text={msg}
+      />
     </div>
   );
 };
@@ -48,9 +52,11 @@ const warning = msg => (
         style={{ color: '#FFFFFF', fontSize: '19px' }}
       />
     </div>
-    <div className="toast-message-message">
-      <FontRegular style={{ fontSize: '14px', color: '#FFFFFF' }}>{msg}</FontRegular>
-    </div>
+    <FontRegular
+      className="toast-message-message"
+      style={{ fontSize: '14px', color: '#FFFFFF' }}
+      text={msg}
+    />
   </div>
 );
 
@@ -59,9 +65,11 @@ const error = msg => (
     <div className="toast-message-icon">
       <FontAwesomeIcon icon={faExclamationCircle} style={{ color: '#FFFFFF', fontSize: '19px' }} />
     </div>
-    <div className="toast-message-message">
-      <FontRegular style={{ fontSize: '14px', color: '#FFFFFF' }}>{msg}</FontRegular>
-    </div>
+    <FontRegular
+      className="toast-message-message"
+      style={{ fontSize: '14px', color: '#FFFFFF' }}
+      text={msg}
+    />
   </div>
 );
 

@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 import BlockUi from 'react-block-ui';
-import { Loader } from 'react-loaders';
-import { changePageStatus } from '../../constants/common';
-// import { SIGN_IN_PAGE } from '../../constants/navigation';
-import 'loaders.css/loaders.min.css';
-
 import './styles.css';
+import EnzymeLoader from '../common/enzyme-loader';
 
-function mapStateToProps() {
-  return {};
-}
-
-class LoaderOverlay extends Component {
+export default class LoaderOverlay extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,25 +18,10 @@ class LoaderOverlay extends Component {
 
     return (
       <div>
-        <BlockUi
-          tag="div"
-          blocking={isLoading}
-          loader={<Loader active type="ball-grid-pulse" color="#A32C71" />}
-        >
+        <BlockUi tag="div" blocking={isLoading} loader={<EnzymeLoader />}>
           <div className="wallet-loader-page" />
         </BlockUi>
       </div>
     );
   }
 }
-
-function mapDispatchToProps(dispatch) {
-  return {
-    changePageStatus: newPage => dispatch(changePageStatus(newPage)),
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoaderOverlay);
