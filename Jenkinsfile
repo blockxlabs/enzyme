@@ -30,11 +30,10 @@ pipeline {
     }
     post {
         success {
-            googlechatnotification url: 'https://chat.googleapis.com/v1/spaces/AAAAYTPBltI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=7reUovkwzb3W0fXTkRZ0WFj1lGusO5OmyWbB_dRCMqY%3D', message: '${JOB_NAME} is ${BUILD_STATUS} by ${CHANGE_AUTHOR} [ SUCCESS ]', sameThreadNotification: true
+            googlechatnotification url: 'https://chat.googleapis.com/v1/spaces/AAAAYTPBltI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=7reUovkwzb3W0fXTkRZ0WFj1lGusO5OmyWbB_dRCMqY%3D&threadKey=jenkins', message: '${JOB_NAME} is ${BUILD_STATUS} by ${CHANGE_AUTHOR} [ SUCCESS ]'
         }
             failure {
-            googlechatnotification url: 'https://chat.googleapis.com/v1/spaces/AAAAYTPBltI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=7reUovkwzb3W0fXTkRZ0WFj1lGusO5OmyWbB_dRCMqY%3D', message: '${JOB_NAME} is ${BUILD_STATUS} by ${CHANGE_AUTHOR} [ FAIL ] ', sameThreadNotification: true
-
+            googlechatnotification url: 'https://chat.googleapis.com/v1/spaces/AAAAYTPBltI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=7reUovkwzb3W0fXTkRZ0WFj1lGusO5OmyWbB_dRCMqY%3D&threadKey=jenkins', message: '${JOB_NAME} is ${BUILD_STATUS} by ${CHANGE_AUTHOR} [ FAIL ] '
         }
 
     }

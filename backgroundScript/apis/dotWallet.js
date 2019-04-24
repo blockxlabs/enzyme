@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { mnemonicGenerate } from '@polkadot/util-crypto';
@@ -14,8 +15,8 @@ export const getAddress = seedWords => {
 };
 
 export const getBalance = async (address, networkFullUrl) => {
+  const provider = new WsProvider(networkFullUrl);
   try {
-    const provider = new WsProvider(networkFullUrl);
     const api = await ApiPromise.create(provider);
     const balance = await api.query.balances.freeBalance(address);
     const balanceObj = { address, balance: balance.toString(), status: SUCCESS };
@@ -24,7 +25,6 @@ export const getBalance = async (address, networkFullUrl) => {
     const balanceObj = { address, balance: '0', status: FAILURE };
     return balanceObj;
   } finally {
-    const provider = new WsProvider(networkFullUrl);
     if (provider.isConnected()) provider.disconnect();
   }
 };

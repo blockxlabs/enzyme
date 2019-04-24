@@ -1,0 +1,18 @@
+.account-alias {
+  font-size: 28px;
+  line-height: 27px;
+}
+
+.account-address {
+  font-size: 12px;
+  width: 90px;
+}
+
+.account-address:hover {
+  cursor: pointer;
+}
+
+.address {
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+}

@@ -1,46 +1,25 @@
-.tokens-class {
-  background: #00695c;
-  height: 496px;
-  overflow-y: scroll;
-}
-.wallet-home-page {
-  overflow: hidden;
-  overflow-y: scroll;
-  height: 515px;
-}
-
-.wallet-home-page::-webkit-scrollbar {
-  width: 0px !important;
+.wallet-container {
+  background-color: rgba(163, 44, 113, 1);
+  display: flex;
+  flex-direction: row;
+  color: rgba(255, 255, 255, 1);
+  height: 75px;
+  width: 100%;
+  padding: 18px 21.83px 13px 19px;
 }
 
-.wallet-home-page::-webkit-scrollbar-track {
-  background: transparent !important ;
-  width: 0px;
+.token-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: linear-gradient(to bottom, #a32c71, #d75fa0);
+  height: 142px;
+  width: 100%;
+  padding: 4px 18px 16px 18px;
 }
 
-.wallet-home-page::-webkit-scrollbar-thumb {
-  background: #b2b2b2 !important ;
-  border-radius: 25px !important ;
-}
-
-.wallet-home-page::-webkit-scrollbar-thumb:hover {
-  background: #555 !important ;
-  border-radius: 25px !important ;
-}
-
-.wallet-home-page-dashboard-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(1, 1fr);
-  grid-template-areas: "token-details-transaction token-list";
-}
-
-.wallet-home-page-dashboard-token-details-transaction {
-  grid-area: token-details-transaction;
-  width: 360px;
-}
-
-.wallet-home-page-dashboard-token-list {
-  grid-area: token-list;
-  height: 496px;
+.transaction-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
 }

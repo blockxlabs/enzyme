@@ -3,15 +3,16 @@ import * as APITypes from '../../api';
 import * as Types from './actionTypes';
 import * as AppActions from '../../containers/actions';
 import * as AccountActions from '../create-account/actions';
-import * as NavConstants from '../../constants/navigation';
+import { DASHBOARD_PAGE } from '../../constants/navigation';
 import * as APIConstants from '../../../lib/constants/api';
+import { getTransactions } from '../dashboard/actions';
 
 const unlockEnzymeSuccess = () => ({
   type: Types.UNLOCK_ENZYME_SUCCESS,
 });
 
 const unlockEnzymeError = error => ({
-  type: Types.UNLOCK_ENZYME_SUCCESS,
+  type: Types.UNLOCK_ENZYME_ERROR,
   error,
 });
 
@@ -19,16 +20,12 @@ export const unlockEnzyme = password => async dispatch => {
   dispatch(AppActions.updateAppLoading(true));
   try {
     await APITypes.OnBoarding.setHashKey(keccak512(password));
-    const { result } = await APITypes.Account.getAccounts();
-    // TODO : DP un-comment after ENZ-44's PR is merged to master
-    // const { result: balances } = await APITypes.Account.getCurrentBalance(
-    //   result.accounts.map(({ address }) => address)
-    // );
-    dispatch(AccountActions.updateAccountList(result.accounts));
-    dispatch(AccountActions.changeSelectedAccount(result.currentAccount));
-    // dispatch(AccountActions.updateAccountBalance(balances));
-    dispatch(AppActions.changePage(NavConstants.DASHBOARD_PAGE));
+    await dispatch(AccountActions.fetchAndSetAccounts);
+    await dispatch(AccountActions.fetchAndSetBalances);
     dispatch(unlockEnzymeSuccess());
+    dispatch(getTransactions);
+    dispatch(AppActions.changePage(DASHBOARD_PAGE));
+    dispatch(AppActions.updateIsAppOnBoarded(true));
   } catch (e) {
     const error = {
       message: e.message,
@@ -36,7 +33,7 @@ export const unlockEnzyme = password => async dispatch => {
     };
     switch (e.code) {
       case APIConstants.UNAUTHORIZED:
-        error.message = 'Password is incorrect.';
+        error.message = password !== '' ? 'Password is incorrect.' : 'Password is required.';
         break;
       default:
     }

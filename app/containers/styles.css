@@ -172,3 +172,6 @@ p {
   transform: translateY(-50%);
   z-index: 10001;
 }
+.app {
+  height: 600px;
+}

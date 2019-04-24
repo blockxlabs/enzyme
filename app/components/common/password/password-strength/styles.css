@@ -1,0 +1,37 @@
+.password-meter-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.password-meter-title {
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+.password-meter-bar meter {
+  width: 100%;
+  height: 5px;
+  margin-top: 16px;
+  background-color: rgba(77, 77, 77, 0.3);
+}
+
+.password-meter-bar meter.no-appearance {
+  -webkit-appearance: none;
+}
+
+.password-meter-bar meter::-webkit-meter-bar {
+  background: none;
+}
+
+.password-meter-bar meter[value="1"]::-webkit-meter-optimum-value {
+  background: #ff3d00;
+}
+.password-meter-bar meter[value="2"]::-webkit-meter-optimum-value {
+  background: #ffa000;
+}
+.password-meter-bar meter[value="3"]::-webkit-meter-optimum-value {
+  background: #afb42b;
+}
+.password-meter-bar meter[value="4"]::-webkit-meter-optimum-value {
+  background: rgba(34, 165, 105, 1);
+}

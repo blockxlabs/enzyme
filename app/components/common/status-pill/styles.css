@@ -1,12 +1,15 @@
 .pillstatus-text {
-  text-align: center;
   font-size: 8px;
+  font-family: "Roboto-Regular";
+  align-self: center;
 }
 
 .pillstatus-box {
-  width: 68px;
-  height: 15px;
-  border-radius: 5px;
-  border: 1px solid;
-  margin-top: 3px;
+  display: flex;
+  flex-direction: row;
+  width: 61.78px;
+  height: 16.58px;
+  border-radius: 16px;
+  border: none;
+  justify-content: center;
 }

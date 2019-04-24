@@ -4,18 +4,18 @@ import './styles.css';
 class StatusPill extends Component {
   render() {
     const {
-      props: {
-        text, borderColor, textColor, background
-      },
+      props: { text, color, backgroundColor },
     } = this;
     return (
       <div
         className="pillstatus-box"
-        style={{ borderColor: `${borderColor}`, background: `${background}` }}
+        style={{
+          backgroundColor: `${backgroundColor}`,
+        }}
       >
-        <p className="pillstatus-text" style={{ color: `${textColor}` }}>
+        <div className="pillstatus-text" style={{ color: `${color}` }}>
           {text}
-        </p>
+        </div>
       </div>
     );
   }

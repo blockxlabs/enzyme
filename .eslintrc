@@ -3,11 +3,13 @@
   "extends": "airbnb",
   "globals": {
     "chrome": true,
-    "browser": true
+    "browser": true,
+    "jest": true,
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true,
   },
   "rules": {
     "react/forbid-prop-types": 0,

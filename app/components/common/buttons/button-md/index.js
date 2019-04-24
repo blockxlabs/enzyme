@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
 import './styles.css';
-import '../styles.css';
 
 class ButtonMD extends Component {
   static defaultProps = {
@@ -15,21 +15,15 @@ class ButtonMD extends Component {
   };
 
   render() {
+    const { className, ...otherProps } = this.props;
     const buttonMDClassNames = classNames({
       'button-md': true,
-      'button-md-enabled': !this.props.disabled,
-      'wallet-button-disabled': this.props.disabled,
     });
     return (
-      <div>
-        <button
-          type="button"
-          disabled={this.props.disabled}
-          onClick={this.props.onClick}
-          className={buttonMDClassNames}
-        >
+      <div className={buttonMDClassNames}>
+        <Button disabled={this.props.disabled} onClick={this.props.onClick} {...otherProps}>
           {this.props.children}
-        </button>
+        </Button>
       </div>
     );
   }

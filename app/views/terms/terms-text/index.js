@@ -3,8 +3,9 @@ import './styles.css';
 
 export default class TermsText extends Component {
   render() {
+    const { ...otherProps } = this.props;
     return (
-      <div className="terms-text">
+      <div className="terms-text" {...otherProps}>
         <p className="c1">
           <span className="c6">I. Acceptance of Terms of Use</span>
         </p>

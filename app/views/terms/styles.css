@@ -17,7 +17,6 @@
 }
 .tou-title {
   font-size: 14px;
-  font-family: "Roboto-Light";
   color: #000000;
   text-align: center;
   opacity: 100;
@@ -35,7 +34,6 @@
 }
 .tou-subtitle {
   text-align: center;
-  font-family: "Roboto-Light";
   font-size: 12px;
   line-height: 1.15;
 }

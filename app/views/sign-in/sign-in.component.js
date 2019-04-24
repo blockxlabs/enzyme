@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import FontRegular from '../../components/common/fonts/font-regular';
-import FontLight from '../../components/common/fonts/font-light';
-import Password from '../../components/common/password';
+import EnzymePassword from '../../components/common/password/enzyme-password';
+import ContentHeader from '../../components/common/content-header';
+import FooterButton from '../../components/common/footer-button';
 import './styles.css';
 
 export default class SignIn extends Component {
@@ -37,29 +36,19 @@ export default class SignIn extends Component {
     return (
       <div>
         <div className="sign-in-container">
-          <div className="sign-in-header-container">
-            <div className="sign-in-header-title">
-              <FontRegular>Enter Password</FontRegular>
-            </div>
-            <div className="sign-in-header-description">
-              <FontLight style={{ fontSize: '12px' }}>
-                The password is used to protect your Enigma seed phrase(s) so that other Chrome
-                extensions can&#39;t access them.
-              </FontLight>
-            </div>
-          </div>
-          <div className="sign-in-password-container">
-            <Password
-              onChange={this.handleOnChange}
-              isError={isError}
-              password={password}
-              errorMessage={isError ? errorText : null}
-              label={label}
-            />
-          </div>
-          <div className="sign-in-button">
-            <Button onClick={this.handleClick}>Unlock</Button>
-          </div>
+          <ContentHeader
+            title="Enter Password"
+            description="The password is used to protect your Enigma seed phrase(s) so that other Chrome extensions can't access them."
+          />
+          <EnzymePassword
+            className="sign-in-password-container"
+            onChange={this.handleOnChange}
+            isError={isError}
+            password={password}
+            errorMessage={isError ? errorText : null}
+            label={label}
+          />
+          <FooterButton onClick={this.handleClick} name="unlock" />
         </div>
       </div>
     );

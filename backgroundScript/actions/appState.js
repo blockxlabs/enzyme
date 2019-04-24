@@ -9,6 +9,6 @@ export const appStateSetHashKey = hashKey => ({
 });
 
 export const appStateReady = () => ({
-  ready: true,
+  isAppReady: true,
   type: APP_STATE_READY,
 });

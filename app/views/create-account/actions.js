@@ -1,7 +1,7 @@
 import * as Types from './actionTypes';
-import { updateAppLoading, changePage } from '../../containers/actions';
+import * as AppActions from '../../containers/actions';
+import * as NavConstants from '../../constants/navigation';
 import { Account } from '../../api';
-import { DASHBOARD_PAGE } from '../../constants/navigation';
 
 export const updateAccountList = accounts => ({
   type: Types.ADD_ACCOUNT,
@@ -13,8 +13,13 @@ export const changeSelectedAccount = account => ({
   account,
 });
 
-export const updateAccountBalance = balance => ({
+export const updateAccountBalance = balances => ({
   type: Types.UPDATE_ACCOUNT_BALANCE,
+  balances,
+});
+
+export const updateSelectedAccountBalance = balance => ({
+  type: Types.UPDATE_SELECTED_ACCOUNT_BALANCE,
   balance,
 });
 
@@ -27,21 +32,31 @@ export const createFirstAccountWithSeedPhraseSuccess = () => ({
   type: Types.CREATE_FIRST_ACCOUNT_SEED_PHRASE_SUCCESS,
 });
 
-export const createFirstAccountWithSeedPhrase = importedSeedPhrase => async (
-  dispatch,
-  getState,
-) => {
+export const fetchAndSetAccounts = async dispatch => {
+  const {
+    result: { accounts, currentAccount },
+  } = await Account.getAccounts();
+  dispatch(updateAccountList(accounts));
+  dispatch(changeSelectedAccount(currentAccount));
+};
+
+export const fetchAndSetBalances = async (dispatch, getState) => {
+  const { accounts, account } = getState().createAccountReducer;
+  const addrArray = accounts.map(({ address }) => address);
+  const { result: balances } = await Account.getCurrentBalance(addrArray);
+  const balObj = balances.find(acc => acc.address === account.address);
+  dispatch(updateAccountBalance(balances));
+  dispatch(updateSelectedAccountBalance(balObj.balance));
+};
+
+export const createFirstAccountWithSeedPhrase = importedSeedPhrase => async dispatch => {
   try {
-    let { accounts } = getState().createAccountReducer;
-    dispatch(updateAppLoading(true));
-    const { result } = await Account.createAccount(importedSeedPhrase, true);
-    accounts = [];
-    dispatch(updateAccountList([]));
-    dispatch(updateAccountList(accounts.push(result)));
+    dispatch(AppActions.updateAppLoading(true));
+    await Account.createAccount(importedSeedPhrase, true);
     dispatch(createFirstAccountWithSeedPhraseSuccess());
-    const { result: account } = await Account.getCurrentAccount();
-    dispatch(changeSelectedAccount(account));
-    dispatch(changePage(DASHBOARD_PAGE));
+    await dispatch(fetchAndSetAccounts);
+    await dispatch(fetchAndSetBalances);
+    dispatch(AppActions.changePage(NavConstants.DASHBOARD_PAGE));
   } catch (e) {
     const error = {
       message: e.message,
@@ -49,7 +64,7 @@ export const createFirstAccountWithSeedPhrase = importedSeedPhrase => async (
     };
     dispatch(createFirstAccountWithSeedPhraseError(error));
   } finally {
-    dispatch(updateAppLoading(false));
+    dispatch(AppActions.updateAppLoading(false));
   }
 };
 

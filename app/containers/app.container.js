@@ -1,21 +1,20 @@
 import { connect } from 'react-redux';
 import App from './app.component';
-import { verifyTermsVersion } from '../views/terms/actions';
-import { changePage } from './actions';
 import { onBoard } from '../actions/initialize';
+import { switchNetwork } from '../actions/network';
+import { changePage } from './actions';
 
 const mapStateToProps = state => ({
   page: state.appStateReducer.page,
   isLoading: state.appStateReducer.isLoading,
-  isAgree: state.termsReducer.isAgree,
-  success: state.signUpReducer.success,
-  isOnBoarded: state.appStateReducer.isOnBoarded,
+  networks: state.networkReducer.networks,
+  network: state.networkReducer.network,
 });
 
 const mapDispatchToProps = {
-  changePage,
-  verifyTermsVersion,
   onBoard,
+  switchNetwork,
+  changePage,
 };
 
 export default connect(

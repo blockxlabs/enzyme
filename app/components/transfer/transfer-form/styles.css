@@ -1,0 +1,14 @@
+.transfer-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.transfer-form-divider {
+  margin-top: 37.25px;
+}
+
+.transfer-form-amount-container {
+  margin-top: 18px;
+  padding-left: 26px;
+  padding-right: 14px;
+}

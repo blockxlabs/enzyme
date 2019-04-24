@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import ButtonMD from '../../components/common/buttons/button-md';
-import Footer from '../../components/common/footer';
-import TermsText from './terms-text';
-import './styles.css';
 import { SIGN_UP_PAGE } from '../../constants/navigation';
+import TOUHeader from '../../components/terms/tou-header';
+import TermsOfUse from '../../components/terms/terms-of-use';
+import TOUFooter from '../../components/terms/tou-footer';
+import './styles.css';
 
 const TOP_MARGIN = 100;
 
@@ -36,21 +36,20 @@ export default class Terms extends Component {
   render() {
     return (
       <div className="tou-grid-container">
-        <div className="tou-header">
-          <p className="tou-title">Terms of use</p>
-          <p className="tou-subtitle">{this.state.titleText}</p>
-        </div>
-
-        <div className="tou-main" onScroll={this.handleScroll}>
-          <TermsText />
-        </div>
-        <div className="tou-footer">
-          <Footer>
-            <ButtonMD disabled={this.state.disabled} onClick={this.handleAgree}>
-              AGREE
-            </ButtonMD>
-          </Footer>
-        </div>
+        <TOUHeader
+          className="tou-header"
+          titleClassName="tou-title"
+          subTitleClassName="tou-subtitle"
+          title="Terms of use"
+          subtitle={this.state.titleText}
+        />
+        <TermsOfUse className="tou-main" onScroll={this.handleScroll} />
+        <TOUFooter
+          className="tou-footer"
+          disabled={this.state.disabled}
+          onClick={this.handleAgree}
+          buttonName="agree"
+        />
       </div>
     );
   }

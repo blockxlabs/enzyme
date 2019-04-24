@@ -1,0 +1,12 @@
+.transfer-form-identicon {
+  margin-right: 25px;
+  justify-self: center;
+  align-self: center;
+}
+
+.transfer-from-address {
+  display: flex;
+  flex-direction: column;
+  height: 44px;
+  justify-content: space-between;
+}

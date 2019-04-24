@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import FontRegular from '../fonts/font-regular';
-
+import FontMedium from '../fonts/font-medium';
+import IconContainer from '../icon-container';
 import './styles.css';
 
 export default class SubHeader extends Component {
   render() {
+    const { icon } = this.props;
     return (
-      <div className="subheader-container subheader-shadow">
-        <div className="subheader-icon clickable-icon" onClick={this.props.backBtnOnClick}>
-          <FontAwesomeIcon icon={faArrowLeft} style={{ height: 24, width: 21, color: '#33C7A5' }} />
-        </div>
-        <div className="subheader-title">
-          <FontRegular
-            style={{
-              fontSize: 24,
-              color: '#000000',
-            }}
-          >
-            {this.props.title}
-          </FontRegular>
-        </div>
+      <div className="sub-header-container sub-header-shadow">
+        <IconContainer
+          className="sub-header-icon clickable-icon"
+          onClick={this.props.backBtnOnClick}
+        >
+          {icon}
+        </IconContainer>
+        <FontMedium className="sub-header-title" text={this.props.title} />
       </div>
     );
   }

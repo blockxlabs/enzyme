@@ -1,24 +1,8 @@
-export const CHANGE_CURRENT_NETWORK = 'NETWORK/CHANGE_CURRENT';
-export const UPDATE_NETWORK_LIST = 'NETWORK/UPDATE_LIST';
-export const SHOW_NETWORK_LIST = 'NETWORK/SHOW_LIST';
+export const UPDATE_CURRENT_NETWORK = 'NETWORK/UPDATE_CURRENT';
 
-export function updateNetworkList(networks) {
+export function updateCurrentNetwork(network) {
   return {
-    type: UPDATE_NETWORK_LIST,
-    payload: networks,
-  };
-}
-
-export function changeCurrentNetwork(network) {
-  return {
-    type: CHANGE_CURRENT_NETWORK,
+    type: UPDATE_CURRENT_NETWORK,
     payload: network,
-  };
-}
-
-export function showNetworks(flag) {
-  return {
-    type: SHOW_NETWORK_LIST,
-    payload: flag,
   };
 }
