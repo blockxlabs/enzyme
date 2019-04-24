@@ -8,3 +8,5 @@ Click "Show Advanced"
 Click "Proceed to localhost (unsafe)"
 
 ![ssl workaround](./docs/docs/images/ssl-workaround.png)
+
+Once this is done, remove and re-add Enzyme to Chrome (see readme for instructions.)
