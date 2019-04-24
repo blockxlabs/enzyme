@@ -7,6 +7,6 @@ To get around this, simply go to https://localhost:3000
 Click "Show Advanced"
 Click "Proceed to localhost (unsafe)"
 
-![ssl workaround](./docs/docs/images/ssl-workaround.png)
+![ssl workaround](./docs/images/ssl-workaround.png)
 
 Once this is done, remove and re-add Enzyme to Chrome (see readme for instructions.)
