@@ -46,7 +46,7 @@ If you have an existing account you want to use, click the Import tab and paste 
 
 ### FAQ
 
-See faq.md.
+See [faq.md](./faq.md).
 
 
 ### Send DOTs
