@@ -38,7 +38,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Regular"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Regular.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-Regular.ttf")
       format("trueType");
 }
 @font-face {
@@ -46,7 +46,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Italic"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Italic.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-Italic.ttf")
       format("trueType");
 }
 
@@ -55,14 +55,14 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Black"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Black.ttf") format("trueType");
+    url("../../browser/assets/Fonts/Roboto/Roboto-Black.ttf") format("trueType");
 }
 @font-face {
   font-family: "Roboto-BlackItalic";
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-BlackItalic"),
-    url("../../browser/assets/fonts/Roboto/Roboto-BlackItalic.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-BlackItalic.ttf")
       format("trueType");
 }
 @font-face {
@@ -70,14 +70,14 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Light"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Light.ttf") format("trueType");
+    url("../../browser/assets/Fonts/Roboto/Roboto-Light.ttf") format("trueType");
 }
 @font-face {
   font-family: "Roboto-LightItalic";
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-LightItalic"),
-    url("../../browser/assets/fonts/Roboto/Roboto-LightItalic.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-LightItalic.ttf")
       format("trueType");
 }
 @font-face {
@@ -85,14 +85,14 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Bold"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Bold.ttf") format("trueType");
+    url("../../browser/assets/Fonts/Roboto/Roboto-Bold.ttf") format("trueType");
 }
 @font-face {
   font-family: "Roboto-BoldItalic";
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-BoldItalic"),
-    url("../../browser/assets/fonts/Roboto/Roboto-BoldItalic.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-BoldItalic.ttf")
       format("trueType");
 }
 @font-face {
@@ -100,7 +100,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Medium"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Medium.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-Medium.ttf")
       format("trueType");
 }
 @font-face {
@@ -108,7 +108,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-MediumItalic"),
-    url("../../browser/assets/fonts/Roboto/Roboto-MediumItalic.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-MediumItalic.ttf")
       format("trueType");
 }
 @font-face {
@@ -116,14 +116,14 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Thin"),
-    url("../../browser/assets/fonts/Roboto/Roboto-Thin.ttf") format("trueType");
+    url("../../browser/assets/Fonts/Roboto/Roboto-Thin.ttf") format("trueType");
 }
 @font-face {
   font-family: "Roboto-ThinItalic";
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-ThinItalic"),
-    url("../../browser/assets/fonts/Roboto/Roboto-ThinItalic.ttf")
+    url("../../browser/assets/Fonts/Roboto/Roboto-ThinItalic.ttf")
       format("trueType");
 }
 
@@ -132,7 +132,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Helvetica-Neue-Light"),
-    url("../../browser/assets/fonts/HelveticaNeue/HelveticaNeue-Light.ttf")
+    url("../../browser/assets/Fonts/HelveticaNeue/HelveticaNeue-Light.ttf")
       format("trueType");
 }
 
@@ -141,7 +141,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("RobotoMono-Regular"),
-    url("../../browser/assets/fonts/RobotoMono/RobotoMono-Regular.ttf")
+    url("../../browser/assets/Fonts/RobotoMono/RobotoMono-Regular.ttf")
       format("trueType");
 }
 
@@ -150,7 +150,7 @@ p {
   font-style: normal;
   font-weight: normal;
   src: local("Helvetica-Neue-Medium"),
-    url("../../browser/assets/fonts/HelveticaNeue/HelveticaNeue-Medium.ttf")
+    url("../../browser/assets/Fonts/HelveticaNeue/HelveticaNeue-Medium.ttf")
       format("trueType");
 }
 
