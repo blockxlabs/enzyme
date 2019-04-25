@@ -44,6 +44,10 @@ If you want to start fresh, use the newly-generated account. Copy the seed phras
 If you have an existing account you want to use, click the Import tab and paste your existing seed phrase in.
 ![import account screenshot](./docs/images/import.png)
 
+### FAQ
+
+See [faq.md](./faq.md).
+
 
 ### Send DOTs
 
