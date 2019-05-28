@@ -1,6 +1,6 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
+name: Report End User Bug
+about: Enzyme UX UI issues
 title: ''
 labels: ''
 assignees: kushptlapigarage
