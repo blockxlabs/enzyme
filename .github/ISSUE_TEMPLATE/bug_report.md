@@ -1,38 +1,26 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+Before filing a new issue, please provide the following information.
 
----
+## Basic Details
+#### Enzyme version
+0.x
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+#### Installed from Chrome Web Store or Github release?
+web store/Github
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+#### Chrome version?
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+#### OS and version?
+MacOS 10.x.x/Windows 10.x/Ubuntu 18.x/etc
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+#### Which provider are you using?
+Alexander/Custom (provide details)/Tested with multiple/Irrelevant to problem
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Problem Description
+#### Expected vs actual behaviour
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+#### Steps to reproduce
 
-**Additional context**
-Add any other context about the problem here.
+#### Code snippets/screenshots (if not in above questions)
+
+#### Any additional information or details?
+
