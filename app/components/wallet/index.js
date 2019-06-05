@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Avatar from '../common/identicon';
-import AccountDetails from '../account/account-details';
+import AccountPanel from '../account/account-panel';
 import './styles.css';
-import { WalletDropDownIcon } from '../common/icon';
 
 export default class Wallet extends Component {
   render() {
@@ -10,14 +9,16 @@ export default class Wallet extends Component {
 
     return (
       <div {...otherProps}>
-        <Avatar className="account-avatar" value={selectedAccount.address} />
-        <AccountDetails
-          className="account-detail"
-          address={selectedAccount.address}
-          alias={selectedAccount.alias}
+        <Avatar
+          className="account-avatar"
           onCopyAddress={onCopyAddress}
+          value={selectedAccount.address}
         />
-        <WalletDropDownIcon className="account-list-icon" />
+        <AccountPanel
+          selectedAccount={selectedAccount}
+          onCopyAddress={onCopyAddress}
+          className="account-detail-container"
+        />
       </div>
     );
   }

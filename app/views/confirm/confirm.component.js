@@ -12,9 +12,13 @@ export default class Confirm extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.resetConfirmOnBoarding();
+  }
+
   handleSend = () => {
-    const { transferDetails, submitTransaction } = this.props;
-    submitTransaction(transferDetails);
+    const { confirmDetails, submitTransaction } = this.props;
+    submitTransaction(confirmDetails);
   };
 
   handleSubheaderBackBtn = () => {
@@ -23,7 +27,7 @@ export default class Confirm extends Component {
 
   render() {
     const { buttonText } = this.state;
-    const { transferDetails } = this.props;
+    const { confirmDetails } = this.props;
     return (
       <div>
         <SubHeader
@@ -32,7 +36,7 @@ export default class Confirm extends Component {
           backBtnOnClick={this.handleSubheaderBackBtn}
         />
         <ConfirmForm
-          transferDetails={transferDetails}
+          confirmDetails={confirmDetails}
           handleSend={this.handleSend}
           buttonText={buttonText}
           theme="polkadot"

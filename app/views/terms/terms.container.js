@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import Terms from './terms.component';
-import { storeTermsStatus, verifyTermsVersion } from './actions';
-import { changePage } from '../../containers/actions';
+import { storeTermsStatus } from './actions';
+import { onBoard } from '../../actions/initialize';
+import { updateAppLoading } from '../../containers/actions';
 
 const mapStateToProps = state => ({
   isAgree: state.termsReducer.isAgree,
@@ -9,8 +10,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   storeTermsStatus,
-  verifyTermsVersion,
-  changePage,
+  onBoard,
+  updateAppLoading,
 };
 
 export default connect(

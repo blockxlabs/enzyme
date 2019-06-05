@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import networkReducer from './network';
+import accountReducer from './account';
 import toast from './toast';
 import termsReducer from '../views/terms/reducer';
 import appStateReducer from '../containers/reducer';
@@ -11,6 +12,7 @@ import dashboardReducer from '../views/dashboard/reducer';
 
 export default combineReducers({
   networkReducer,
+  accountReducer,
   toast,
   termsReducer,
   appStateReducer,

@@ -1,10 +1,10 @@
-import * as types from './actionTypes';
-import * as StorageKeys from '../../../lib/constants/storageKeys';
+import * as TermsActionTypes from './action-types';
+import * as StorageKeys from '../../../lib/constants/storage-keys';
 import AppConfig from '../../../lib/constants/config';
 import * as StorageService from '../../../lib/services/extension/storage';
 
 const updateTermsStatus = isAgree => ({
-  type: types.TERMS_STORE_AGREE,
+  type: TermsActionTypes.TERMS_STORE_AGREE,
   isAgree,
 });
 

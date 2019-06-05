@@ -6,9 +6,10 @@ import EnzymeContainer from '../enzyme-container';
 import Header from '../common/header/header.component';
 import ViewSelector from '../view-selector';
 import Network from '../network/network';
-import Settings from '../settings';
+import Options from '../options';
 import EnzymeBanner from '../common/enzyme-banner';
 import EnzymeLogo from '../common/enzyme-logo';
+import { NetworkDisconnectionIcon } from '../common/icon';
 import './styles.css';
 
 export default class EnzymeApp extends Component {
@@ -22,8 +23,12 @@ export default class EnzymeApp extends Component {
       showLogo,
       showBanner,
       showNetwork,
+      isConnected,
       showSettings,
       showHeader,
+      onLogoClick,
+      options,
+      onOptionsChange,
       ...otherProps
     } = this.props;
 
@@ -38,10 +43,15 @@ export default class EnzymeApp extends Component {
     const EnzymeLogoClassNames = classnames({
       'enzyme-logo': showLogo,
       'display-none': !showLogo,
+      'clickable-icon': showLogo,
     });
     const EnzymeNetworkClassNames = classnames({
       'enzyme-network': showNetwork,
       'display-none': !showNetwork,
+    });
+    const EnzymeNetworkStatusClassNames = classnames({
+      'display-none': isConnected,
+      'enzyme-network-status': !isConnected,
     });
     const EnzymeBannerClassNames = classnames({
       'enzyme-banner': showBanner,
@@ -59,16 +69,21 @@ export default class EnzymeApp extends Component {
       <EnzymeContainer blocking={isLoading}>
         <div {...otherProps}>
           <Header page={page} className={EnzymeHeaderClassNames}>
-            <EnzymeLogo className={EnzymeLogoClassNames} />
+            <EnzymeLogo onClick={onLogoClick} className={EnzymeLogoClassNames} />
             <EnzymeBanner className={EnzymeBannerClassNames} />
             <div className={EnzymeConfigClassNames}>
+              <NetworkDisconnectionIcon className={EnzymeNetworkStatusClassNames} />
               <Network
                 networks={networks}
                 network={network}
                 onNetworkChange={onNetworkChange}
                 className={EnzymeNetworkClassNames}
               />
-              <Settings className={EnzymeSettingsClassNames} />
+              <Options
+                options={options}
+                onOptionsChange={onOptionsChange}
+                className={EnzymeSettingsClassNames}
+              />
             </div>
           </Header>
           <ViewSelector page={page} />

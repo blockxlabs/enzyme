@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { TextField, withStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
 class EnzymeMultilineInput extends Component {
@@ -13,11 +14,13 @@ class EnzymeMultilineInput extends Component {
       onBlur,
       value,
       helperText,
+      name,
       ...otherProps
     } = this.props;
     return (
       <div {...otherProps}>
         <TextField
+          name={name}
           inputRef={inputRef}
           placeholder={placeholder}
           multiline

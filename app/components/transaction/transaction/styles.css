@@ -3,9 +3,14 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+.transaction-message {
+  padding: 10px 18px;
+}
 
 .transactions-header {
   font-size: 18px;
   color: rgba(0, 0, 0, 1);
-  padding-left: 18px;
+  padding: 18px;
+  height:54px;
+  border-bottom: 1px solid rgb(227, 227, 227); 
 }

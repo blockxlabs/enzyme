@@ -8,7 +8,6 @@
 }
 
 .enzyme-banner {
-  width: 94px;
   height: 23px;
 }
 
@@ -33,11 +32,19 @@
 .enzyme-network {
 }
 
+.enzyme-network-status {
+  margin-right: 13.37px;
+}
+
 .enzyme-config {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .enzyme-settings {
   margin-left: 16px;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
 }

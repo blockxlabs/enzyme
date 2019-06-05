@@ -13,7 +13,7 @@ export default class TokenDetails extends Component {
         <TokenBalance
           className="token-balance"
           unit="dot"
-          balance={`${(balance / 1e18).toFixed(8)}`}
+          balance={`${balance}`}
           balanceUSD="$0 USD"
         />
         <TokenDetailFooter

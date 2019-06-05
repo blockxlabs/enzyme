@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 export default class EnzymeInputAdornment extends Component {
   render() {

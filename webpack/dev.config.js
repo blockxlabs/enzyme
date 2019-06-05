@@ -13,6 +13,11 @@ const browser = args.indexOf('--firefox') !== -1 ? 'firefox' : 'chrome';
 const baseDevConfig = () => ({
   devtool: 'eval-cheap-module-source-map',
   entry: {
+    reduxDevToolsExtension: [
+      customPath,
+      hotScript,
+      path.join(__dirname, '../browser/extension/redux-devtools-extension'),
+    ],
     mainapp: [customPath, hotScript, path.join(__dirname, '../browser/extension/mainapp')],
     background: [customPath, hotScript, path.join(__dirname, '../backgroundScript/background')],
   },

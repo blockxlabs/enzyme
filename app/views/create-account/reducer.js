@@ -1,23 +1,15 @@
-import * as Types from './actionTypes';
+import * as Types from './action-types';
+import { KEYPAIR_EDWARDS, KEYPAIR_TYPES } from '../../../lib/constants/api';
 
 const initialState = {
-  accounts: [],
   success: false,
   error: null,
-  account: undefined,
-  balances: [],
-  balance: '0',
+  keypairType: KEYPAIR_EDWARDS,
+  keypairTypes: KEYPAIR_TYPES,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case Types.ADD_ACCOUNT:
-      return {
-        ...state,
-        ...{
-          accounts: action.accounts,
-        },
-      };
     case Types.CREATE_FIRST_ACCOUNT_SEED_PHRASE_SUCCESS:
       return {
         ...state,
@@ -32,25 +24,11 @@ const reducer = (state = initialState, action) => {
           error: action.error,
         },
       };
-    case Types.SELECT_ACCOUNT:
+    case Types.UPDATE_KEYPAIR_TYPE:
       return {
         ...state,
         ...{
-          account: action.account,
-        },
-      };
-    case Types.UPDATE_ACCOUNT_BALANCE:
-      return {
-        ...state,
-        ...{
-          balances: action.balances,
-        },
-      };
-    case Types.UPDATE_SELECTED_ACCOUNT_BALANCE:
-      return {
-        ...state,
-        ...{
-          balance: action.balance,
+          keypairType: action.keypairType,
         },
       };
     default:

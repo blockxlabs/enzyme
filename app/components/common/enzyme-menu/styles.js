@@ -2,8 +2,6 @@ export const styles = () => ({
   root: {
     color: 'rgba(255, 255, 255, 0.87)',
     height: 10,
-    fontSize: 14,
-    width: 128,
     display: 'flex',
     flexDirection: 'row',
     paddingLeft: 15,
@@ -15,9 +13,5 @@ export const styles = () => ({
   menu: {
     marginTop: 33,
     maxHeight: 144,
-    width: 128,
-    fontFamily: 'Roboto-Regular',
-    fontSize: 14,
-    backgroundColor: 'red',
   },
 });

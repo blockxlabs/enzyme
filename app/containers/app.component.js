@@ -22,61 +22,61 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.props.updateBackupPage(this.props.page);
+    this.props.fetchAndUpdateAppManifest();
+    this.props.updateAppLoading(true);
     this.props.onBoard();
   }
 
-  componentDidUpdate(prevProps) {
-    const { page } = this.props;
-    let {
-      showHeader, showLogo, showBanner, showNetwork, showSettings
-    } = this.state;
-    if (prevProps.page !== page) {
-      if (page !== LOADER_OVERLAY) {
-        showHeader = true;
-        showLogo = false;
-        showBanner = false;
-        showNetwork = false;
-        showSettings = false;
-        if (ONBOARDING_PAGES_GROUP.indexOf(page) !== -1) {
-          showBanner = true;
-          showLogo = false;
-          showNetwork = false;
-          showSettings = false;
-        } else {
-          showBanner = false;
-          showLogo = true;
-          showNetwork = true;
-          showSettings = true;
-        }
-      } else {
-        showHeader = false;
-      }
-      this.setShowState({
-        showHeader,
-        showLogo,
-        showBanner,
-        showNetwork,
-        showSettings,
-      });
-    }
-  }
+  static getDerivedStateFromProps(prevProps, nextState) {
+    // below vars are from 'nextState' and we are overwriting to hide/show as per page
 
-  setShowState(state) {
-    this.setState(state);
+    if (prevProps.page !== LOADER_OVERLAY) {
+      if (ONBOARDING_PAGES_GROUP.indexOf(prevProps.page) !== -1) {
+        return {
+          showHeader: true, // no change
+          showLogo: false,
+          showBanner: true,
+          showNetwork: false,
+          showSettings: false,
+        };
+      }
+      return {
+        showHeader: true, // no change
+        showLogo: true,
+        showBanner: false,
+        showNetwork: true,
+        showSettings: true,
+      };
+    }
+
+    return nextState;
   }
 
   handleNetworkChange = network => {
     if (network.value === 'custom') {
+      this.props.updateBackupPage(this.props.page);
       this.props.changePage(CUSTOM_NETWORK_PAGE);
     } else {
       this.props.switchNetwork(network);
     }
   };
 
+  handleOptionsChange = option => {
+    this.props.updateBackupPage(this.props.page);
+    this.props.changePage(option.value);
+  };
+
+  onClick = () => {
+    this.props.resetConfirmOnBoarding();
+    this.props.clearTransferDetails();
+    this.props.changePage(DASHBOARD_PAGE);
+  };
+
   render() {
     const {
       props: {
-        page, isLoading, networks, network
+        page, isLoading, networks, network, isConnected, options
       },
       state: {
         showLogo, showBanner, showNetwork, showSettings, showHeader
@@ -89,12 +89,16 @@ export default class App extends Component {
         page={page}
         networks={networks}
         network={network}
+        isConnected={isConnected}
         onNetworkChange={this.handleNetworkChange}
         showLogo={showLogo}
         showBanner={showBanner}
         showNetwork={showNetwork}
         showSettings={showSettings}
         showHeader={showHeader}
+        onLogoClick={this.onClick}
+        options={options}
+        onOptionsChange={this.handleOptionsChange}
       />
     );
   }

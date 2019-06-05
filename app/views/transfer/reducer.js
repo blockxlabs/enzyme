@@ -1,9 +1,15 @@
-import * as Types from './actionTypes';
+import * as Types from './action-types';
+import { units } from '../../../lib/constants/units';
 
 const initialState = {
-  transferDetails: {},
-  transferFee: '0',
-  transferAmount: '',
+  confirmDetails: {},
+  units,
+  error: null,
+  success: false,
+  isToAddressError: false,
+  toAddressErrorMessage: null,
+  isAmountError: false,
+  toAmountErrorMessage: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,30 +18,52 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ...{
-          transferDetails: action.transferDetails,
+          confirmDetails: action.confirmDetails,
         },
       };
     case Types.CLEAR_COIN_TRANSFER_DETAILS:
       return {
         ...state,
         ...{
-          transferDetails: {},
+          confirmDetails: {},
         },
       };
-    case Types.UPDATE_TRANSFER_FEE:
+    case Types.CONFIRM_TRANSFER_SUCCESS:
       return {
         ...state,
         ...{
-          transferFee: action.transferFee,
+          success: action.success,
         },
       };
-    case Types.UPDATE_TRANSFER_AMOUNT:
+    case Types.CONFIRM_TRANSFER_ERROR:
       return {
         ...state,
         ...{
-          transferAmount: action.transferAmount,
+          error: action.error,
         },
       };
+    case Types.SET_TRANSFER_VALIDATION_ERROR:
+      if (action.error) {
+        return {
+          ...state,
+          ...{
+            isToAddressError: action.error.isToAddressError,
+            toAddressErrorMessage: action.error.toAddressErrorMessage,
+            isAmountError: action.error.isAmountError,
+            toAmountErrorMessage: action.error.toAmountErrorMessage,
+          },
+        };
+      }
+      return {
+        ...state,
+        ...{
+          isToAddressError: false,
+          toAddressErrorMessage: null,
+          isAmountError: false,
+          toAmountErrorMessage: null,
+        },
+      };
+
     default:
       return state;
   }

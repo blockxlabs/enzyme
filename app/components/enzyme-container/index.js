@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import BlockUi from 'react-block-ui';
-import 'semantic-ui-css/semantic.css';
 import 'react-block-ui/style.css';
 import EnzymeLoader from '../common/enzyme-loader';
 

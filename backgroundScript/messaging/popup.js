@@ -1,6 +1,6 @@
 // receives all messages from Content Script
-import * as MessageTypes from '../../lib/constants/messageTypes';
-import * as ResponseService from '../services/responseService';
+import * as MessageTypes from '../../lib/constants/message-types';
+import * as ResponseService from '../services/response-service';
 
 const extension = require('extensionizer');
 
@@ -19,11 +19,20 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.isAppReady(request, sendResponse);
             break;
           }
+          case MessageTypes.BG_APP_SET_ONBOARDED: {
+            ResponseService.setIsAppOnBoarded(request, sendResponse);
+            break;
+          }
           case MessageTypes.BG_APP_IS_ONBOARDED: {
-            return { isAppReady: false };
+            ResponseService.getIsAppOnBoarded(request, sendResponse);
+            break;
           }
           case MessageTypes.BG_SET_HASH_KEY: {
             ResponseService.setHashKey(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_ACCOUNTS_UPDATE_ALIAS: {
+            ResponseService.updateAccountAlias(request, sendResponse);
             break;
           }
           case MessageTypes.BG_ACCOUNTS_CREATE_ACCOUNT: {
@@ -48,6 +57,10 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
           }
 
           //Network
+          case MessageTypes.BG_NETWORK_IS_CONNECTED: {
+            ResponseService.isConnected(request, sendResponse);
+            break;
+          }
           case MessageTypes.BG_NETWORK_CURRENT: {
             ResponseService.getCurrentNetwork(request, sendResponse);
             break;
@@ -62,6 +75,10 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.getTransactionFees(request, sendResponse);
             break;
           }
+          case MessageTypes.BG_TXN_CONFIRM: {
+            ResponseService.confirmTransaction(request, sendResponse);
+            break;
+          }
           case MessageTypes.BG_TXN_SUBMIT: {
             ResponseService.submitTransaction(request, sendResponse);
             break;
@@ -74,6 +91,13 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.getTransaction(request, sendResponse);
             break;
           }
+
+          // validation
+          case MessageTypes.BG_ACCOUNT_IS_VALID_ADDRESS: {
+            ResponseService.isValidAddress(request, sendResponse);
+            break;
+          }
+
           default:
             ResponseService.handleDefault(request, sendResponse);
         }

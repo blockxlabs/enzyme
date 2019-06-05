@@ -1,23 +1,29 @@
 import { connect } from 'react-redux';
 import CreateAccount from './create-account.component';
 import {
-  updateAccountList,
   createFirstAccountWithSeedPhrase,
   resetImportAccountWithSeedPhraseError,
+  setKeypairType,
+  setAndStartOnBoarding,
+  createFirstAccountWithSeedPhraseSuccess,
 } from './actions';
-import { changePage } from '../../containers/actions';
+import { updateAppLoading } from '../../containers/actions';
 
 const mapStateToProps = state => ({
-  seedWords: state.signUpReducer.seedWords,
-  accounts: state.createAccountReducer.account,
+  account: state.accountReducer.account,
   error: state.createAccountReducer.error,
+  success: state.createAccountReducer.success,
+  keypairType: state.createAccountReducer.keypairType,
+  keypairTypes: state.createAccountReducer.keypairTypes,
 });
 
 const mapDispatchToProps = {
-  changePage,
-  updateAccountList,
   createFirstAccountWithSeedPhrase,
   resetImportAccountWithSeedPhraseError,
+  setKeypairType,
+  setAndStartOnBoarding,
+  createFirstAccountWithSeedPhraseSuccess,
+  updateAppLoading,
 };
 
 export default connect(

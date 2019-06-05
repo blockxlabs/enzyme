@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { SIGN_UP_PAGE } from '../../constants/navigation';
 import TOUHeader from '../../components/terms/tou-header';
 import TermsOfUse from '../../components/terms/terms-of-use';
 import TOUFooter from '../../components/terms/tou-footer';
@@ -17,6 +16,12 @@ export default class Terms extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.isAgree !== this.props.isAgree) {
+      this.props.onBoard();
+    }
+  }
+
   handleScroll = e => {
     const bottom = e.target.offsetHeight + e.target.scrollTop + TOP_MARGIN >= e.target.scrollHeight;
     if (bottom) {
@@ -26,11 +31,10 @@ export default class Terms extends Component {
 
   handleAgree = async () => {
     const {
-      props: { changePage, storeTermsStatus, verifyTermsVersion },
+      props: { storeTermsStatus },
     } = this;
+    this.props.updateAppLoading(true);
     storeTermsStatus(true);
-    verifyTermsVersion();
-    changePage(SIGN_UP_PAGE);
   };
 
   render() {
@@ -57,12 +61,10 @@ export default class Terms extends Component {
 
 Terms.defaultProps = {
   storeTermsStatus: undefined,
-  verifyTermsVersion: undefined,
-  changePage: undefined,
+  onBoard: undefined,
 };
 
 Terms.propTypes = {
   storeTermsStatus: PropTypes.func,
-  verifyTermsVersion: PropTypes.func,
-  changePage: PropTypes.func,
+  onBoard: PropTypes.func,
 };

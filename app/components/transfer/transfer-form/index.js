@@ -28,7 +28,6 @@ export default class TransferForm extends Component {
       handleToChange,
       handleSendButton,
       handleUnitOnChange,
-      onBlur,
     } = this.props;
     return (
       <div className="transfer-form-container">
@@ -42,7 +41,6 @@ export default class TransferForm extends Component {
           toRef={toRef}
           toErrorText={toErrorText}
           handleToChange={handleToChange}
-          onBlur={onBlur}
         />
         <DarkDivider className="transfer-form-divider" />
         <TransferFormAmount
@@ -53,7 +51,6 @@ export default class TransferForm extends Component {
           helperText={amountErrorText}
           onChange={handleAmountChange}
           propName={amountPropName}
-          onBlur={onBlur}
           inputRef={amountRef}
           options={units}
           dropDownValue={unit}

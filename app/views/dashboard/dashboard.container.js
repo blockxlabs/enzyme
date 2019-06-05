@@ -4,11 +4,13 @@ import { changePage } from '../../containers/actions';
 import { createToast } from '../../constants/toast';
 
 const mapStateToProps = state => ({
-  accounts: state.createAccountReducer.accounts,
-  account: state.createAccountReducer.account,
-  balances: state.createAccountReducer.balances,
-  balance: state.createAccountReducer.balance,
+  accounts: state.accountReducer.accounts,
+  account: state.accountReducer.account,
+  balances: state.accountReducer.balances,
+  balance: state.accountReducer.balance,
+  isLinkToFaucet: state.accountReducer.isLinkToFaucet,
   transactions: state.dashboardReducer.transactions,
+  network: state.networkReducer.network,
 });
 
 const mapDispatchToProps = {

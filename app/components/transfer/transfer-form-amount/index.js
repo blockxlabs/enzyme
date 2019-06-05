@@ -9,7 +9,6 @@ export default class TransferFormAmount extends Component {
       label,
       value,
       helperText,
-      onBlur,
       onChange,
       inputRef,
       options,
@@ -35,7 +34,6 @@ export default class TransferFormAmount extends Component {
           name={propName}
           helperText={helperText}
           onChange={onChange(propName)}
-          onBlur={onBlur}
           inputRef={inputRef}
         />
         <DropDown options={options} value={dropDownValue} onChange={onDropDownChange} />

@@ -1,27 +1,33 @@
 import { connect } from 'react-redux';
 import Transfer from './transfer.component';
-import { changePage } from '../../containers/actions';
+import { changePage, updateAppLoading } from '../../containers/actions';
 import {
-  setTransferDetails,
   clearTransferDetails,
-  setTransferFee,
-  setTransferAmount,
+  confirmTransaction,
+  resetConfirmOnBoarding,
+  dispatchSetTransferDetails,
 } from './actions';
 
 const mapStateToProps = state => ({
-  account: state.createAccountReducer.account,
-  transferDetails: state.transferReducer.transferDetails,
-  balance: state.createAccountReducer.balance,
-  transferFee: state.transferReducer.transferFee,
-  transferAmount: state.transferReducer.transferAmount,
+  account: state.accountReducer.account,
+  confirmDetails: state.transferReducer.confirmDetails,
+  balance: state.accountReducer.balance,
+  units: state.transferReducer.units,
+  success: state.transferReducer.success,
+  error: state.transferReducer.error,
+  isToAddressError: state.transferReducer.isToAddressError,
+  toAddressErrorMessage: state.transferReducer.toAddressErrorMessage,
+  isAmountError: state.transferReducer.isAmountError,
+  toAmountErrorMessage: state.transferReducer.toAmountErrorMessage,
 });
 
 const mapDispatchToProps = {
   changePage,
-  setTransferDetails,
   clearTransferDetails,
-  setTransferFee,
-  setTransferAmount,
+  confirmTransaction,
+  updateAppLoading,
+  resetConfirmOnBoarding,
+  dispatchSetTransferDetails,
 };
 
 export default connect(

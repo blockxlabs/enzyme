@@ -2,16 +2,22 @@
   margin-right: 11px;
 }
 
+.account-detail-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 265px;
+}
+
 .account-detail {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-right: 150px;
-  width: 101px;
 }
 
 .account-list-icon {
-  font-size: 25px;
-  justify-self: flex-end;
-  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 29.18px;
 }

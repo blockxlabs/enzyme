@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Menu, MenuItem, withStyles } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import withStyles from '@material-ui/core/styles/withStyles';
+
 import { styles } from './styles';
+import { IconCheckCircle } from '../icon/index';
+import FontRegular from '../fonts/font-regular';
 
 class EnzymeMenu extends Component {
   handleClose = prop => () => {
@@ -11,7 +16,9 @@ class EnzymeMenu extends Component {
   };
 
   render() {
-    const { classes, options, anchorEl } = this.props;
+    const {
+      classes, options, anchorEl, selected
+    } = this.props;
 
     return (
       <Menu
@@ -38,7 +45,11 @@ class EnzymeMenu extends Component {
               root: classes.root,
             }}
           >
-            {option.text}
+            <FontRegular style={{ fontSize: '14px' }} text={option.text} />
+            {selected
+              && (selected.value !== option.value ? null : (
+                <IconCheckCircle style={{ marginLeft: 5 }} />
+              ))}
           </MenuItem>
         ))}
       </Menu>

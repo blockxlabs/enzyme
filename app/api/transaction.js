@@ -1,4 +1,4 @@
-import * as MessageTypes from '../../lib/constants/messageTypes';
+import * as MessageTypes from '../../lib/constants/message-types';
 import { sendMessage } from '../../lib/services/extension/messages';
 import { throwIfNoSuccess } from './helper';
 
@@ -45,4 +45,13 @@ export const getTransaction = async (network, address, txnHash) => {
     return { result };
   }
   return { result: {} };
+};
+
+export const confirmTransaction = async transaction => {
+  const { result, message, status } = await sendMessage({
+    type: MessageTypes.BG_TXN_CONFIRM,
+    transaction,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
 };

@@ -6,9 +6,9 @@ import './styles.css';
 
 export default class GenerateSeedPhrase extends Component {
   render() {
-    const { seedWords } = this.props;
+    const { seedWords, ...otherProps } = this.props;
     return (
-      <div className="seed-phrase-container">
+      <div {...otherProps}>
         <ContentHeader
           title="Generate Seed Phrase"
           description="This seed phrase is used to generate your first account. Save this somewhere safe and

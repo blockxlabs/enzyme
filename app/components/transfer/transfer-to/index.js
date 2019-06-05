@@ -43,6 +43,7 @@ export default class TransferTo extends Component {
           onChange={onChange(propName)}
           onBlur={onBlur}
           inputRef={inputRef}
+          spellCheck={false}
         />
       </div>
     );

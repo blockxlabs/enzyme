@@ -1,9 +1,7 @@
-import * as Types from './actionTypes';
+import * as Types from './action-types';
 
 const initialState = {
   success: false,
-  error: null,
-  seedWords: '',
   score: 0,
 };
 
@@ -14,18 +12,6 @@ const reducer = (state = { initialState }, action) => {
         ...state,
         ...{
           success: true,
-        },
-      };
-    case Types.SET_SEED_WORDS:
-      return {
-        ...state,
-        ...{ seedWords: action.seedWords },
-      };
-    case Types.SET_ONBOARDING_ERROR:
-      return {
-        ...state,
-        ...{
-          error: action.error,
         },
       };
     case Types.UPDATE_PASSWORD_METER_SCORE:

@@ -15,10 +15,16 @@ export default class ImportSeedPhrase extends Component {
 
   render() {
     const {
-      onChange, seedWords, isError, errorMessage, onBlur
+      onChange,
+      seedWords,
+      isError,
+      errorMessage,
+      importSeedPhraseInputName,
+      seedRef,
+      handleSeedWordsOnBlur,
     } = this.props;
     return (
-      <div className="import-seed-phrase-container">
+      <div>
         <ContentHeader
           title="Import Seed Phrase"
           description="This seed phrase is used to generate your first account. Make sure it's saved somewhere safe and don't share it."
@@ -26,14 +32,13 @@ export default class ImportSeedPhrase extends Component {
         <EnzymeMultilineInput
           className="import-seed-phrase-input"
           placeholder="Type or paste your seed phrase..."
-          inputRef={input => {
-            this.seedWordsInput = input;
-          }}
           error={isError}
           helperText={errorMessage}
-          onChange={onChange('importedSeedPhrase')}
-          onBlur={onBlur(this.seedWordsInput)}
+          onChange={onChange(importSeedPhraseInputName)}
           value={seedWords}
+          name={importSeedPhraseInputName}
+          inputRef={seedRef}
+          onBlur={handleSeedWordsOnBlur}
         />
       </div>
     );

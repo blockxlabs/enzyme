@@ -5,8 +5,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const customPath = path.join(__dirname, './customPublicPath');
-
-const browser = 'chrome';
+const browser = process.env.TEMP_BROWSER;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: {
@@ -30,6 +30,11 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
         BROWSER: JSON.stringify(browser),
       },
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+      generateStatsFile: false,
+      statsOptions: { source: false },
     }),
   ],
   resolve: {

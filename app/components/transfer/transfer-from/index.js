@@ -5,7 +5,9 @@ import './styles.css';
 
 export default class TransferFrom extends Component {
   render() {
-    const { address, alias, ...otherProps } = this.props;
+    const {
+      address, alias, canCopy, onCopyAddress, ...otherProps
+    } = this.props;
     return (
       <div
         style={{
@@ -17,8 +19,20 @@ export default class TransferFrom extends Component {
         }}
         {...otherProps}
       >
-        <Avatar className="transfer-form-identicon" value={address} size={44} theme="polkadot" />
-        <TransferFromAddress className="transfer-from-address" alias={alias} address={address} />
+        <Avatar
+          className="transfer-form-identicon"
+          onCopyAddress={onCopyAddress}
+          value={address}
+          size={44}
+          theme="polkadot"
+        />
+        <TransferFromAddress
+          canCopy={canCopy}
+          onCopyAddress={onCopyAddress}
+          className="transfer-from-address"
+          alias={alias}
+          address={address}
+        />
       </div>
     );
   }

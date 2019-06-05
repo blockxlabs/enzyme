@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 
 export default class IconContainer extends Component {
   render() {
-    const { children, ...otherProps } = this.props;
+    const { children, classes, ...otherProps } = this.props;
     return <IconButton {...otherProps}>{children}</IconButton>;
   }
 }

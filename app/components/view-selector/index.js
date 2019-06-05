@@ -9,6 +9,8 @@ import Confirm from '../../views/confirm';
 import LoaderOverlay from '../loader-overlay';
 import Error from '../../views/error';
 import CustomNetwork from '../../views/custom-network';
+import QRCode from '../../views/qr-code';
+import About from '../../views/about';
 import * as NavConstant from '../../constants/navigation';
 
 const getView = page => {
@@ -33,6 +35,10 @@ const getView = page => {
       return <Error />;
     case NavConstant.CUSTOM_NETWORK_PAGE:
       return <CustomNetwork />;
+    case NavConstant.QR_CODE_PAGE:
+      return <QRCode />;
+    case NavConstant.ABOUT_PAGE:
+      return <About />;
     default:
       return <Dashboard />;
   }

@@ -1,3 +1,10 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
 body {
   background: #f5f5f6;
   min-height: 600px !important;
@@ -7,10 +14,14 @@ body {
   max-width: 360px;
   min-width: 360px;
   overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
 }
 
 html {
-  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 input:focus,
@@ -29,6 +40,33 @@ a:hover,
   background: transparent !important ;
 }
 
+body ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+body ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-transition: color 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+body ::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 135, 139, 0.8);
+}
+
 p {
   margin: 0px;
 }
@@ -41,30 +79,7 @@ p {
     url("../../browser/assets/Fonts/Roboto/Roboto-Regular.ttf")
       format("trueType");
 }
-@font-face {
-  font-family: "Roboto-Italic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Italic"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-Italic.ttf")
-      format("trueType");
-}
 
-@font-face {
-  font-family: "Roboto-Black";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Black"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-Black.ttf") format("trueType");
-}
-@font-face {
-  font-family: "Roboto-BlackItalic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-BlackItalic"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-BlackItalic.ttf")
-      format("trueType");
-}
 @font-face {
   font-family: "Roboto-Light";
   font-style: normal;
@@ -72,85 +87,13 @@ p {
   src: local("Roboto-Light"),
     url("../../browser/assets/Fonts/Roboto/Roboto-Light.ttf") format("trueType");
 }
-@font-face {
-  font-family: "Roboto-LightItalic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-LightItalic"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-LightItalic.ttf")
-      format("trueType");
-}
-@font-face {
-  font-family: "Roboto-Bold";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Bold"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-Bold.ttf") format("trueType");
-}
-@font-face {
-  font-family: "Roboto-BoldItalic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-BoldItalic"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-BoldItalic.ttf")
-      format("trueType");
-}
+
 @font-face {
   font-family: "Roboto-Medium";
   font-style: normal;
   font-weight: normal;
   src: local("Roboto-Medium"),
     url("../../browser/assets/Fonts/Roboto/Roboto-Medium.ttf")
-      format("trueType");
-}
-@font-face {
-  font-family: "Roboto-MediumItalic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-MediumItalic"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-MediumItalic.ttf")
-      format("trueType");
-}
-@font-face {
-  font-family: "Roboto-Thin";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Thin"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-Thin.ttf") format("trueType");
-}
-@font-face {
-  font-family: "Roboto-ThinItalic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-ThinItalic"),
-    url("../../browser/assets/Fonts/Roboto/Roboto-ThinItalic.ttf")
-      format("trueType");
-}
-
-@font-face {
-  font-family: "Helvetica-Neue-Light";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Helvetica-Neue-Light"),
-    url("../../browser/assets/Fonts/HelveticaNeue/HelveticaNeue-Light.ttf")
-      format("trueType");
-}
-
-@font-face {
-  font-family: "RobotoMono-Regular";
-  font-style: normal;
-  font-weight: normal;
-  src: local("RobotoMono-Regular"),
-    url("../../browser/assets/Fonts/RobotoMono/RobotoMono-Regular.ttf")
-      format("trueType");
-}
-
-@font-face {
-  font-family: "Helvetica-Neue-Medium";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Helvetica-Neue-Medium"),
-    url("../../browser/assets/Fonts/HelveticaNeue/HelveticaNeue-Medium.ttf")
       format("trueType");
 }
 

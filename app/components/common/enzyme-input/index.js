@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { TextField, withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
 import { styles } from './styles';
 

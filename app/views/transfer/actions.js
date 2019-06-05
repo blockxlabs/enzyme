@@ -1,76 +1,60 @@
-import BigNumber from 'bignumber.js';
-import * as Types from './actionTypes';
+import * as TransferActionTypes from './action-types';
 import { Transaction } from '../../api';
 import { TRANSFER_COINS } from '../../../lib/constants/transaction';
-import { units, baseUnit, dotUnit } from '../../../lib/constants/units';
-import { convertUnit } from '../../../lib/services/unitConverter';
+import { updateAppLoading } from '../../containers/actions';
 
-const dispatchSetTransferDetails = (
-  {
-    from, to, alias, unit, value
-  },
-  transferFee,
-  transferAmount,
-  totalTransferAmount,
-  network,
-) => ({
-  type: Types.COIN_TRANSFER_DETAILS,
-  transferDetails: {
-    txnType: TRANSFER_COINS,
-    metadata: {
-      from,
-      to,
-      value,
-      unit,
-      alias,
-      transferFee,
-      transferAmount,
-      totalTransferAmount,
-    },
-    internal: { address: from, network },
-  },
+export const dispatchSetTransferDetails = confirmDetails => ({
+  type: TransferActionTypes.COIN_TRANSFER_DETAILS,
+  confirmDetails,
 });
 
 export const clearTransferDetails = () => ({
-  type: Types.CLEAR_COIN_TRANSFER_DETAILS,
+  type: TransferActionTypes.CLEAR_COIN_TRANSFER_DETAILS,
 });
 
-export const updateTransferFee = transferFee => ({
-  type: Types.UPDATE_TRANSFER_FEE,
-  transferFee,
+const confirmTransactionSuccess = success => ({
+  type: TransferActionTypes.CONFIRM_TRANSFER_SUCCESS,
+  success,
 });
 
-export const updateTransferAmount = transferAmount => ({
-  type: Types.UPDATE_TRANSFER_AMOUNT,
-  transferAmount,
+const confirmTransactionError = error => ({
+  type: TransferActionTypes.CONFIRM_TRANSFER_ERROR,
+  error,
 });
 
-export const setTransferDetails = details => (dispatch, getState) => {
-  const { transferFee, transferAmount } = getState().transferReducer;
-  const { network } = getState().networkReducer;
-  const transferFeeBN = new BigNumber(transferFee);
-  const transferAmountBN = new BigNumber(transferAmount);
-  const totalAmount = transferFeeBN.plus(transferAmountBN).toString();
-  const transferAmountInDot = convertUnit(transferAmount, baseUnit.text, dotUnit.text);
-  const transferFeeInmDOT = convertUnit(transferFee, baseUnit.text, units[7].text);
-  const totalAmountInDot = convertUnit(totalAmount, baseUnit.text, dotUnit.text);
-  dispatch(
-    dispatchSetTransferDetails(
-      details,
-      transferFeeInmDOT,
-      transferAmountInDot,
-      totalAmountInDot,
-      network,
-    ),
-  );
+const setTransferValidationError = error => ({
+  type: TransferActionTypes.SET_TRANSFER_VALIDATION_ERROR,
+  error,
+});
+
+export const confirmTransaction = (to, account, amount, unit) => async dispatch => {
+  try {
+    dispatch(updateAppLoading(true));
+    const { result: transaction } = await Transaction.confirmTransaction({
+      txnType: TRANSFER_COINS,
+      to,
+      account,
+      amount,
+      unit,
+    });
+    if (transaction.isError) {
+      dispatch(updateAppLoading(false));
+      dispatch(setTransferValidationError(transaction));
+      dispatch(confirmTransactionError(transaction));
+    } else {
+      dispatch(setTransferValidationError(null));
+      dispatch(confirmTransactionError(null));
+      dispatch(dispatchSetTransferDetails(transaction));
+      dispatch(confirmTransactionSuccess(true));
+    }
+  } catch (e) {
+    dispatch(updateAppLoading(false));
+    dispatch(confirmTransactionError(e));
+  }
 };
 
-export const setTransferFee = to => async dispatch => {
-  const { result: transferFee } = await Transaction.getTransactionFee(TRANSFER_COINS, to);
-  dispatch(updateTransferFee(transferFee));
-};
-
-export const setTransferAmount = (value, fromUnit) => async dispatch => {
-  const amount = convertUnit(value, fromUnit.text, baseUnit.text);
-  dispatch(updateTransferAmount(amount));
+export const resetConfirmOnBoarding = () => async dispatch => {
+  dispatch(confirmTransactionSuccess(false));
+  dispatch(setTransferValidationError(null));
+  dispatch(confirmTransactionError(null));
 };

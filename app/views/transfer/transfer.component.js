@@ -5,161 +5,113 @@ import SubHeader from '../../components/common/sub-header';
 import TransferForm from '../../components/transfer/transfer-form';
 import { DASHBOARD_PAGE, CONFIRM_PAGE } from '../../constants/navigation';
 import { INPUT_NUMBER_REGEX } from '../../../lib/constants/regex';
-import EnzymeValidator from '../../utils/enzyme-validator';
-import validator from '../../utils/enzyme-validator/validator';
-import { units } from '../../../lib/constants/units';
 
 export default class Transfer extends Component {
   constructor(props) {
     super(props);
     const {
-      transferDetails: { metadata },
+      confirmDetails: { metadata },
+      account,
     } = props;
     //TODO DP: Can be improved by using optional chaining operator
     this.state = {
       to: metadata ? metadata.to : '',
-      amount: metadata ? metadata.value : '',
-      unit: metadata ? metadata.unit : units[8],
-      isAddressEncoded: !!metadata,
-      isToError: false,
-      toErrorText: '',
-      isAmountError: false,
-      amountErrorText: '',
+      amount: metadata ? metadata.amount : '',
+      unit: metadata ? metadata.unit : props.units[5],
+      alias: metadata ? metadata.account.alias : account.alias,
+      from: metadata ? metadata.account.address : account.address,
       buttonText: 'next',
     };
-    this.toValidator = new EnzymeValidator(validator.addressValidation);
-    this.amountValidator = new EnzymeValidator(validator.amountValidation);
     this.toInput = React.createRef();
     this.amountInput = React.createRef();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.transferAmount !== prevProps.transferAmount) {
-      const validation = this.amountValidator.validate({
-        transferFee: this.props.transferFee,
-        balance: this.props.balance,
-        amount: this.props.transferAmount,
-      });
-      if (!validation.isValid) {
-        this.amountInput.focus();
-        this.setAmountState({
-          isAmountError: true,
-          amountErrorText: validation.amount.message,
-        });
-      } else {
-        this.setAmountState({
-          isAmountError: false,
-          amountErrorText: null,
-        });
-      }
-    }
+  componentDidMount() {
+    this.props.dispatchSetTransferDetails({
+      metadata: {
+        ...this.props.confirmDetails.metadata,
+        account: this.props.account,
+        unit: this.state.unit,
+      },
+    });
+  }
 
-    if (this.props.transferDetails !== prevProps.transferDetails) {
+  componentDidUpdate(props) {
+    if (props.success) {
+      this.props.updateAppLoading(false);
       this.props.changePage(CONFIRM_PAGE);
+    }
+    if (props.error && props.error.isError) {
+      if (props.isToAddressError) {
+        this.toInput.focus();
+      } else {
+        this.amountInput.focus();
+      }
     }
   }
 
-  setAmountState = state => {
-    this.setState(state);
-  };
-
   handleSubheaderBackBtn = () => {
+    this.props.resetConfirmOnBoarding();
     this.props.clearTransferDetails();
     this.props.changePage(DASHBOARD_PAGE);
   };
 
   handleToChange = prop => e => {
-    const { value } = e.target;
-    let { isAddressEncoded } = this.state;
-    const validation = this.toValidator.validate({ to: value });
-    isAddressEncoded = validation.isValid;
-    if (isAddressEncoded) {
-      this.props.setTransferFee(value);
-    }
+    this.props.dispatchSetTransferDetails({
+      metadata: {
+        ...this.props.confirmDetails.metadata,
+        to: e.target.value,
+      },
+    });
     this.setState({
-      [prop]: value,
-      isAddressEncoded,
-      isToError: false,
-      toErrorText: '',
+      [prop]: e.target.value,
     });
   };
 
   handleAmountChange = prop => e => {
     if (e.target.value === '' || INPUT_NUMBER_REGEX.test(e.target.value)) {
+      this.props.dispatchSetTransferDetails({
+        metadata: {
+          ...this.props.confirmDetails.metadata,
+          amount: e.target.value,
+        },
+      });
       this.setState({ [prop]: e.target.value });
     }
   };
 
   handleSendButton = () => {
-    const { account, setTransferAmount } = this.props;
     const { to, amount, unit } = this.state;
-    const { isToError, isAmountError } = this.state;
-    if (to !== '' && amount !== '' && !isToError && !isAmountError) {
-      setTransferAmount(amount, unit);
-      this.props.setTransferDetails({
-        from: account.address,
-        to,
-        value: amount,
-        unit,
-        alias: account.alias,
-      });
+    if (to !== '' && amount !== '') {
+      this.props.confirmTransaction(to, this.props.account, amount, unit);
+    } else if (to === '') {
+      this.toInput.focus();
+    } else {
+      this.amountInput.focus();
     }
   };
 
   handleUnitChange = e => {
-    const { amount } = this.state;
-    const unit = units.find(u => u.value === e.target.value);
-    if (amount !== '') {
-      const { setTransferAmount } = this.props;
-      setTransferAmount(amount, unit);
-    }
+    const unit = this.props.units.find(u => u.value === e.target.value);
+    this.props.dispatchSetTransferDetails({
+      metadata: {
+        ...this.props.confirmDetails.metadata,
+        unit,
+      },
+    });
     this.setState({ unit });
   };
 
-  onBlur = e => {
-    const { name } = e.target;
-    const { to, amount, unit } = this.state;
-    let {
-      isToError, toErrorText, isAmountError, amountErrorText
-    } = this.state;
-    const { setTransferAmount } = this.props;
-    if (name === 'to' && to !== '') {
-      const validation = this.toValidator.validate({ to });
-      if (!validation.isValid) {
-        this.toInput.focus();
-        isToError = true;
-        toErrorText = 'Invalid Address';
-      }
-    } else {
-      isToError = false;
-      toErrorText = '';
-    }
-
-    if (name === 'amount' && amount !== '') {
-      setTransferAmount(amount, unit);
-    } else {
-      isAmountError = false;
-      amountErrorText = '';
-    }
-    this.setState({
-      isToError,
-      toErrorText,
-      isAmountError,
-      amountErrorText,
-    });
-  };
-
   render() {
-    const { account } = this.props;
     const {
-      to,
-      amount,
-      unit,
-      buttonText,
-      isToError,
-      toErrorText,
+      units,
+      isToAddressError,
+      toAddressErrorMessage,
       isAmountError,
-      amountErrorText,
+      toAmountErrorMessage,
+    } = this.props;
+    const {
+      to, amount, unit, alias, from, buttonText
     } = this.state;
     return (
       <div>
@@ -169,8 +121,8 @@ export default class Transfer extends Component {
           backBtnOnClick={this.handleSubheaderBackBtn}
         />
         <TransferForm
-          address={account.address}
-          alias={account.alias}
+          address={from}
+          alias={alias}
           unit={unit}
           amountPropName="amount"
           toPropName="to"
@@ -184,15 +136,14 @@ export default class Transfer extends Component {
           }}
           amount={amount}
           buttonText={buttonText}
-          isToError={isToError}
-          toErrorText={toErrorText}
+          isToError={isToAddressError}
+          toErrorText={toAddressErrorMessage}
           isAmountError={isAmountError}
-          amountErrorText={amountErrorText}
+          amountErrorText={toAmountErrorMessage}
           handleAmountChange={this.handleAmountChange}
           handleToChange={this.handleToChange}
           handleSendButton={this.handleSendButton}
           handleUnitOnChange={this.handleUnitChange}
-          onBlur={this.onBlur}
         />
       </div>
     );
@@ -202,13 +153,9 @@ export default class Transfer extends Component {
 Transfer.defaultProps = {
   changePage: undefined,
   account: undefined,
-  setTransferAmount: undefined,
-  setTransferFee: undefined,
 };
 
 Transfer.propTypes = {
   changePage: PropTypes.func,
   account: PropTypes.object,
-  setTransferAmount: PropTypes.func,
-  setTransferFee: PropTypes.func,
 };

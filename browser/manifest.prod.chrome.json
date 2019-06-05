@@ -1,0 +1,32 @@
+{
+  "version": "0.0.4",
+  "background": {
+    "scripts": ["./extension/background.js"],
+    "persistent": false
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "name": "Enzyme",
+  "manifest_version": 2,
+  "description": "Polkadot DApp Wallet",
+  "browser_action": {
+    "default_title": "Enzyme",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/icon-16.png",
+    "32": "img/icon-32.png",
+    "128": "img/icon-128.png"
+  },
+  "web_accessible_resources": ["inject.html", "content-script.js"],
+  "permissions": [
+    "notifications",
+    "storage",
+    "https://*/*",
+    "http://*/*",
+    "wss://*/*",
+    "ws://*/*"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

@@ -6,7 +6,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  padding: 16px;
+  padding: 21px 21px 21px 0px;
   background-color: rgba(38, 38, 38, 1);
   height: 55.53px;
   color: rgba(255, 255, 255, 1);
@@ -16,6 +16,7 @@
   align-self: center;
   justify-content: flex-start;
   font-size: 18px;
+  margin-left: 36px;
 }
 
 .sub-header-icon {

@@ -1,7 +1,14 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faArrowCircleDown, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { Visibility, KeyboardArrowRight, Settings } from '@material-ui/icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
+import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons/faArrowCircleDown';
+import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons/faArrowCircleRight';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle';
+import { faWallet } from '@fortawesome/free-solid-svg-icons/faWallet';
+import Visibility from '@material-ui/icons/Visibility';
+import Settings from '@material-ui/icons/Settings';
+import MoreVert from '@material-ui/icons/MoreVert';
+import WifiOff from '@material-ui/icons/WifiOff';
 
 const IconEdit = props => (
   <FontAwesomeIcon icon={faEdit} style={{ color: '#2f112b', fontSize: props.size }} {...props} />
@@ -44,7 +51,40 @@ const IconVisibility = props => <Visibility style={{ ...props.style }} {...props
 
 const WalletDropDownIcon = props => (
   <div {...props}>
-    <KeyboardArrowRight style={{ fontSize: '40px', ...props.style }} />
+    <FontAwesomeIcon
+      icon={faWallet}
+      style={{
+        width: '18.29px',
+        height: 16,
+        color: 'rgba(255, 255, 255, 1)',
+      }}
+    />
+    <MoreVert
+      style={{
+        fontSize: '1.5em',
+        color: 'rgba(255, 255, 255, 1)',
+      }}
+    />
+  </div>
+);
+
+const IconCheckCircle = props => (
+  <div {...props}>
+    <FontAwesomeIcon
+      icon={faCheckCircle}
+      style={{ width: 10, height: 10, color: 'rgba(255, 255, 255, 1)' }}
+    />
+  </div>
+);
+
+const NetworkDisconnectionIcon = props => (
+  <div {...props}>
+    <WifiOff
+      style={{
+        fontSize: '1.5em',
+        color: 'rgba(255, 255, 255, 1)',
+      }}
+    />
   </div>
 );
 
@@ -55,4 +95,6 @@ export {
   IconVisibility,
   WalletDropDownIcon,
   IconSettings,
+  IconCheckCircle,
+  NetworkDisconnectionIcon,
 };

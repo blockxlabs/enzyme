@@ -5,13 +5,12 @@ import ConfirmTo from '../confirm-to';
 
 export default class ConfirmFromTo extends Component {
   render() {
-    const { transferDetails, ...otherProps } = this.props;
+    const {
+      to, alias, from, ...otherProps
+    } = this.props;
     return (
       <div {...otherProps}>
-        <TransferFrom
-          address={transferDetails.metadata.from}
-          alias={transferDetails.metadata.alias}
-        />
+        <TransferFrom address={from} alias={alias} />
         <IconTransferFromTo />
         <ConfirmTo
           style={{
@@ -20,8 +19,9 @@ export default class ConfirmFromTo extends Component {
             flexDirection: 'row',
             alignItems: 'center',
             paddingLeft: '26px',
+            height: '54.8px',
           }}
-          address={transferDetails.metadata.to}
+          address={to}
         />
       </div>
     );

@@ -1,4 +1,4 @@
-import * as MessageTypes from '../../lib/constants/messageTypes';
+import * as MessageTypes from '../../lib/constants/message-types';
 import { sendMessage } from '../../lib/services/extension/messages';
 import { throwIfNoSuccess } from './helper';
 
@@ -10,11 +10,13 @@ export const getSeedWords = async () => {
   return { result };
 };
 
-export const createAccount = async (seedWords, isOnBoarding = false) => {
+export const createAccount = async (seedWords, isOnBoarding = false, keypairType, alias) => {
   const { message, status, result } = await sendMessage({
     type: MessageTypes.BG_ACCOUNTS_CREATE_ACCOUNT,
     seedWords,
     isOnBoarding,
+    keypairType,
+    alias,
   });
   throwIfNoSuccess({ message, status });
   return { result };
@@ -40,6 +42,16 @@ export const getCurrentBalance = async addresses => {
   const { message, status, result } = await sendMessage({
     type: MessageTypes.BG_ACCOUNT_BALANCE,
     addresses,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
+};
+
+export const updateAccountAlias = async (alias, address) => {
+  const { message, status, result } = await sendMessage({
+    type: MessageTypes.BG_ACCOUNTS_UPDATE_ALIAS,
+    alias,
+    address,
   });
   throwIfNoSuccess({ message, status });
   return { result };

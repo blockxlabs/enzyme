@@ -3,13 +3,13 @@ import { clearTransferDetails } from '../transfer/actions';
 import { DASHBOARD_PAGE } from '../../constants/navigation';
 import { createToast } from '../../constants/toast';
 import { Transaction } from '../../api';
-import { shortenAddress } from '../../services/walletService';
+import { shortenAddress } from '../../services/wallet-service';
 import { getTransactions } from '../dashboard/actions';
 
-export const submitTransaction = transferDetails => async dispatch => {
+export const submitTransaction = confirmDetails => async dispatch => {
   try {
     dispatch(updateAppLoading(true));
-    const { result: tx } = await Transaction.submitTransaction(transferDetails);
+    const { result: tx } = await Transaction.submitTransaction(confirmDetails);
     dispatch(
       createToast({
         message: `Transfer submitted with ${shortenAddress(tx.txnHash)}`,

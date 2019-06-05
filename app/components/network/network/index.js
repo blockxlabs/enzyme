@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EnzymeMenu from '../../common/enzyme-menu';
 import FontRegular from '../../common/fonts/font-regular';
+import { shortenName } from '../../../services/wallet-service';
 import './styles.css';
 
 export default class Network extends Component {
@@ -23,8 +24,13 @@ export default class Network extends Component {
     } = this.props;
     return (
       <div {...otherProps}>
-        <FontRegular className="network-text" text={network.text} onClick={this.handleClick} />
+        <FontRegular
+          className="network-text"
+          text={shortenName(network.text)}
+          onClick={this.handleClick}
+        />
         <EnzymeMenu
+          selected={network}
           options={networks}
           onChange={onNetworkChange}
           anchorEl={anchorEl}

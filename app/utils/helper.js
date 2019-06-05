@@ -1,14 +1,5 @@
-import { PROTOCOL_VALIDATION_REGEX } from '../../lib/constants/regex';
-import { HTTPS } from '../constants/network';
 import { SUCCESS } from '../../lib/constants/api';
-import { success } from '../../backgroundScript/services/responseService';
-
-export const createFullNetworkURL = url => {
-  if (!PROTOCOL_VALIDATION_REGEX.test(url)) {
-    return `${HTTPS}://${url}`;
-  }
-  return url;
-};
+import { success } from '../../backgroundScript/services/response-service';
 
 export const promiseTimeout = (ms, promise, defaultObj) => {
   const timeout = new Promise(resolve => {
@@ -21,3 +12,17 @@ export const promiseTimeout = (ms, promise, defaultObj) => {
 };
 
 export const balanceObjOnTimeout = addresses => addresses.map(address => ({ address, balance: '0', status: SUCCESS }));
+
+export const getDummyBalanceObject = ({ accounts, account }) => {
+  const balances = accounts.map(account => ({
+    address: account.address,
+    balance: '0',
+    balanceFormatted: '0',
+  }));
+  const balance = {
+    address: account.address,
+    balance: '0',
+    balanceFormatted: '0',
+  };
+  return { balances, balance };
+};

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import appState from './appState';
+import appState from './app-state';
 import accountState from './accounts';
 import networkState from './networks';
 import balanceState from './balances';

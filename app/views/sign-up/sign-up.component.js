@@ -52,7 +52,7 @@ export default class SignUp extends Component {
 
   handleClick = () => {
     const { signUp } = this.props;
-    const { password } = this.state;
+    const { password, type } = this.state;
     let { errorText } = this.state;
     let isError = false;
     if (password.length === 0) {
@@ -62,7 +62,7 @@ export default class SignUp extends Component {
       isError = true;
       errorText = errorMessage;
     } else {
-      signUp(password);
+      signUp(password, type);
     }
     this.setState({ isError, errorText });
   };

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Identicon from '@polkadot/ui-identicon';
+import Identicon from '@polkadot/ui-identicon/Identicon';
 
 export default class Avatar extends Component {
   render() {
     const {
-      size, style, value, theme, ...otherProps
+      size, style, value, theme, onCopyAddress, ...otherProps
     } = this.props;
     return (
-      <div style={{ style }} {...otherProps}>
+      <div style={{ style }} {...otherProps} onClick={onCopyAddress}>
         <Identicon value={value} size={size} theme={theme} />
       </div>
     );

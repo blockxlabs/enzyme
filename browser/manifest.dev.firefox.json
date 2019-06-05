@@ -1,9 +1,9 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.4",
   "applications": {
     "gecko": {
-      "id": "",
-      "strict_min_version": "42.0"
+      "id": "info@blockxlabs.com",
+      "strict_min_version": "48.0"
     }
   },
   "background": {
@@ -18,22 +18,11 @@
     "default_popup": "popup.html"
   },
   "icons": {
-    "16": "img/icon-16.png",
-    "32": "img/icon-32.png",
-    "48": "img/icon-48.png",
-    "96": "img/icon-96.png",
-    "128": "img/icon-128.png"
+    "16": "img/icon-16-dev.png",
+    "32": "img/icon-32-dev.png",
+    "128": "img/icon-128-dev.png"
   },
-  "web_accessible_resources": ["inject.html", "contentScript.js"],
-  "permissions": [
-    "webNavigation",
-    "notifications",
-    "contextMenus",
-    "management",
-    "tabs",
-    "storage",
-    "activeTab",
-    "https://*/*"
-  ],
-  "content_security_policy": "script-src 'self' https://localhost:3000 https://api.coingecko.com/ 'unsafe-eval'; img-src * data:; object-src 'self';"
+  "web_accessible_resources": ["inject.html", "content-script.js"],
+  "permissions": ["notifications", "storage", "https://*/*", "wss://*/*"],
+  "content_security_policy": "script-src 'self' https://localhost:3000 'unsafe-eval'; img-src * data:; object-src 'self';"
 }

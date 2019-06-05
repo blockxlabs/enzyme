@@ -17,7 +17,6 @@ export default class TransferFromTo extends Component {
       to,
       toErrorText,
       handleToChange,
-      onBlur,
       page,
       ...otherProps
     } = this.props;
@@ -35,7 +34,6 @@ export default class TransferFromTo extends Component {
           toValue={to}
           errorMessage={toErrorText}
           onChange={handleToChange}
-          onBlur={onBlur}
           inputRef={toRef}
         />
       </div>

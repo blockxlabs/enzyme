@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { shortenAddress } from '../../../services/walletService';
+import { shortenAddress } from '../../../services/wallet-service';
 
 export default class Address extends Component {
   render() {
     const {
-      style, hash, text, ...otherProps
+      style, hash, text, isCopy, ...otherProps
     } = this.props;
     return (
       <div

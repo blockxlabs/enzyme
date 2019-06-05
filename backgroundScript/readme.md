@@ -4,7 +4,7 @@
 import { getLocalStorage } from '../../lib/services/extension/storageService';
 import sendMessage from '../../lib/services/extension/messageService';
 
-import * as MessageTypes from '../../lib/constants/messageTypes';
+import * as MessageTypes from '../../lib/constants/message-types';
 
 const CryptoJS = require('crypto-js');
 

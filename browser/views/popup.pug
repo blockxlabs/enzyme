@@ -9,6 +9,5 @@ html
 
   body
     #root
-    if env !== 'prod'
-      script(src='chrome-extension://lmhkpmbekcpmknklioeibfkpmmfibljd/js/redux-devtools-extension.js')
+      script(src=env != 'prod' ? 'https://localhost:3000/js/reduxDevToolsExtension.bundle.js' : null)
     script(src=env == 'prod' ? '/js/mainapp.bundle.js' : 'https://localhost:3000/js/mainapp.bundle.js')

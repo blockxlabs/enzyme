@@ -1,8 +1,8 @@
 import { UPDATE_CURRENT_NETWORK } from '../actions/networks';
-import { DOT_NETWORK_LIST } from '../../lib/constants/networks';
+import { ALEXANDER_NETWORK } from '../../lib/constants/networks';
 
 const initialState = {
-  currentNetwork: DOT_NETWORK_LIST[0],
+  currentNetwork: ALEXANDER_NETWORK,
 };
 
 const networkState = (state = initialState, action) => {

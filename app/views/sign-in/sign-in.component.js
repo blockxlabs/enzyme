@@ -16,6 +16,19 @@ export default class SignIn extends Component {
     };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.error) {
+      return { isError: true, errorText: props.error.message };
+    }
+    return state;
+  }
+
+  componentDidUpdate() {
+    if (this.props.success) {
+      this.props.onBoard();
+    }
+  }
+
   handleOnChange = prop => e => {
     const { value } = e.target;
     this.setState({
@@ -61,13 +74,4 @@ SignIn.defaultProps = {
 
 SignIn.propTypes = {
   unlockEnzyme: PropTypes.func,
-};
-
-SignIn.getDerivedStateFromProps = (props, state) => {
-  let { isError, errorText } = state;
-  if (props.error) {
-    isError = true;
-    errorText = props.error.message;
-  }
-  return { isError, errorText };
 };

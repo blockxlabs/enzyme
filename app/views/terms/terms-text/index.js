@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css';
+import Link from '../../../components/common/link';
 
 export default class TermsText extends Component {
   render() {
@@ -16,18 +17,15 @@ export default class TermsText extends Component {
           <li className="c1 c3">
             <span>API Consulting dba BlockX Labs </span>
             <span>
-              provides Enzyme as a platform for managing PolkaDot Network accounts, and allowing
-              ordinary websites to interact with the PolkaDot Network, while keeping the user in
+              provides Enzyme as a platform for managing Polkadot Network accounts, and allowing
+              ordinary websites to interact with the Polkadot Network, while keeping the user in
               control over what transactions they approve, through our website located at
             </span>
             <span>&nbsp;</span>
             <span className="c13">
-              <a
-                className="c12"
-                href="https://www.google.com/url?q=http://www.blockxlabs.com&amp;sa=D&amp;ust=1539808497098000"
-              >
+              <Link className="c12" href="http://www.blockxlabs.com">
                 www.blockxlabs.com
-              </a>
+              </Link>
             </span>
             <span>&nbsp; </span>
             <span>and browser plugin (the &ldquo;Site&rdquo;) </span>
@@ -55,9 +53,9 @@ export default class TermsText extends Component {
               consent to the collection, use, disclosure and other handling of information as
               described in our Privacy Policy&nbsp;
               <span>
-                <a className="c13" href="https://getenzyme.com/legal/privacy/">
-                  (https://getenzyme.com/legal/privacy/)
-                </a>
+                <Link className="c13" href="https://getenzyme.dev/legal/privacy/">
+                  (https://getenzyme.dev/legal/privacy/)
+                </Link>
               </span>
               &nbsp;and (3) any additional terms, rules and conditions of participation issued by
               BlockX Labs &nbsp;from time to time. If you do not agree to the Terms, then you may
@@ -120,7 +118,7 @@ export default class TermsText extends Component {
               legally permitted to use the service in your jurisdiction including owning
               cryptographic tokens of value, and interacting with the Services or Content in any
               way. You further represent you are responsible for ensuring compliance with the laws
-              of your jurisdiction and acknowledge that BlockX Labs and the PolkaDot Network are not
+              of your jurisdiction and acknowledge that BlockX Labs and the Polkadot Network are not
               liable for your compliance with such laws.
             </span>
           </li>
@@ -239,10 +237,10 @@ export default class TermsText extends Component {
         </p>
         <p className="c1">
           <span className="c0">
-            Enzyme &nbsp;and the PolkaDot Network could be impacted by one or more regulatory
+            Enzyme &nbsp;and the Polkadot Network could be impacted by one or more regulatory
             inquiries or regulatory action, which could impede or limit the ability of BlockX Labs
             to continue to develop, or which could impede or limit your ability to access or use the
-            Service or the PolkaDot Network blockchain.
+            Service or the Polkadot Network blockchain.
           </span>
         </p>
         <p className="c1 c4">
@@ -277,16 +275,16 @@ export default class TermsText extends Component {
         </p>
         <p className="c1">
           <span>
-            You understand that the PolkaDot Network and other blockchain technologies and
+            You understand that the Polkadot Network and other blockchain technologies and
             associated currencies or tokens are highly volatile due to many factors including but
             not limited to adoption, speculation, technology and security risks. You also
             acknowledge that the cost of transacting on such technologies is variable and may
             increase at any time causing impact to any activities taking place on the
             {' '}
           </span>
-          <span>PolkaDot Network</span>
+          <span>Polkadot Network</span>
           <span className="c0">
-            . You acknowledge these risks and represent that BlockX Labs nor the PolkaDot Network
+            . You acknowledge these risks and represent that BlockX Labs nor the Polkadot Network
             cannot be held liable for such fluctuations or increased costs.
           </span>
         </p>
@@ -301,15 +299,15 @@ export default class TermsText extends Component {
         </p>
         <p className="c1">
           <span className="c0">
-            You acknowledge that PolkaDot Network applications are code subject to flaws and
+            You acknowledge that Polkadot Network applications are code subject to flaws and
             acknowledge that you are solely responsible for evaluating any code provided by the
             Services or Content and the trustworthiness of any third-party websites, products,
             smart-contracts, or Content you access or use through the Service. You further expressly
-            acknowledge and represent that PolkaDot Network applications can be written maliciously
-            or negligently, that BlockX Labs and PolkaDot Network cannot be held liable for your
+            acknowledge and represent that Polkadot Network applications can be written maliciously
+            or negligently, that BlockX Labs and Polkadot Network cannot be held liable for your
             interaction with such applications and that such applications may cause the loss of
             property or even identity. This warning and others later provided by Enzyme, BlockX
-            Labs, and the PolkaDot Network &nbsp;in no way evidence or represent an on-going duty to
+            Labs, and the Polkadot Network &nbsp;in no way evidence or represent an on-going duty to
             alert you to all of the potential risks of utilizing the Service or Content.
           </span>
         </p>
@@ -325,7 +323,7 @@ export default class TermsText extends Component {
         <p className="c1">
           <span className="c0">
             You agree to release and to indemnify, defend and hold harmless BlockX Labs, the
-            PolkaDot Network &nbsp;and its parents, subsidiaries, affiliates and agencies, as well
+            Polkadot Network &nbsp;and its parents, subsidiaries, affiliates and agencies, as well
             as the officers, directors, employees, shareholders and representatives of any of the
             foregoing entities, from and against any and all losses, liabilities, expenses, damages,
             costs (including attorneys&rsquo; fees and court costs) claims or actions of any kind
@@ -417,7 +415,7 @@ export default class TermsText extends Component {
         <p className="c1 c5">
           <span className="c0">
             All content included on the Site such as text, graphics, logos, buttons, images, and
-            software is the property of BlockX Labs and PolkaDot Network (where applicable).
+            software is the property of BlockX Labs and Polkadot Network (where applicable).
             {' '}
           </span>
         </p>

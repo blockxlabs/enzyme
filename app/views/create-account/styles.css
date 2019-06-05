@@ -1,0 +1,15 @@
+.create-account-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-top: 17px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.create-account-settings {
+  position: absolute;
+  top: 337px;
+  left: 18px;
+  width: 321px;
+}

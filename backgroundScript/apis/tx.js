@@ -1,28 +1,25 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 
-import { ApiPromise } from '@polkadot/api';
-import { WsProvider } from '@polkadot/rpc-provider';
 import { Keyring } from '@polkadot/keyring';
-import { updateTransactionState } from '../services/transactionService';
+import { BN } from 'bn.js';
+import { getApi, isConnected } from './api';
+import { updateTransactionState } from '../services/transaction-service';
 import * as TransactionStatus from '../../lib/constants/transaction';
-import { convertUnit } from '../../lib/services/unitConverter';
-import { baseUnit } from '../../lib/constants/units';
 
-export const transferAndWatch = async (networkFullUrl, seedWords, transaction) => {
-  const provider = new WsProvider(networkFullUrl);
-
+export const transferAndWatch = async (seedWords, keypairType, transaction) => {
   const {
-    to, value, from, unit
+    to,
+    fAmount,
+    account: { address },
   } = transaction.metadata;
-  const fDOT = convertUnit(value, unit.text, baseUnit.text);
-  const api = await ApiPromise.create(provider);
-  const nonce = await api.query.system.accountNonce(from);
-
-  const keyring = new Keyring();
+  if (!isConnected()) throw new Error('not connected, transferAndWatch ');
+  const api = getApi();
+  const nonce = await api.query.system.accountNonce(address);
+  const keyring = new Keyring({ type: keypairType });
   const accountPair = keyring.addFromUri(seedWords);
   const signTransaction = await api.tx.balances
-    .transfer(to, Number(fDOT))
+    .transfer(to, new BN(fAmount))
     .sign(accountPair, { nonce });
 
   // Fetch Transaction State
@@ -33,11 +30,9 @@ export const transferAndWatch = async (networkFullUrl, seedWords, transaction) =
   signTransaction.send(async ({ events = [], status }) => {
     if (status.isFinalized) {
       await updateTransactionState(transaction, txnHash, TransactionStatus.SUCCESS);
-      if (provider.isConnected()) provider.disconnect();
     }
     if (status.isDropped || status.isInvalid || status.isUsurped) {
       await updateTransactionState(transaction, txnHash, TransactionStatus.FAIL);
-      if (provider.isConnected()) provider.disconnect();
     }
   });
 };

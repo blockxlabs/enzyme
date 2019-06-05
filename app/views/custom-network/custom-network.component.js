@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import Clear from '@material-ui/icons/Clear';
 import SubHeader from '../../components/common/sub-header';
-import { DASHBOARD_PAGE } from '../../constants/navigation';
 import CustomNetworkForm from '../../components/network/custom-network-form';
-import EnzymeValidator from '../../utils/enzyme-validator';
-import validator from '../../utils/enzyme-validator/validator';
 import './styles.css';
 
 export default class CustomNetwork extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: props.customNetwork ? props.customNetwork.url : '',
-      isURLValid: true,
-      urlInvalidMessage: '',
+      url: props.customNetwork.url ? props.customNetwork.url : '',
     };
-    this.validator = new EnzymeValidator(validator.customNetworkValidation);
     this.urlField = React.createRef();
+  }
+
+  componentDidUpdate(props) {
+    if (!props.customNetworkError.customNetworkIsValid) {
+      this.urlField.focus();
+    }
+    if (props.customNetworkSuccess) {
+      this.props.changePage(this.props.backupPage);
+      this.props.customNetworkValidationSuccess(false);
+      this.props.customNetworkValidationError(null);
+    }
   }
 
   onChange = e => {
@@ -25,28 +30,21 @@ export default class CustomNetwork extends Component {
   };
 
   handleSubheaderBackBtn = () => {
-    this.props.changePage(DASHBOARD_PAGE);
+    this.props.changePage(this.props.backupPage);
+    this.props.customNetworkValidationSuccess(false);
+    this.props.customNetworkValidationError(null);
   };
 
   handleSave = () => {
     const { url } = this.state;
-    let { isURLValid, urlInvalidMessage } = this.state;
-    const validation = this.validator.validate({ url });
-    if (!validation.isValid) {
-      this.urlField.focus();
-      isURLValid = false;
-      urlInvalidMessage = 'Invalid URL';
-    } else {
-      isURLValid = true;
-      urlInvalidMessage = '';
-      this.props.setCustomNetwork(url);
-      this.props.changePage(DASHBOARD_PAGE);
-    }
-    this.setState({ isURLValid, urlInvalidMessage });
+    this.props.validateAndSaveURL(url);
   };
 
   render() {
-    const { url, isURLValid, urlInvalidMessage } = this.state;
+    const {
+      customNetworkError: { customNetworkIsValid, customNetworkErrorMessage },
+    } = this.props;
+    const { url } = this.state;
     return (
       <div>
         <SubHeader
@@ -60,8 +58,8 @@ export default class CustomNetwork extends Component {
           url={url}
           name="url"
           onChange={this.onChange}
-          isURLValid={isURLValid}
-          urlInvalidMessage={urlInvalidMessage}
+          isURLValid={customNetworkIsValid}
+          urlInvalidMessage={customNetworkErrorMessage}
           urlRef={input => {
             this.urlField = input;
           }}

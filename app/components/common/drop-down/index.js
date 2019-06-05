@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from './styles';
 
 class DropDown extends Component {

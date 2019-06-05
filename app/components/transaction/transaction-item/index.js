@@ -7,16 +7,23 @@ export default class TransactionItem extends Component {
   render() {
     const { transaction, ...otherProps } = this.props;
     return (
-      <div {...otherProps}>
-        <IconTransfer className="transfer-item-icon" />
-        <TransactionItemDetails
-          amount={transaction.amount}
-          address={transaction.metadata.to}
-          moment={transaction.modifiedDate}
-          status={transaction.status}
-          color={transaction.color}
-        />
-      </div>
+      <a
+        href={`${transaction.internal.network.transactionUrl}/${transaction.txnHash}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none' }}
+      >
+        <div {...otherProps}>
+          <IconTransfer className="transfer-item-icon" />
+          <TransactionItemDetails
+            amount={transaction.transferAmount}
+            address={transaction.metadata.to}
+            moment={transaction.modifiedDate}
+            status={transaction.status}
+            color={transaction.color}
+          />
+        </div>
+      </a>
     );
   }
 }

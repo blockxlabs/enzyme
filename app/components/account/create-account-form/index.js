@@ -1,43 +1,35 @@
 import React, { Component } from 'react';
-import GenerateSeedWordForm from '../generate-seed-word-form';
-import ImportSeedPhraseForm from '../import-seed-phrase-form';
+import GenerateSeedPhrase from '../generate-seed-phrase';
+import ImportSeedPhrase from '../import-seed-phrase';
 
 export default class CreateAccountForm extends Component {
   render() {
     const {
       value,
       generatedSeedWords,
-      generateButtonName,
-      importButtonName,
-      onGenerateClick,
-      onImportClick,
       onChange,
       importedSeedWords,
       isError,
       errorMessage,
       handleSeedWordImportOnMount,
-      onBlur,
+      importSeedPhraseInputName,
+      seedRef,
+      handleSeedWordsOnBlur,
       ...otherProps
     } = this.props;
     return (
       <div {...otherProps}>
-        {value === 0 && (
-          <GenerateSeedWordForm
-            seedWords={generatedSeedWords}
-            onClick={onGenerateClick}
-            buttonName={generateButtonName}
-          />
-        )}
+        {value === 0 && <GenerateSeedPhrase seedWords={generatedSeedWords} />}
         {value === 1 && (
-          <ImportSeedPhraseForm
+          <ImportSeedPhrase
             onChange={onChange}
-            onClick={onImportClick}
-            buttonName={importButtonName}
             seedWords={importedSeedWords}
             isError={isError}
             errorMessage={errorMessage}
             handleSeedWordImportOnMount={handleSeedWordImportOnMount}
-            onBlur={onBlur}
+            importSeedPhraseInputName={importSeedPhraseInputName}
+            seedRef={seedRef}
+            handleSeedWordsOnBlur={handleSeedWordsOnBlur}
           />
         )}
       </div>

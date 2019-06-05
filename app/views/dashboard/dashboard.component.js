@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import TokenDetails from '../../components/token/token-details';
 import Wallet from '../../components/wallet';
-import { TRANSFER_PAGE } from '../../constants/navigation';
+import { TRANSFER_PAGE, QR_CODE_PAGE } from '../../constants/navigation';
 import Transaction from '../../components/transaction/transaction';
-import { copyAccountMessage } from '../../services/static-message-factory-service';
+import { copyAccountMessage } from '../../../lib/services/static-message-factory-service';
 import './styles.css';
 
 export default class Dashboard extends Component {
@@ -12,7 +12,7 @@ export default class Dashboard extends Component {
   };
 
   handleDeposit = () => {
-    // TODO: DP: Code for receive navigate page
+    this.props.changePage(QR_CODE_PAGE);
   };
 
   onCopyAddress = () => {
@@ -24,26 +24,38 @@ export default class Dashboard extends Component {
 
   render() {
     const {
-      accounts, account, balances, balance, transactions
+      accounts,
+      account,
+      balances,
+      transactions,
+      balance: { balanceFormatted },
+      isLinkToFaucet,
+      network,
     } = this.props;
+
     return (
       <div>
         <Wallet
           className="wallet-container"
           accounts={accounts}
           balances={balances}
-          balance={balance}
+          balance={balanceFormatted}
           selectedAccount={account}
           theme="polkadot"
           onCopyAddress={this.onCopyAddress}
         />
         <TokenDetails
           className="token-container"
-          balance={balance}
+          balance={balanceFormatted}
           handleSend={this.handleSend}
           handleDeposit={this.handleDeposit}
         />
-        <Transaction className="transaction-container" transactions={transactions} />
+        <Transaction
+          className="transaction-container"
+          network={network}
+          isLinkToFaucet={isLinkToFaucet}
+          transactions={transactions}
+        />
       </div>
     );
   }
