@@ -35,7 +35,7 @@ The Enzyme icon should show up in your Chrome toolbar.
 
 ### Initial Setup
 
-Choose a strong password. This is used to encrypt your data so that other Chrome extensions can't read it.
+After agreeing to the Terms of Use, create a strong password. This is used to encrypt your data so that other Chrome extensions can't read it.
 ![password screenshot](./docs/images/password.png)
 
 If you want to start fresh, use the newly-generated account. Copy the seed phrase and save it somewhere safe (as it is required to send DOTs and sign transactions).
@@ -44,14 +44,32 @@ If you want to start fresh, use the newly-generated account. Copy the seed phras
 If you have an existing account you want to use, click the Import tab and paste your existing seed phrase in.
 ![import account screenshot](./docs/images/import.png)
 
+## Usage
 
-### Send DOTs
+### Dashboard
+See labels on screenshot.
+![dashboard](./docs/images/1-fresh-annotated.png)
 
-Coming soon.
+### Receive
+Just click Receive from the main screen to get here.
 
-### Receive DOTs
+Either scan the QR code, or copy and paste the account address by clicking it.
 
-Coming soon.
+![receive](./docs/images/2-receive.png)
+
+### Send
+
+Input the details
+![1](./docs/images/4-send-1-annotated.png)
+
+Verify the details
+![1](./docs/images/5-send-2-annotated.png)
+
+Once sent, wait for it to confirm.
+![1](./docs/images/6-pending-annotated.png)
+
+It has confirmed.
+![1](./docs/images/7-success.png)
 
 ## Links
 
