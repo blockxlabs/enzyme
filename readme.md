@@ -36,40 +36,51 @@ The Enzyme icon should show up in your Chrome toolbar.
 ### Initial Setup
 
 After agreeing to the Terms of Use, create a strong password. This is used to encrypt your data so that other Chrome extensions can't read it.
-![password screenshot](./docs/images/password.png)
+
+<img src="./docs/images/password.png" width="300">
 
 If you want to start fresh, use the newly-generated account. Copy the seed phrase and save it somewhere safe (as it is required to send DOTs and sign transactions).
-![generate account screenshot](./docs/images/generate.png)
+
+<img src="./docs/images/generate.png" width="300">
 
 If you have an existing account you want to use, click the Import tab and paste your existing seed phrase in.
-![import account screenshot](./docs/images/import.png)
+
+<img src="./docs/images/import.png" width="300">
 
 ## Usage
 
 ### Dashboard
 See labels on screenshot.
-![dashboard](./docs/images/1-fresh-annotated.png)
+
+<img src="./docs/images/1-fresh-annotated.png" width="300">
+
 
 ### Receive
 Just click Receive from the main screen to get here.
 
 Either scan the QR code, or copy and paste the account address by clicking it.
 
-![receive](./docs/images/2-receive.png)
+<img src="./docs/images/2-receive.png" width="300">
+
 
 ### Send
 
 Input the details
-![1](./docs/images/4-send-1-annotated.png)
+
+<img src="./docs/images/4-send-1-annotated.png" width="300">
 
 Verify the details
-![1](./docs/images/5-send-2-annotated.png)
+
+<img src="./docs/images/5-send-2-annotated.png" width="300">
 
 Once sent, wait for it to confirm.
-![1](./docs/images/6-pending-annotated.png)
+
+<img src="./docs/images/6-pending-annotated.png" width="300">
 
 It has confirmed.
-![1](./docs/images/7-success.png)
+
+<img src="./docs/images/7-success.png" width="300">
+
 
 ## Links
 
