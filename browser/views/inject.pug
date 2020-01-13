@@ -3,13 +3,11 @@ doctype html
 html
   head
     meta(charset='UTF-8')
-    title Enzyme
+    title Enzyme Wallet
     style.
       html, body {
         background-color: rgba(0,0,0,0)
       }
   body
     #root
-    if env !== 'prod'
-      script(src='https://localhost:3000/js/reduxDevToolsExtension.bundle.js')
     script(src=env == 'prod' ? '/js/mainapp.bundle.js' : 'https://localhost:3000/js/mainapp.bundle.js')

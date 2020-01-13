@@ -6,15 +6,22 @@ import './styles.css';
 export default class TokenDetails extends Component {
   render() {
     const {
-      balance, handleDeposit, handleSend, ...otherProps
+      balance,
+      unit,
+      handleDeposit,
+      handleSend,
+      marketData,
+      amount,
+      ...otherProps
     } = this.props;
     return (
       <div {...otherProps}>
         <TokenBalance
           className="token-balance"
-          unit="dot"
+          unit={unit}
           balance={`${balance}`}
-          balanceUSD="$0 USD"
+          amount={amount}
+          marketData={marketData}
         />
         <TokenDetailFooter
           className="token-detail-footer"

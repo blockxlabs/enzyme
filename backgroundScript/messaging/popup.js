@@ -35,6 +35,14 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.updateAccountAlias(request, sendResponse);
             break;
           }
+          case MessageTypes.BG_CURRENT_ACCOUNTS_UPDATE: {
+            ResponseService.updateCurrentAccount(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_ACCOUNTS_REMOVE_ACCOUNT: {
+            ResponseService.removeAccount(request, sendResponse);
+            break;
+          }
           case MessageTypes.BG_ACCOUNTS_CREATE_ACCOUNT: {
             ResponseService.createAccount(request, sendResponse);
             break;
@@ -69,8 +77,20 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.updateCurrentNetwork(request, sendResponse);
             break;
           }
-
+          case MessageTypes.BG_NETWORK_GET_DEVELOPERMODE: {
+            ResponseService.getDeveloperMode(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_NETWORK_UPDATE_DEVELOPERMODE: {
+            ResponseService.updateDeveloperMode(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_NETWORK_GET_UNITS: {
+            ResponseService.getUnits(request, sendResponse);
+            break;
+          }
           // Transactions
+
           case MessageTypes.BG_TXN_FEE: {
             ResponseService.getTransactionFees(request, sendResponse);
             break;
@@ -91,10 +111,49 @@ extension.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ResponseService.getTransaction(request, sendResponse);
             break;
           }
+          // address Book
+          case MessageTypes.BG_ADDRESS_BOOK_ADD: {
+            ResponseService.submitContact(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_ADDRESS_BOOK_LIST: {
+            ResponseService.getContacts(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_ADDRESS_BOOK_REMOVE: {
+            ResponseService.removeContact(request, sendResponse);
+            break;
+          }
 
+          case MessageTypes.BG_ADDRESS_BOOK_IS_NEW_ADDRESS: {
+            ResponseService.isNewAddress(request, sendResponse);
+            break;
+          }
           // validation
           case MessageTypes.BG_ACCOUNT_IS_VALID_ADDRESS: {
             ResponseService.isValidAddress(request, sendResponse);
+            break;
+          }
+
+          //dApp
+          case MessageTypes.BG_GET_DAPP_REQUESTS: {
+            ResponseService.getDAppRequests(request, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_DAPP_CANCEL_REQUEST: {
+            ResponseService.cancelDAppRequest(request, sender, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_DAPP_UPDATE_WHITELIST: {
+            ResponseService.updateWhiteListedDApps(request, sender, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_DAPP_GET_SIGN_MESSAGE: {
+            ResponseService.getSignMessage(request, sender, sendResponse);
+            break;
+          }
+          case MessageTypes.BG_DAPP_TXN_SUBMIT: {
+            ResponseService.submitDappTransaction(request, sender, sendResponse);
             break;
           }
 

@@ -5,7 +5,17 @@ import './styles.css';
 
 export default class Wallet extends Component {
   render() {
-    const { selectedAccount, onCopyAddress, ...otherProps } = this.props;
+    const {
+      selectedAccount,
+      onCopyAddress,
+      accountMenu,
+      onAccountMenuOptionsChange,
+      onAliasChange,
+      onAliasInputBlur,
+      onAliasInputKeyPress,
+      inputRef,
+      ...otherProps
+    } = this.props;
 
     return (
       <div {...otherProps}>
@@ -15,9 +25,15 @@ export default class Wallet extends Component {
           value={selectedAccount.address}
         />
         <AccountPanel
+          inputRef={inputRef}
+          onAliasChange={onAliasChange}
+          onAliasInputKeyPress={onAliasInputKeyPress}
+          onAliasInputBlur={onAliasInputBlur}
           selectedAccount={selectedAccount}
           onCopyAddress={onCopyAddress}
           className="account-detail-container"
+          accountMenu={accountMenu}
+          onAccountMenuOptionsChange={onAccountMenuOptionsChange}
         />
       </div>
     );

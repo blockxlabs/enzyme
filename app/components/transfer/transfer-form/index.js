@@ -28,6 +28,7 @@ export default class TransferForm extends Component {
       handleToChange,
       handleSendButton,
       handleUnitOnChange,
+      onAddressBookClick,
     } = this.props;
     return (
       <div className="transfer-form-container">
@@ -41,6 +42,7 @@ export default class TransferForm extends Component {
           toRef={toRef}
           toErrorText={toErrorText}
           handleToChange={handleToChange}
+          onAddressBookClick={onAddressBookClick}
         />
         <DarkDivider className="transfer-form-divider" />
         <TransferFormAmount

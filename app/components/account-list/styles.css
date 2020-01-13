@@ -1,0 +1,12 @@
+.account-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 65px;
+  cursor: pointer;
+}
+
+.account-card-container-bg {
+  background-color: rgba(215, 95, 160, 1);
+}

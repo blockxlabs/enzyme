@@ -5,7 +5,12 @@ import * as BalanceService from './balance-service';
 import * as TransactionService from './transaction-service';
 import * as TransactionWatcherService from './transaction-watcher-service';
 import * as NetworkService from './network-service';
+import * as DAppService from './dapp-service';
+import * as DAppTransactionService from './dapp-transaction-service';
 import * as AppService from './app-service';
+import * as AddressBookService from './address-book-service';
+import * as ResponseType from '../../lib/constants/response-types';
+import { sendErrorMessage } from '../../lib/services/static-message-factory-service';
 // use below messages if no return message is needed
 export const success = {
   status: status.SUCCESS,
@@ -25,7 +30,6 @@ export const handleDefault = async (request, sendResponse) => {
   sendResponse(response);
 };
 
-//TODO: KP: Take this fn out. Just in case something is really wrong. Otherwise
 export const handleProcessingError = async (request, sendResponse) => {
   const response = {
     ...failure,
@@ -73,10 +77,13 @@ export const createAccount = async (request, sendResponse) => {
     const {
       seedWords, keypairType, isOnBoarding, alias
     } = request;
-    const address = await AccountService.createAccount(seedWords, keypairType, isOnBoarding, alias);
-    await sendResponse({ ...success, result: address });
+    const account = await AccountService.createAccount(seedWords, keypairType, isOnBoarding, alias);
+    await sendResponse({ ...success, result: account });
   } catch (err) {
-    sendResponse({ ...failure, message: 'Error while creating new account.' });
+    sendResponse({
+      ...failure,
+      message: err.message === undefined ? 'Error while creating new account.' : err.message,
+    });
   }
 };
 
@@ -119,9 +126,27 @@ export const updateCurrentNetwork = async (request, sendResponse) => {
   }
 };
 
+export const updateDeveloperMode = async (request, sendResponse) => {
+  try {
+    await NetworkService.updateDeveloperMode(request.isDeveloperMode);
+    const { isDeveloperMode } = getStore().getState().networkState;
+    sendResponse({ ...success, result: isDeveloperMode });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error in update developermode' });
+  }
+};
+export const getDeveloperMode = async (request, sendResponse) => {
+  try {
+    const isDeveloperMode = await NetworkService.getDeveloperMode();
+    sendResponse({ ...success, result: isDeveloperMode });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error in getting DeveloperMode' });
+  }
+};
+
 export const getSeedWords = async (request, sendResponse) => {
   try {
-    const { seedWords } = getStore().getState().accountState;
+    const seedWords = await AccountService.createSeedWords();
     sendResponse({ ...success, result: seedWords });
   } catch (err) {
     sendResponse({ ...failure, message: 'Error in getting new seedWords' });
@@ -130,9 +155,7 @@ export const getSeedWords = async (request, sendResponse) => {
 
 export const getAccounts = async (request, sendResponse) => {
   try {
-    const { isAppOnBoarded } = await AppService.getAppIsOnBoarded();
     const { accounts } = await AccountService.getAccounts();
-
     if (accounts === undefined) {
       sendResponse({
         status: status.BAD_REQUEST,
@@ -149,11 +172,9 @@ export const getAccounts = async (request, sendResponse) => {
         message: 'The request requires user authentication.',
       });
     }
-    if (isAppOnBoarded) {
-      const result = AccountService.getAccountsWithoutSeedWords(accountState);
+    if (accountState) {
+      const result = AccountService.getAccountStateForUi(accountState);
       sendResponse({ ...success, result });
-    } else {
-      sendResponse({ ...success, result: accountState });
     }
   } catch (err) {
     sendResponse({ ...failure, message: 'Error in getting accounts' });
@@ -177,18 +198,21 @@ export const confirmTransaction = async (request, sendResponse) => {
     const { transaction } = request;
     const {
       accountState: {
-        currentAccount: { address },
+        currentAccount: { seedWords, keypairType },
       },
       networkState: { currentNetwork },
     } = getStore().getState();
+    const address = AccountService.getAddress(seedWords, keypairType);
     const result = await TransactionService.confirmTransaction(
       address,
       currentNetwork,
       transaction,
+      seedWords,
+      keypairType,
     );
     sendResponse({ ...success, result });
   } catch (err) {
-    sendResponse({ ...failure, message: 'Error in submitting  Transaction ' });
+    sendResponse({ ...failure, message: 'Error in confirm  Transaction ' });
   }
 };
 export const submitTransaction = async (request, sendResponse) => {
@@ -271,5 +295,249 @@ export const isValidAddress = async (request, sendResponse) => {
     sendResponse({ ...success, result });
   } catch (err) {
     sendResponse({ ...failure, message: 'Error in Validation Address.' });
+  }
+};
+
+export const handleAuthorizeDApp = async (request, sender, sendResponse) => {
+  try {
+    const result = await DAppService.authorizeDApp(request, sender);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({
+      ...failure,
+      message: e.message && e.message !== '' ? e.message : 'Unable to authorize DApp.',
+    });
+  }
+};
+
+//dApp
+export const getDAppRequests = async (request, sendResponse) => {
+  try {
+    const result = await DAppService.getDAppRequests();
+    sendResponse({ ...success, result });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Unable to get DApp data' });
+  }
+};
+
+export const updateWhiteListedDApps = async (request, sender, sendResponse) => {
+  try {
+    const { result, requestID, replyData } = await DAppService.whitelistDApp(request);
+    DAppService.sendPopupResponse({ ...success, result }, sender, sendResponse);
+    await DAppService.closeRequestAndReplyDApp(requestID, replyData);
+  } catch (err) {
+    DAppService.sendPopupResponse(
+      {
+        ...failure,
+        message: 'Error while whitelisting.',
+      },
+      sender,
+      sendResponse,
+    );
+    const pdata = {
+      id: request.request.sender.tab.id,
+      message: {
+        ...failure,
+        message: 'Error while whitelisting.',
+        origin: request.request.request.metadata.origin,
+        type: ResponseType.BG_DAPP_RESPONSE,
+      },
+    };
+    await DAppService.closeRequestAndReplyDApp(request.request.id, pdata);
+  }
+};
+
+export const cancelDAppRequest = async (request, sender, sendResponse) => {
+  try {
+    const { result, requestID, replyData } = await DAppService.cancelRequest(request);
+    DAppService.sendPopupResponse({ ...success, result }, sender, sendResponse);
+    await DAppService.closeRequestAndReplyDApp(requestID, replyData);
+  } catch (e) {
+    const {
+      sender: dAppSender,
+      request: { request: dAppRequest },
+    } = request;
+    DAppService.sendPopupResponse(
+      { ...failure, message: 'Error while cancelling request.' },
+      sender,
+      sendResponse,
+    );
+    const pdata = {
+      id: dAppSender.tab.id,
+      message: {
+        ...failure,
+        message: 'Error while cancelling request.',
+        origin: dAppRequest.metadata.origin,
+        type: ResponseType.BG_DAPP_RESPONSE,
+      },
+    };
+    await DAppService.closeRequestAndReplyDApp(request.request.id, pdata);
+  }
+};
+
+export const getDAppAccounts = async (request, sendResponse) => {
+  try {
+    const result = await DAppService.getAccountsForDapp(request);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({ ...failure, message: 'Unable to get accounts.' });
+  }
+};
+
+export const submitDappTransaction = async (request, sender, sendResponse) => {
+  try {
+    const { data, request: requestData } = request;
+    const result = await DAppTransactionService.signTransaction(data);
+    DAppService.sendPopupResponse({ ...success, result }, sender, sendResponse);
+    if (request.dApp) {
+      const { sender, request: dAppRequest } = requestData;
+      const { id } = sender.tab;
+      const { signature } = result;
+      const pdata = {
+        id,
+        message: {
+          ...success,
+          result: { id, signature },
+          origin: dAppRequest.metadata.origin,
+          type: ResponseType.BG_DAPP_RESPONSE,
+        },
+      };
+      await DAppService.closeRequestAndReplyDApp(request.request.id, pdata);
+    }
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error in submitting  Transaction ' });
+  }
+};
+export const handleDAppValidateTransaction = async (request, sender, sendResponse) => {
+  try {
+    const result = await DAppService.validateTransaction(request, sender);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    const message = sendErrorMessage(e);
+    sendResponse({ ...failure, message });
+  }
+};
+
+export const validateDappTransaction = async (request, sendResponse) => {
+  try {
+    const result = await DAppTransactionService.validateDappTransaction(request);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({ ...failure, message: 'Unable to sign Dapp Transaction.' });
+  }
+};
+
+export const signMessage = async (request, sender, sendResponse) => {
+  try {
+    const result = await DAppService.signMessage(request, sender);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({ ...failure, message: 'Error in signing message.' });
+  }
+};
+
+export const isNewAddress = async (request, sendResponse) => {
+  try {
+    const { address } = request;
+    const result = AddressBookService.isNewAddress(address);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({ ...failure, message: 'Error in isNewAddress.' });
+  }
+};
+
+export const submitContact = async (request, sendResponse) => {
+  try {
+    const { contact } = request;
+    const result = await AddressBookService.submitContact(contact);
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({
+      ...failure,
+      message: e.message,
+    });
+  }
+};
+
+export const getContacts = async (request, sendResponse) => {
+  try {
+    const result = await AddressBookService.getContacts();
+    sendResponse({ ...success, result });
+  } catch (e) {
+    sendResponse({ ...failure, message: 'Error in signing message.' });
+  }
+};
+
+export const getSignMessage = async (request, sender, sendResponse) => {
+  try {
+    const { result, requestID, replyData } = await DAppService.getSignMessage(request);
+    DAppService.sendPopupResponse({ ...success, result }, sender, sendResponse);
+
+    await DAppService.closeRequestAndReplyDApp(requestID, replyData);
+  } catch (err) {
+    const {
+      sender: dAppSender,
+      request: { request: dAppRequest },
+    } = request;
+    DAppService.sendPopupResponse(
+      {
+        ...failure,
+        message: 'Error while signing message.',
+      },
+      sender,
+      sendResponse,
+    );
+    const pdata = {
+      id: dAppSender.tab.id,
+      message: {
+        ...failure,
+        message: 'Error while signing message.',
+        origin: dAppRequest.metadata.origin,
+        type: ResponseType.BG_DAPP_RESPONSE,
+      },
+    };
+    await DAppService.closeRequestAndReplyDApp(dAppRequest.id, pdata);
+  }
+};
+
+export const updateCurrentAccount = async (request, sendResponse) => {
+  try {
+    // seedWords is not define its automatically create wallet using new seedwords
+    const { address } = request;
+    const account = await AccountService.updateCurrentAccount(address);
+    await sendResponse({ ...success, result: account });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error in new account name.' });
+  }
+};
+
+export const removeAccount = async (request, sendResponse) => {
+  try {
+    // seedWords is not define its automatically create wallet using new seedwords
+    const { address } = request;
+    const isAccountRemoved = await AccountService.removeAccount(address);
+    await sendResponse({ ...success, result: isAccountRemoved });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error while removing account.' });
+  }
+};
+
+export const removeContact = async (request, sendResponse) => {
+  try {
+    // seedWords is not define its automatically create wallet using new seedwords
+    const { contact } = request;
+    const isAccountRemoved = await AddressBookService.removeContact(contact);
+    await sendResponse({ ...success, result: isAccountRemoved });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error while removing account.' });
+  }
+};
+
+export const getUnits = async (request, sendResponse) => {
+  try {
+    const result = NetworkService.getUnits();
+    await sendResponse({ ...success, result });
+  } catch (err) {
+    sendResponse({ ...failure, message: 'Error while getting units.' });
   }
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Clear from '@material-ui/icons/Clear';
 import SubHeader from '../../components/common/sub-header';
 import TransferForm from '../../components/transfer/transfer-form';
-import { DASHBOARD_PAGE, CONFIRM_PAGE } from '../../constants/navigation';
+import * as NavConstants from '../../constants/navigation';
 import { INPUT_NUMBER_REGEX } from '../../../lib/constants/regex';
 
 export default class Transfer extends Component {
@@ -17,13 +17,20 @@ export default class Transfer extends Component {
     this.state = {
       to: metadata ? metadata.to : '',
       amount: metadata ? metadata.amount : '',
-      unit: metadata ? metadata.unit : props.units[5],
+      unit: metadata ? metadata.unit : '',
       alias: metadata ? metadata.account.alias : account.alias,
       from: metadata ? metadata.account.address : account.address,
       buttonText: 'next',
     };
     this.toInput = React.createRef();
     this.amountInput = React.createRef();
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.unit === '') {
+      return { unit: props.unit };
+    }
+    return state;
   }
 
   componentDidMount() {
@@ -37,9 +44,12 @@ export default class Transfer extends Component {
   }
 
   componentDidUpdate(props) {
+    if (props.units === null) {
+      this.props.updateAppLoading(true);
+    }
     if (props.success) {
       this.props.updateAppLoading(false);
-      this.props.changePage(CONFIRM_PAGE);
+      this.props.changePage(NavConstants.CONFIRM_PAGE);
     }
     if (props.error && props.error.isError) {
       if (props.isToAddressError) {
@@ -53,7 +63,7 @@ export default class Transfer extends Component {
   handleSubheaderBackBtn = () => {
     this.props.resetConfirmOnBoarding();
     this.props.clearTransferDetails();
-    this.props.changePage(DASHBOARD_PAGE);
+    this.props.changePage(NavConstants.DASHBOARD_PAGE);
   };
 
   handleToChange = prop => e => {
@@ -66,6 +76,7 @@ export default class Transfer extends Component {
     this.setState({
       [prop]: e.target.value,
     });
+    this.props.updateToAddress(e.target.value);
   };
 
   handleAmountChange = prop => e => {
@@ -78,6 +89,11 @@ export default class Transfer extends Component {
       });
       this.setState({ [prop]: e.target.value });
     }
+  };
+
+  onAddressBookClick = () => {
+    this.props.updateBackupPage(this.props.page);
+    this.props.changePage(NavConstants.ADDRESS_BOOK_PAGE);
   };
 
   handleSendButton = () => {
@@ -109,10 +125,12 @@ export default class Transfer extends Component {
       toAddressErrorMessage,
       isAmountError,
       toAmountErrorMessage,
+      toAddress,
     } = this.props;
     const {
       to, amount, unit, alias, from, buttonText
     } = this.state;
+
     return (
       <div>
         <SubHeader
@@ -127,7 +145,7 @@ export default class Transfer extends Component {
           amountPropName="amount"
           toPropName="to"
           units={units}
-          to={to}
+          to={toAddress || to}
           toRef={input => {
             this.toInput = input;
           }}
@@ -144,6 +162,7 @@ export default class Transfer extends Component {
           handleToChange={this.handleToChange}
           handleSendButton={this.handleSendButton}
           handleUnitOnChange={this.handleUnitChange}
+          onAddressBookClick={this.onAddressBookClick}
         />
       </div>
     );

@@ -11,6 +11,7 @@ const args = process.argv.slice(2);
 const browser = args.indexOf('--firefox') !== -1 ? 'firefox' : 'chrome';
 
 const baseDevConfig = () => ({
+  mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   entry: {
     reduxDevToolsExtension: [
@@ -20,6 +21,7 @@ const baseDevConfig = () => ({
     ],
     mainapp: [customPath, hotScript, path.join(__dirname, '../browser/extension/mainapp')],
     background: [customPath, hotScript, path.join(__dirname, '../backgroundScript/background')],
+    inPageScript: [customPath, path.join(__dirname, '../contentScript/in-page-script.js')],
   },
   devMiddleware: {
     publicPath: `http://${host}:${port}/js`,
@@ -62,9 +64,7 @@ const baseDevConfig = () => ({
         test: /\.js$/,
         loader: require.resolve('babel-loader'),
         exclude: /node_modules/,
-        options: {
-          presets: ['react-hmre'],
-        },
+        options: {},
       },
       {
         test: /\.css$/,
@@ -98,6 +98,17 @@ const baseDevConfig = () => ({
   },
 });
 
+const injectPageConfig = baseDevConfig();
+
+injectPageConfig.entry = [customPath, path.join(__dirname, '../contentScript/content-script')];
+delete injectPageConfig.hotMiddleware;
+delete injectPageConfig.module.rules[0].options;
+injectPageConfig.plugins.shift(); // remove HotModuleReplacementPlugin
+injectPageConfig.output = {
+  path: path.join(__dirname, '../dev/js'),
+  filename: 'contentScript.bundle.js',
+};
+
 const appConfig = baseDevConfig();
 
-module.exports = [appConfig];
+module.exports = [injectPageConfig, appConfig];

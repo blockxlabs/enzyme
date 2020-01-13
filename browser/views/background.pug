@@ -3,4 +3,8 @@ doctype html
 html
   head
     meta(charset='UTF-8')
-    script(src=env == 'prod' ? '/js/background.bundle.js' : 'https://localhost:3000/js/background.bundle.js')
+  body
+    #root
+      script(src=env == 'prod' ? '/js/0.chunk.js' : null)
+      script(src=env == 'prod' ? '/js/5.chunk.js' : null)
+      script(src=env == 'prod' ? '/js/background.bundle.js' : 'https://localhost:3000/js/background.bundle.js')

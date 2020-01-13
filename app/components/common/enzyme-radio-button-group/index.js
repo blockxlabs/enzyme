@@ -8,7 +8,7 @@ import { styles } from './styles';
 class EnzymeRadioButtonGroup extends Component {
   render() {
     const {
-      classes, options, value, onChange, ...otherProps
+      classes, options, value, onChange, disabled, ...otherProps
     } = this.props;
     return (
       <RadioGroup
@@ -29,12 +29,13 @@ class EnzymeRadioButtonGroup extends Component {
                   root: classes.radioRoot,
                 }}
               />
-)}
+            )}
             label={option.text}
             classes={{
               root: classes.root,
               label: classes.label,
             }}
+            disabled={disabled}
           />
         ))}
       </RadioGroup>

@@ -8,6 +8,6 @@ const EnzymeException = (message, status) => {
 
 export const throwIfNoSuccess = ({ message, status }) => {
   if (status !== Constants.SUCCESS) {
-    throw new EnzymeException(message, status);
+    throw EnzymeException(message, status);
   }
 };

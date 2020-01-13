@@ -1,0 +1,22 @@
+.account-item-container {
+  height: 72px;
+  padding: 14px 21.8px 14px 16px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.account-item-identity-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.account-item-balance-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  color: rgba(0, 0, 0, 0.87);
+}

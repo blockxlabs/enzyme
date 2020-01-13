@@ -1,0 +1,60 @@
+.txn-txnui {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.txn-txnui-label {
+  font-size: 11px;
+  color: rgba(77, 77, 77, 1);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 5.5px;
+  width: 20%;
+}
+
+.txn-txnui-value {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  margin-left: 5.5px;
+  width: 80%;
+}
+
+.txn-txnui-info-value {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  margin-left: 5.5px;
+  width: 77%;
+  cursor: pointer;
+}
+
+.txn-info-details-collapsed {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  margin-left: 5.5px;
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.txn-info-details-expanded {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  justify-self: flex-start;
+  margin-left: 5.5px;
+  width: 90%;
+  height: 140px;
+  overflow-y: scroll;
+}

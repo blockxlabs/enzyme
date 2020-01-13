@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "applications": {
     "gecko": {
       "id": "info@blockxlabs.com",
@@ -22,7 +22,22 @@
     "32": "img/icon-32.png",
     "128": "img/icon-128.png"
   },
-  "web_accessible_resources": ["inject.html", "content-script.js"],
-  "permissions": ["notifications", "storage", "https://*/*", "wss://*/*"],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; img-src * data:; object-src 'self';"
+  "web_accessible_resources": [
+    "inject.html",
+    "content-script.js",
+    "/js/inPageScript.bundle.js",
+    "js/inPageScript.bundle.js"
+  ],
+  "permissions": [
+    "notifications",
+    "storage",
+    "tabs",
+    "management",
+    "activeTab",
+    "https://*/*",
+    "http://*/*",
+    "wss://*/*",
+    "ws://*/*"
+  ],
+  "content_security_policy": "script-src 'self' blob: 'unsafe-eval' 'wasm-eval'; img-src * data:; object-src 'self';"
 }

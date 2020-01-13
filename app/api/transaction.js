@@ -55,3 +55,12 @@ export const confirmTransaction = async transaction => {
   throwIfNoSuccess({ message, status });
   return { result };
 };
+
+export const isNewAddress = async address => {
+  const { result, message, status } = await sendMessage({
+    type: MessageTypes.BG_ADDRESS_BOOK_IS_NEW_ADDRESS,
+    address,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
+};

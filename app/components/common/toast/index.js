@@ -6,6 +6,7 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExcla
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
 import FontRegular from '../fonts/font-regular';
 import './styles.css';
+import ButtonLG from '../buttons/button-lg';
 
 const success = msg => (
   <div className="toast-message-container">
@@ -71,6 +72,16 @@ const error = msg => (
   </div>
 );
 
+const addAddress = (msg, onClick) => (
+  <div>
+    <div>{info(msg)}</div>
+    <div className="toast-message-add-to-address-button">
+      <ButtonLG color="primary" onClick={() => onClick()}>
+        Add to Address Book
+      </ButtonLG>
+    </div>
+  </div>
+);
 export {
-  success, info, warning, error
+  success, info, warning, error, addAddress
 };

@@ -6,10 +6,15 @@ const initialState = {
   balances: [],
   balance: '0',
   isLinkToFaucet: false,
+  seedWords: undefined,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case Types.SET_SEED_WORDS:
+      return { ...state, seedWords: action.seedWords };
+    case Types.RESET_SEED_WORDS:
+      return { ...state, seedWords: undefined };
     case Types.ADD_ACCOUNT:
       return {
         ...state,

@@ -1,16 +1,31 @@
-import * as TransactionTypes from '../../lib/constants/transaction';
+/* eslint-disable import/no-extraneous-dependencies */
 import { getStore } from '../store/store-provider';
-import * as Tx from '../apis/tx';
+import { signTransaction } from '../apis/tx';
+import { updateTransactionState } from './transaction-service';
+import * as Transaction from '../../lib/constants/transaction';
+import { getCurrentAccount } from './store/account-store';
+
+export const transferAndWatch = async (seedWords, keypairType, transaction) => {
+  // Fetch Transaction State
+  const signedTransaction = await signTransaction(seedWords, keypairType, transaction);
+  const txnHash = signedTransaction.hash.toHex();
+  await updateTransactionState(transaction, txnHash, Transaction.PENDING);
+
+  // eslint-disable-next-line no-unused-vars
+  signedTransaction.send(async ({ events = [], status }) => {
+    if (status.isFinalized) {
+      await updateTransactionState(transaction, txnHash, Transaction.SUCCESS);
+    }
+    if (status.isDropped || status.isInvalid || status.isUsurped) {
+      await updateTransactionState(transaction, txnHash, Transaction.FAIL);
+    }
+  });
+};
 
 export const submitTransaction = async transactionObj => {
-  const {
-    accountState: {
-      currentAccount: { seedWords, keypairType },
-    },
-  } = getStore().getState();
-  if (TransactionTypes.TRANSFER_COINS === transactionObj.txnType) {
-    //TODO: KP TEST once polkadot transaction is up
-    await Tx.transferAndWatch(seedWords, keypairType, transactionObj);
+  const { seedWords, keypairType } = getCurrentAccount();
+  if (Transaction.TRANSFER_COINS === transactionObj.txnType) {
+    await transferAndWatch(seedWords, keypairType, transactionObj);
   } else {
     throw new Error('Check Transaction Type and try again');
   }

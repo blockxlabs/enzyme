@@ -4,59 +4,86 @@ import EnzymeValidator from '../../utils/enzyme-validator';
 import validator from '../../utils/enzyme-validator/validator';
 import CreateAccountForm from '../../components/account/create-account-form';
 import EnzymeTabs from '../../components/common/enzyme-tabs';
+import { MANAGE_ACCOUNT_PAGE } from '../../constants/navigation';
 import CreateAccountSettings from '../../components/account/create-account-settings';
 import FooterButton from '../../components/common/footer-button';
+import FooterWithTwoButton from '../../components/common/footer-with-two-button';
+import * as Account from '../../constants/account';
 import './styles.css';
-
-const TO_DASHBOARD_BUTTON_TEXT = 'dashboard';
-const IMPORT_BUTTON_TEXT = 'import';
 
 export default class CreateAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
-      buttonName: TO_DASHBOARD_BUTTON_TEXT,
-      onSubmit: this.handleClick,
+      value: Account.CREATE_ACCOUNT,
+      formValue: Account.CREATE_ACCOUNT,
+      buttonName: Account.TO_CONFIRM_BUTTON_TEXT,
+      backButtonName: Account.BACK_BUTTON_TEXT,
+      onSubmit: this.handleNext,
       importedSeedPhrase: '',
+      confirmSeedPhrase: '',
       isError: false,
       errorMessage: null,
       labels: ['generate', 'import'],
-      keypairType: props.keypairType,
       alias: '',
+      disableAccountSettings: false,
       isAliasError: false,
       aliasErrorMessage: null,
       importSeedPhraseInputName: 'importedSeedPhrase',
+      confirmSeedPhraseInputName: 'confirmSeedPhrase',
       aliasInputName: 'alias',
     };
     this.validator = new EnzymeValidator(validator.importSeedPhraseValidation);
     this.aliasValidator = new EnzymeValidator(validator.aliasValidation);
     this.aliasInput = React.createRef();
     this.seedInput = React.createRef();
+    this.confirmSeedInput = React.createRef();
+  }
+
+  componentDidMount() {
+    const { aliasError, resetImportAccountWithSeedPhraseError } = this.props;
+    if (aliasError) {
+      resetImportAccountWithSeedPhraseError();
+      this.setState({
+        isAliasError: false,
+        aliasErrorMessage: null,
+      });
+    }
   }
 
   static getDerivedStateFromProps(props, state) {
     if (props.error) {
       return { isError: true, errorMessage: props.error.message };
     }
-    if (props.success) {
-      props.updateAppLoading(true);
-      props.setAndStartOnBoarding();
+    if (props.aliasError) {
+      return { isAliasError: true, aliasErrorMessage: 'Duplicate alias.' };
     }
     return state;
   }
 
   handleChange = (e, value) => {
-    let { buttonName, onSubmit } = this.state;
-    if (value === 0) {
-      buttonName = TO_DASHBOARD_BUTTON_TEXT;
-      onSubmit = this.handleClick;
+    let {
+      buttonName, formValue, onSubmit, disableAccountSettings
+    } = this.state;
+    if (value === Account.CREATE_ACCOUNT) {
+      buttonName = Account.TO_CONFIRM_BUTTON_TEXT;
+      onSubmit = this.handleNext;
+      formValue = Account.CREATE_ACCOUNT;
+      disableAccountSettings = false;
     }
-    if (value === 1) {
-      buttonName = IMPORT_BUTTON_TEXT;
+    if (value === Account.IMPORT_ACCOUNT) {
+      buttonName = Account.IMPORT_BUTTON_TEXT;
       onSubmit = this.handleImportSeedWordClick;
+      formValue = Account.IMPORT_ACCOUNT;
+      disableAccountSettings = false;
     }
-    this.setState({ value, buttonName, onSubmit });
+    this.setState({
+      value,
+      buttonName,
+      formValue,
+      onSubmit,
+      disableAccountSettings,
+    });
   };
 
   handleImportSeedWordsChange = prop => e => {
@@ -91,15 +118,53 @@ export default class CreateAccount extends Component {
     });
   };
 
-  handleClick = () => {
-    const { keypairType, alias } = this.state;
+  handelBack = () => {
+    if (
+      this.state.formValue === Account.CREATE_ACCOUNT
+      || this.state.formValue === Account.IMPORT_ACCOUNT
+    ) {
+      this.props.changePage(MANAGE_ACCOUNT_PAGE);
+    } else if (this.state.formValue === Account.CONFIRM_ACCOUNT) {
+      this.setState({
+        buttonName: Account.TO_CONFIRM_BUTTON_TEXT,
+        onSubmit: this.handleNext,
+        formValue: Account.CREATE_ACCOUNT,
+        disableAccountSettings: false,
+      });
+    }
+  };
+
+  handelConfirm = () => {
+    const { confirmSeedPhrase, alias } = this.state;
+    const { seedWords } = this.props;
+    const trimedSeedWords = seedWords.replace(/\s/g, '');
+    const trimedConfirmSeedPhrase = confirmSeedPhrase.replace(/\s/g, '');
+    if (trimedSeedWords === trimedConfirmSeedPhrase) {
+      this.props.createFirstAccountWithSeedPhrase(this.props.seedWords, alias);
+    } else {
+      this.setState({
+        isError: true,
+        errorMessage: "Seed phrase doesn't match.",
+      });
+    }
+  };
+
+  toConfirm = () => {
+    this.setState({
+      formValue: Account.CONFIRM_ACCOUNT,
+      buttonName: Account.GENERATE_BUTTON_TEXT,
+      onSubmit: this.handelConfirm,
+      disableAccountSettings: true,
+    });
+  };
+
+  handleNext = () => {
+    const { alias } = this.state;
     const { isAliasError, aliasErrorMessage } = this.validateAlias(alias);
     if (isAliasError) {
       this.aliasInput.focus();
-    } else if ((keypairType !== this.props.keypairType || alias !== '') && !isAliasError) {
-      this.props.createFirstAccountWithSeedPhrase(this.props.account.seedWords, alias);
     } else {
-      this.props.createFirstAccountWithSeedPhraseSuccess();
+      this.toConfirm();
     }
     this.setState({ isAliasError, aliasErrorMessage, alias });
   };
@@ -140,6 +205,13 @@ export default class CreateAccount extends Component {
   handleSeedWordsOnBlur = () => {
     const { isError, errorMessage } = this.validateSeedPhrase(this.state.importedSeedPhrase);
     if (this.state.importedSeedPhrase === '' || !isError) {
+      this.setState({ isError, errorMessage });
+    }
+  };
+
+  handleConfirmSeedWordsOnBlur = () => {
+    const { isError, errorMessage } = this.validateSeedPhrase(this.state.confirmSeedPhrase);
+    if (this.state.confirmSeedPhrase === '' || !isError) {
       this.setState({ isError, errorMessage });
     }
   };
@@ -188,44 +260,55 @@ export default class CreateAccount extends Component {
 
   render() {
     const {
-      account: { seedWords },
-      keypairType,
-      keypairTypes,
+      seedWords, keypairType, keypairTypes, account
     } = this.props;
     const {
       value,
+      formValue,
       buttonName,
       onSubmit,
       importedSeedPhrase,
+      confirmSeedPhrase,
       isError,
       errorMessage,
       isAliasError,
       aliasErrorMessage,
       labels,
       alias,
+      disableAccountSettings,
       importSeedPhraseInputName,
+      confirmSeedPhraseInputName,
       aliasInputName,
+      backButtonName,
     } = this.state;
 
     return (
       <div>
         <EnzymeTabs value={value} onChange={this.handleChange} labels={labels} />
         <CreateAccountForm
-          value={value}
+          value={formValue}
           generatedSeedWords={seedWords}
           importedSeedWords={importedSeedPhrase}
+          confirmedSeedWords={confirmSeedPhrase}
           onChange={this.handleImportSeedWordsChange}
           isError={isError}
           errorMessage={errorMessage}
           handleSeedWordImportOnMount={this.handleSeedWordImportOnMount}
           importSeedPhraseInputName={importSeedPhraseInputName}
+          confirmSeedPhraseInputName={confirmSeedPhraseInputName}
+          alias={alias}
           seedRef={input => {
             this.seedInput = input;
           }}
+          confirmSeedRef={input => {
+            this.confirmSeedInput = input;
+          }}
           handleSeedWordsOnBlur={this.handleSeedWordsOnBlur}
+          handleConfirmSeedWordsOnBlur={this.handleConfirmSeedWordsOnBlur}
           className="create-account-form"
         />
         <CreateAccountSettings
+          disableAccountSettings={disableAccountSettings}
           alias={alias}
           handleAliasChange={this.handleAliasChange}
           aliasPropName="alias"
@@ -242,7 +325,16 @@ export default class CreateAccount extends Component {
           handleAliasOnBlur={this.handleAliasOnBlur}
           className="create-account-settings"
         />
-        <FooterButton onClick={onSubmit} name={buttonName} />
+        {formValue === Account.CONFIRM_ACCOUNT || account !== undefined ? (
+          <FooterWithTwoButton
+            onNextClick={onSubmit}
+            onBackClick={this.handelBack}
+            backButtonName={backButtonName}
+            nextButtonName={buttonName}
+          />
+        ) : (
+          <FooterButton onClick={onSubmit} name={buttonName} />
+        )}
       </div>
     );
   }
@@ -253,7 +345,6 @@ CreateAccount.defaultProps = {
   createFirstAccountWithSeedPhrase: undefined,
   error: null,
   resetImportAccountWithSeedPhraseError: undefined,
-  createFirstAccountWithSeedPhraseSuccess: undefined,
 };
 
 CreateAccount.propTypes = {
@@ -261,5 +352,4 @@ CreateAccount.propTypes = {
   error: PropTypes.string,
   resetImportAccountWithSeedPhraseError: PropTypes.func,
   seedWords: PropTypes.string,
-  createFirstAccountWithSeedPhraseSuccess: PropTypes.func,
 };

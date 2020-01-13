@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { IconTransferFromTo } from '../../common/icon';
 import TransferFrom from '../transfer-from';
-import TransferTo from '../transfer-to';
+import TransferToIcon from '../transfer-to-icon';
 import './styles.css';
 
 export default class TransferFromTo extends Component {
@@ -18,13 +18,14 @@ export default class TransferFromTo extends Component {
       toErrorText,
       handleToChange,
       page,
+      onAddressBookClick,
       ...otherProps
     } = this.props;
     return (
       <div className="transfer-from-to-container" {...otherProps}>
         <TransferFrom alias={alias} address={address} />
         <IconTransferFromTo />
-        <TransferTo
+        <TransferToIcon
           className="transfer-to-container"
           addressValue={to}
           theme={theme}
@@ -35,6 +36,7 @@ export default class TransferFromTo extends Component {
           errorMessage={toErrorText}
           onChange={handleToChange}
           inputRef={toRef}
+          onAddressBookClick={onAddressBookClick}
         />
       </div>
     );

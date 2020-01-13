@@ -1,10 +1,16 @@
 import * as AccountActionTypes from '../constants/account';
+import * as AddressBookActionTypes from '../constants/address-book';
 import { Account } from '../api';
 import { getDummyBalanceObject } from '../utils/helper';
 
 export const updateAccountList = accounts => ({
   type: AccountActionTypes.ADD_ACCOUNT,
   accounts,
+});
+
+export const updateContactList = addressBook => ({
+  type: AddressBookActionTypes.UPDATE_ADDRESS_BOOK_LIST,
+  addressBook,
 });
 
 export const changeSelectedAccount = account => ({
@@ -25,6 +31,15 @@ export const updateSelectedAccountBalance = balance => ({
 export const updateIsLinkToBlockxLabFaucet = isLinkToFaucet => ({
   type: AccountActionTypes.UPDATE_IS_LINK_TO_BLOCKXLABS_FAUCET,
   isLinkToFaucet,
+});
+
+export const setSeedWords = seedWords => ({
+  type: AccountActionTypes.SET_SEED_WORDS,
+  seedWords,
+});
+
+export const resetSeedWords = () => ({
+  type: AccountActionTypes.RESET_SEED_WORDS,
 });
 
 export const fetchAndSetAccounts = async dispatch => {
@@ -53,4 +68,18 @@ export const setInitialBalance = async (dispatch, getState) => {
   const { balances, balance } = getDummyBalanceObject(accountObj);
   dispatch(updateAccountBalance(balances));
   dispatch(updateSelectedAccountBalance(balance));
+};
+
+export const getSeedWords = () => async dispatch => {
+  const seedWords = await Account.getSeedWords();
+  if (seedWords !== undefined) {
+    dispatch(setSeedWords(seedWords));
+  }
+};
+
+export const fetchAndSetContacts = async dispatch => {
+  const {
+    result: { addressBook },
+  } = await Account.getContacts();
+  dispatch(updateContactList(addressBook));
 };

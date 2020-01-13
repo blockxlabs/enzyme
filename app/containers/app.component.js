@@ -67,6 +67,11 @@ export default class App extends Component {
     this.props.changePage(option.value);
   };
 
+  onToggleDeveloperMode = event => {
+    const isDeveloperMode = event.target.checked;
+    this.props.onToggleDeveloperMode(isDeveloperMode);
+  };
+
   onClick = () => {
     this.props.resetConfirmOnBoarding();
     this.props.clearTransferDetails();
@@ -76,7 +81,7 @@ export default class App extends Component {
   render() {
     const {
       props: {
-        page, isLoading, networks, network, isConnected, options
+        page, isLoading, networks, network, isConnected, isDeveloperMode, options
       },
       state: {
         showLogo, showBanner, showNetwork, showSettings, showHeader
@@ -99,6 +104,8 @@ export default class App extends Component {
         onLogoClick={this.onClick}
         options={options}
         onOptionsChange={this.handleOptionsChange}
+        isDeveloperMode={isDeveloperMode}
+        onToggleDeveloperMode={this.onToggleDeveloperMode}
       />
     );
   }

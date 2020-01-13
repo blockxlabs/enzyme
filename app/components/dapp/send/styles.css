@@ -1,0 +1,67 @@
+.send-summary-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.send-summary-request-type {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 320px;
+}
+
+.send-summary-send-to-from {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.sign-message-body {
+  color: rgba(77, 77, 77, 1);
+  margin-top: 4px;
+}
+
+.send-balance {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 6px;
+}
+.send-data-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+}
+.send-data {
+  margin-left: 5.5px;
+  font-size: 16px;
+}
+.send-data-label {
+  font-size: 14px;
+  color: rgba(77, 77, 77, 1);
+  margin-right: 5.5px;
+}
+.send-footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  width: 100%;
+  padding: 19px 33px 12px 33px;
+}
+
+.send-error {
+  font-size: 14px;
+  color: rgba(255, 0, 0, 1);
+  text-align: center;
+}
+
+.send-txn {
+  margin-top: 14px;
+}

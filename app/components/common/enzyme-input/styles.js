@@ -52,6 +52,15 @@ export const styles = () => ({
       fontFamily: 'Roboto-Regular',
     },
   },
+  inputWithWhiteColor: {
+    color: '#FFFFFF',
+    '&::placeholder': {
+      color: '#000000',
+      opacity: '0.6',
+      fontSize: '16px',
+      fontFamily: 'Roboto-Regular',
+    },
+  },
   focusedLabel: {},
   errorLabel: {},
 });

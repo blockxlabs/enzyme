@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import {
-  success, info, warning, error
+  success, info, warning, error, addAddress
 } from '../components/common/toast';
 
 export const CREATE_TOAST = 'CREATE_TOAST';
@@ -10,7 +10,7 @@ export function createToast(_options = {}, _hideProgressBar) {
   return () => {
     if (_options) {
       const {
-        message, type, isCustom, autoClose
+        message, type, isCustom, autoClose, toastType, onClick
       } = _options;
       switch (type) {
         case 'success':
@@ -25,10 +25,13 @@ export function createToast(_options = {}, _hideProgressBar) {
         case 'error':
           msg = error(message);
           break;
+        case 'addAddress':
+          msg = addAddress(message, onClick);
+          break;
         default:
       }
       toast(msg, {
-        type,
+        type: toastType === undefined ? type : toastType,
         position: toast.POSITION.BOTTOM_CENTER,
         hideProgressBar: _hideProgressBar === undefined ? true : _hideProgressBar,
         autoClose: autoClose === undefined ? 2500 : autoClose,

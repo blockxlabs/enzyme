@@ -23,11 +23,12 @@
   cursor: pointer;
   height: 16px;
   width: 74px;
-  color: rgba(0, 0, 0, 0.5);
+  color: #000000;
+  margin-top:5px;
 }
 
 .seed-phrase-copy:hover {
-  opacity: 0.5;
+  color: rgba(215, 95, 160, 1);
 }
 
 .seed-phrase-copy:active {

@@ -29,6 +29,8 @@ export default class EnzymeApp extends Component {
       onLogoClick,
       options,
       onOptionsChange,
+      isDeveloperMode,
+      onToggleDeveloperMode,
       ...otherProps
     } = this.props;
 
@@ -72,17 +74,24 @@ export default class EnzymeApp extends Component {
             <EnzymeLogo onClick={onLogoClick} className={EnzymeLogoClassNames} />
             <EnzymeBanner className={EnzymeBannerClassNames} />
             <div className={EnzymeConfigClassNames}>
-              <NetworkDisconnectionIcon className={EnzymeNetworkStatusClassNames} />
+              <NetworkDisconnectionIcon
+                title="Network unavailable"
+                className={EnzymeNetworkStatusClassNames}
+              />
               <Network
                 networks={networks}
                 network={network}
                 onNetworkChange={onNetworkChange}
                 className={EnzymeNetworkClassNames}
+                page={page}
               />
               <Options
+                onToggleDeveloperMode={onToggleDeveloperMode}
                 options={options}
                 onOptionsChange={onOptionsChange}
                 className={EnzymeSettingsClassNames}
+                isDeveloperMode={isDeveloperMode}
+                page={page}
               />
             </div>
           </Header>

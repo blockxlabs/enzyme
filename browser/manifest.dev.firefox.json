@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "applications": {
     "gecko": {
       "id": "info@blockxlabs.com",
@@ -13,7 +13,7 @@
   "manifest_version": 2,
   "description": "Enzyme is a wallet for polkadot",
   "browser_action": {
-    "default_icon": "img/icon-32.png",
+    "default_icon": "img/icon-32-dev.png",
     "default_title": "Enzyme",
     "default_popup": "popup.html"
   },
@@ -22,7 +22,17 @@
     "32": "img/icon-32-dev.png",
     "128": "img/icon-128-dev.png"
   },
-  "web_accessible_resources": ["inject.html", "content-script.js"],
-  "permissions": ["notifications", "storage", "https://*/*", "wss://*/*"],
-  "content_security_policy": "script-src 'self' https://localhost:3000 'unsafe-eval'; img-src * data:; object-src 'self';"
+  "web_accessible_resources": ["inject.html", "in-page-script.js"],
+  "permissions": [
+    "notifications",
+    "storage",
+    "tabs",
+    "management",
+    "activeTab",
+    "https://*/*",
+    "http://*/*",
+    "wss://*/*",
+    "ws://*/*"
+  ],
+  "content_security_policy": "script-src 'self' blob: 'unsafe-eval' 'wasm-eval'; img-src * data:; object-src 'self';"
 }

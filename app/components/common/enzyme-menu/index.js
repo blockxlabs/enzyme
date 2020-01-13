@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import withStyles from '@material-ui/core/styles/withStyles';
-
+import Switch from '@material-ui/core/Switch';
 import { styles } from './styles';
 import { IconCheckCircle } from '../icon/index';
 import FontRegular from '../fonts/font-regular';
@@ -17,7 +17,13 @@ class EnzymeMenu extends Component {
 
   render() {
     const {
-      classes, options, anchorEl, selected
+      isDeveloperMode,
+      onToggleDeveloperMode,
+      classes,
+      options,
+      anchorEl,
+      selected,
+      width,
     } = this.props;
 
     return (
@@ -29,7 +35,7 @@ class EnzymeMenu extends Component {
           style: {
             marginTop: 33,
             maxHeight: 144,
-            width: 128,
+            width: width !== undefined ? width : 128,
             fontFamily: 'Roboto-Regular',
             fontSize: 14,
             backgroundColor: 'rgba(38, 38, 38, 1)',
@@ -39,7 +45,7 @@ class EnzymeMenu extends Component {
         {options.map(option => (
           <MenuItem
             key={option.value}
-            onClick={this.handleClose(option)}
+            onClick={option.toggle === true ? null : this.handleClose(option)}
             disableGutters
             classes={{
               root: classes.root,
@@ -50,6 +56,14 @@ class EnzymeMenu extends Component {
               && (selected.value !== option.value ? null : (
                 <IconCheckCircle style={{ marginLeft: 5 }} />
               ))}
+            {option.toggle === true ? (
+              <Switch
+                color="primary"
+                size="small"
+                checked={isDeveloperMode}
+                onChange={onToggleDeveloperMode}
+              />
+            ) : null}
           </MenuItem>
         ))}
       </Menu>

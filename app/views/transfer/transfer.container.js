@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Transfer from './transfer.component';
-import { changePage, updateAppLoading } from '../../containers/actions';
+import { changePage, updateAppLoading, updateBackupPage } from '../../containers/actions';
+import { updateToAddress } from '../../actions/address-book';
 import {
   clearTransferDetails,
   confirmTransaction,
@@ -12,25 +13,27 @@ const mapStateToProps = state => ({
   account: state.accountReducer.account,
   confirmDetails: state.transferReducer.confirmDetails,
   balance: state.accountReducer.balance,
-  units: state.transferReducer.units,
+  unit: state.networkReducer.unit,
+  units: state.networkReducer.units,
   success: state.transferReducer.success,
   error: state.transferReducer.error,
   isToAddressError: state.transferReducer.isToAddressError,
   toAddressErrorMessage: state.transferReducer.toAddressErrorMessage,
   isAmountError: state.transferReducer.isAmountError,
   toAmountErrorMessage: state.transferReducer.toAmountErrorMessage,
+  page: state.appStateReducer.page,
+  toAddress: state.addressBookReducer.toAddress,
 });
 
 const mapDispatchToProps = {
   changePage,
+  updateBackupPage,
   clearTransferDetails,
   confirmTransaction,
   updateAppLoading,
   resetConfirmOnBoarding,
   dispatchSetTransferDetails,
+  updateToAddress,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Transfer);
+export default connect(mapStateToProps, mapDispatchToProps)(Transfer);

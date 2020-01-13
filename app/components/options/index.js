@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { IconSettings } from '../common/icon';
 import EnzymeMenu from '../common/enzyme-menu';
+import { DISABLE_SETTINGS_PAGES_GROUP } from '../../constants/navigation';
 
 export default class Options extends Component {
   state = {
@@ -8,7 +9,10 @@ export default class Options extends Component {
   };
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    const { page } = this.props;
+    if (!DISABLE_SETTINGS_PAGES_GROUP.includes(page)) {
+      this.setState({ anchorEl: event.currentTarget });
+    }
   };
 
   handleClose = () => {
@@ -17,7 +21,13 @@ export default class Options extends Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { options, onOptionsChange, ...otherProps } = this.props;
+    const {
+      isDeveloperMode,
+      onToggleDeveloperMode,
+      options,
+      onOptionsChange,
+      ...otherProps
+    } = this.props;
     return (
       <div {...otherProps}>
         <IconSettings
@@ -25,10 +35,13 @@ export default class Options extends Component {
           onClick={this.handleClick}
         />
         <EnzymeMenu
+          isDeveloperMode={isDeveloperMode}
+          onToggleDeveloperMode={onToggleDeveloperMode}
           options={options}
           onChange={onOptionsChange}
           anchorEl={anchorEl}
           onClose={this.handleClose}
+          width="170px"
         />
       </div>
     );

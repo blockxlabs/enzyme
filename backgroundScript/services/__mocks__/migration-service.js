@@ -1,6 +1,6 @@
 import * as StorageService from '../../../lib/services/extension/storage';
-import Migrations from '../../migrations';
-import { ALEXANDER_NETWORK } from '../../../lib/constants/networks';
+import * as Migrations from '../../migrations';
+import { DEFAULT_NETWORK } from '../../../lib/constants/networks';
 import { SERIAL_VERSION } from '../../../lib/constants/storage-keys';
 
 const MigrationService = jest.genMockFromModule('./migration-service');
@@ -17,7 +17,7 @@ const decryptDataset = (data, hashKey) => {
         : StorageService.decrypt(transactions, hashKey),
     network:
       network === undefined
-        ? { currentNetwork: ALEXANDER_NETWORK }
+        ? { currentNetwork: DEFAULT_NETWORK }
         : StorageService.decrypt(network, hashKey),
     serialVersion: serialVersion === undefined ? 1 : StorageService.decrypt(serialVersion, hashKey),
   };

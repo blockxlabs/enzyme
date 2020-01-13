@@ -35,6 +35,21 @@ const isAliasValid = (_, { alias }) => {
   }
 };
 
+const isFnameValid = (_, { fname }) => {
+  try {
+    return fname.length <= 12;
+  } catch (e) {
+    return false;
+  }
+};
+
+const isLnameValid = (_, { lname }) => {
+  try {
+    return lname.length <= 12;
+  } catch (e) {
+    return false;
+  }
+};
 const validatonObj = {
   importSeedPhraseValidation: [
     {
@@ -50,6 +65,22 @@ const validatonObj = {
       method: isAliasValid,
       validWhen: true,
       message: 'Alias must be less than 12 characters.',
+    },
+  ],
+  fnameValidation: [
+    {
+      field: 'fname',
+      method: isFnameValid,
+      validWhen: true,
+      message: 'Firstname must be less than 12 characters.',
+    },
+  ],
+  lnameValidation: [
+    {
+      field: 'lname',
+      method: isLnameValid,
+      validWhen: true,
+      message: 'Lastname must be less than 12 characters.',
     },
   ],
 };

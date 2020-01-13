@@ -6,6 +6,7 @@ html
     title Enzyme Notifcation
   body
     #root
-    if env !== 'prod'
-      script(src='https://localhost:3000/js/reduxDevToolsExtension.bundle.js')
-    script(src=env == 'prod' ? '/js/mainapp.bundle.js' : 'https://localhost:3000/js/mainapp.bundle.js')
+      script(src=env != 'prod' ? 'https://localhost:3000/js/reduxDevToolsExtension.bundle.js' : null)
+      script(src=env == 'prod' ? '/js/0.chunk.js' : null)
+      script(src=env == 'prod' ? '/js/5.chunk.js' : null)
+      script(src=env == 'prod' ? '/js/mainapp.bundle.js' : 'https://localhost:3000/js/mainapp.bundle.js')

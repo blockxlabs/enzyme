@@ -28,7 +28,7 @@ export async function pollPendingTransactions(store) {
     }
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.log('Error in polling transactions from interval', e);
+    console.log('Error in polling transactions from interval');
   }
 }
 
@@ -37,7 +37,7 @@ export async function updateBalance(store) {
     store.dispatch(AccountActions.fetchAndSetBalances);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.log('Error in updating balance from interval', e);
+    console.log('Error in updating balance from interval');
   }
 }
 

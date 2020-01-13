@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import App from './app.component';
 import { onBoard } from '../actions/initialize';
-import { switchNetwork } from '../actions/network';
+import { switchNetwork, onToggleDeveloperMode } from '../actions/network';
 import {
   changePage,
   updateAppLoading,
@@ -16,6 +16,7 @@ const mapStateToProps = state => ({
   networks: state.networkReducer.networks,
   network: state.networkReducer.network,
   isConnected: state.networkReducer.isConnected,
+  isDeveloperMode: state.networkReducer.isDeveloperMode,
   options: state.appStateReducer.options,
 });
 
@@ -28,9 +29,7 @@ const mapDispatchToProps = {
   resetConfirmOnBoarding,
   fetchAndUpdateAppManifest,
   updateBackupPage,
+  onToggleDeveloperMode,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

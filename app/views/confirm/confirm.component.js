@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import ConfirmForm from '../../components/confirm/confirm-form';
 import SubHeader from '../../components/common/sub-header';
-import { TRANSFER_PAGE } from '../../constants/navigation';
+import { TRANSFER_PAGE, CREATE_ADDRESS_BOOK_PAGE } from '../../constants/navigation';
+import { shortenAddress } from '../../services/wallet-service';
 
 export default class Confirm extends Component {
   constructor(props) {
@@ -16,9 +17,29 @@ export default class Confirm extends Component {
     this.props.resetConfirmOnBoarding();
   }
 
-  handleSend = () => {
-    const { confirmDetails, submitTransaction } = this.props;
-    submitTransaction(confirmDetails);
+  openAddressBook = () => {
+    this.props.changePage(CREATE_ADDRESS_BOOK_PAGE);
+  };
+
+  handleSend = async () => {
+    const { confirmDetails, submitTransaction, isNewAddress } = this.props;
+    const tx = await submitTransaction(confirmDetails);
+    const result = await isNewAddress(tx.metadata.to);
+    if (result.isNewAddress === true) {
+      this.props.updateToAddress(tx.metadata.to);
+      this.props.createToast({
+        message: `Transfer submitted with ${shortenAddress(tx.txnHash)}`,
+        onClick: this.openAddressBook,
+        type: 'addAddress',
+        toastType: 'info',
+        autoClose: false,
+      });
+    } else {
+      this.props.createToast({
+        message: `Transfer submitted with ${shortenAddress(tx.txnHash)}`,
+        type: 'info',
+      });
+    }
   };
 
   handleSubheaderBackBtn = () => {

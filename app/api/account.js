@@ -7,7 +7,7 @@ export const getSeedWords = async () => {
     type: MessageTypes.BG_ACCOUNTS_CREATE_SEED_WORDS,
   });
   throwIfNoSuccess({ message, status });
-  return { result };
+  return result;
 };
 
 export const createAccount = async (seedWords, isOnBoarding = false, keypairType, alias) => {
@@ -19,7 +19,7 @@ export const createAccount = async (seedWords, isOnBoarding = false, keypairType
     alias,
   });
   throwIfNoSuccess({ message, status });
-  return { result };
+  return result;
 };
 
 export const getCurrentAccount = async () => {
@@ -52,6 +52,50 @@ export const updateAccountAlias = async (alias, address) => {
     type: MessageTypes.BG_ACCOUNTS_UPDATE_ALIAS,
     alias,
     address,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
+};
+
+export const updateCurrentAccount = async address => {
+  const { message, status, result } = await sendMessage({
+    type: MessageTypes.BG_CURRENT_ACCOUNTS_UPDATE,
+    address,
+  });
+  throwIfNoSuccess({ message, status });
+  return result;
+};
+
+export const removeAccount = async address => {
+  const { message, status, result } = await sendMessage({
+    type: MessageTypes.BG_ACCOUNTS_REMOVE_ACCOUNT,
+    address,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
+};
+
+export const submitContact = async contact => {
+  const { message, status, result } = await sendMessage({
+    type: MessageTypes.BG_ADDRESS_BOOK_ADD,
+    contact,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
+};
+
+export const getContacts = async () => {
+  const { message, status, result } = await sendMessage({
+    type: MessageTypes.BG_ADDRESS_BOOK_LIST,
+  });
+  throwIfNoSuccess({ message, status });
+  return { result };
+};
+
+export const removeContact = async contact => {
+  const { message, status, result } = await sendMessage({
+    type: MessageTypes.BG_ADDRESS_BOOK_REMOVE,
+    contact,
   });
   throwIfNoSuccess({ message, status });
   return { result };

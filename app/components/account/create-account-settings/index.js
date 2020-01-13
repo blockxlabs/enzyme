@@ -18,6 +18,7 @@ export default class CreateAccountSettings extends Component {
       aliasInputName,
       aliasRef,
       handleAliasOnBlur,
+      disableAccountSettings,
       ...otherProps
     } = this.props;
     this.aliasRef = aliasRef;
@@ -33,12 +34,14 @@ export default class CreateAccountSettings extends Component {
           name={aliasInputName}
           inputRef={aliasRef}
           onBlur={handleAliasOnBlur}
+          disabled={disableAccountSettings && !isAliasError}
         />
         <CreateAccountAdvancedConfig
           keypairType={keypairType}
           keypairTypes={keypairTypes}
           onKeypairTypeChange={onKeypairTypeChange}
           className="create-account-advanced-config"
+          disableAccountSettings={disableAccountSettings}
         />
       </div>
     );

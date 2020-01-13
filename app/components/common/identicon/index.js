@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Identicon from '@polkadot/ui-identicon/Identicon';
+import Identicon from '@polkadot/react-identicon';
 
 export default class Avatar extends Component {
   render() {

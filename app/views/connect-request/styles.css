@@ -1,0 +1,78 @@
+.connect-request-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-self: center;
+}
+
+.connect-request-header {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  margin-top: 40px;
+  padding: 0px 50px;
+}
+
+.connect-request-dapp-url-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 100px;
+}
+
+.connect-request-account-item {
+  width: 310px;
+}
+
+.connect-request-favicon {
+  align-self: center;
+}
+
+.connect-request-favicon-url {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-top: 3.66px;
+}
+
+.connect-request-plug-icon {
+  transform: rotate(90deg);
+  position: absolute;
+  right: 165px;
+  bottom: 427px;
+}
+
+.connect-request-wallet-icon {
+  align-self: center;
+}
+
+.connect-request-account-selection-header {
+  color: rgba(77, 77, 77, 1);
+  font-size: 16px;
+  margin-top: 16.34px;
+  padding: 0px 18px 0px 18px;
+}
+
+.connect-request-account-selection-header-blockchain {
+  font-weight: 900;
+  text-transform: uppercase;
+  display: inline;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.connect-request-account-list {
+  margin-top: 20px;
+  height: 180px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-top: 1px solid rgba(227, 227, 227, 1);
+}
+
+.connect-request-account-item-container{
+  height: 72px;
+  padding: 0px 21.8px 14px 16px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-between;
+}

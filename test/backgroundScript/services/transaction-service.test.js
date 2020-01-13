@@ -4,7 +4,10 @@ import { mockTransactionArr } from '../../lib/constants/transaction-state';
 import * as TransactionResult from './__result__/transaction-result';
 
 jest.mock('../../../backgroundScript/apis/fees');
-jest.mock('../../../backgroundScript/apis/dot-wallet');
+jest.mock('../../../backgroundScript/apis/tx');
+jest.mock('../../../backgroundScript/apis/core-polkadot/dot-wallet.js');
+jest.mock('../../../backgroundScript/apis/chain');
+jest.mock('../../../backgroundScript/services/wallet-service.js');
 
 const address = '5DqgChvsFs2E3Wz1LwYi9zhQNuGVP3YGUerMdZvTgM1scDsH';
 const toAddress = '5DqgChvsFs2E3Wz1LwYi9zhQNuGVP3YGUerMdZvTgM1scDsH';
@@ -23,7 +26,7 @@ test('Get Transaction Fees', async () => {
 });
 
 test('Confirm Transaction', async () => {
-  const network = { value: 'polkadot' };
+  const network = { value: 'Alexander' };
   const transaction = {
     account: { address },
     to: toAddress,
@@ -31,17 +34,21 @@ test('Confirm Transaction', async () => {
     unit: { power: -3, value: 'm', text: 'milli' },
     txnType: 'TRANSFER_COINS',
   };
+  const seedWords = 'trumpet knife surface whale shoulder vague feed island original curve laundry dolphin';
+  const keypairType = 'sr25519';
   const confirmedTransactionResult = await TransactionService.confirmTransaction(
     address,
     network,
     transaction,
+    seedWords,
+    keypairType,
   );
   expect(confirmedTransactionResult).toMatchObject(TransactionResult.CONFIRM_TRANSACTION);
 });
 
 test('Confirm Transaction Throw error for invalid to address', async () => {
   //dummy network
-  const network = { value: 'polkadot' };
+  const network = { value: 'Alexander' };
   const transaction = {
     account: { address },
     to: 'dummyaddress',
@@ -49,10 +56,14 @@ test('Confirm Transaction Throw error for invalid to address', async () => {
     unit: { power: -3, value: 'm', text: 'milli' },
     txnType: 'TRANSFER_COINS',
   };
+  const seedWords = 'throw shoulder coil truly fox weapon boss predict quantum surface tube crime';
+  const keypairType = 'ed25519';
   const confirmedTransactionResult = await TransactionService.confirmTransaction(
     address,
     network,
     transaction,
+    seedWords,
+    keypairType,
   );
   expect(confirmedTransactionResult).toMatchObject(
     TransactionResult.CONFIRM_TRANSACTION_ADDRESS_ERROR,
@@ -61,7 +72,7 @@ test('Confirm Transaction Throw error for invalid to address', async () => {
 
 test('Confirm Transaction Throw error for invalid amount', async () => {
   // dummy network
-  const network = { value: 'polkadot' };
+  const network = { value: 'Alexander' };
   const transaction = {
     account: { address },
     to: toAddress,
@@ -69,10 +80,15 @@ test('Confirm Transaction Throw error for invalid amount', async () => {
     unit: { power: -3, value: 'm', text: 'milli' },
     txnType: 'TRANSFER_COINS',
   };
+  const seedWords = 'throw shoulder coil truly fox weapon boss predict quantum surface tube crime';
+  const keypairType = 'ed25519';
+
   const confirmedTransactionResult = await TransactionService.confirmTransaction(
     address,
     network,
     transaction,
+    seedWords,
+    keypairType,
   );
   expect(confirmedTransactionResult).toMatchObject(
     TransactionResult.CONFIRM_TRANSACTION_AMOUNT_ERROR,

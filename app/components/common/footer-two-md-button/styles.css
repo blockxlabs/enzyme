@@ -1,0 +1,9 @@
+.footer-two-button-container{
+    position: absolute;
+    top: 527px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction:row;
+    padding:0px 21px;
+    width: 100%;
+}

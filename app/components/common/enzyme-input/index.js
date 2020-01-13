@@ -7,7 +7,13 @@ import { styles } from './styles';
 class EnzymeInput extends Component {
   render() {
     const {
-      classes, helperText, error, InputProps, ...otherProps
+      classes,
+      helperText,
+      error,
+      InputProps,
+      inputStyles,
+      withWhiteColor,
+      ...otherProps
     } = this.props;
     const rootLabelClassNames = classNames({
       [classes.rootErrorLabel]: error,
@@ -37,9 +43,13 @@ class EnzymeInput extends Component {
             root: classes.inputRoot,
             underline: error ? classes.inputErrorUnderline : classes.inputUnderline,
             error: classes.inputError,
-            input: classes.input,
+            input: withWhiteColor ? classes.inputWithWhiteColor : classes.input,
           },
           ...InputProps,
+        }}
+        //eslint-disable-next-line
+        inputProps={{
+          ...inputStyles,
         }}
       />
     );

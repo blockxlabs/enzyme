@@ -3,7 +3,8 @@ import zxcvbn from 'zxcvbn';
 import * as SignUpActionTypes from './action-types';
 import * as APITypes from '../../api';
 import * as AppActions from '../../containers/actions';
-import { onBoard } from '../../actions/initialize';
+import * as AccountActions from '../../actions/account';
+import * as NavConstants from '../../constants/navigation';
 
 const setHashKeySuccess = () => ({
   type: SignUpActionTypes.SET_HASH_KEY_SUCCESS,
@@ -18,11 +19,15 @@ export const signUp = password => async dispatch => {
   dispatch(AppActions.updateAppLoading(true));
   await APITypes.OnBoarding.setHashKey(keccak512(password));
   dispatch(setHashKeySuccess());
-  await APITypes.Account.createAccount(undefined, true);
-  await dispatch(onBoard());
+  await dispatch(AccountActions.getSeedWords());
+  dispatch(AppActions.changePage(NavConstants.CREATE_ACCOUNT_PAGE));
+  dispatch(AppActions.updateAppLoading(false));
 };
 
 export const setPasswordMeterScore = password => async dispatch => {
-  const { score } = zxcvbn(password);
+  let { score } = zxcvbn(password);
+  if (score === 0 && password.length > 4) {
+    score = 1;
+  }
   dispatch(updatePasswordMeterScore(score));
 };

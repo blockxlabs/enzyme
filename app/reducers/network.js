@@ -1,16 +1,19 @@
 import * as Types from '../constants/network';
-import { ALEXANDER_NETWORK } from '../../lib/constants/networks';
+import { DEFAULT_NETWORK } from '../../lib/constants/networks';
 
 const initialState = {
   networks: [],
-  network: ALEXANDER_NETWORK,
+  network: DEFAULT_NETWORK,
   customNetwork: {},
   isConnected: true,
+  isDeveloperMode: false,
   customNetworkSuccess: false,
   customNetworkError: {
     customNetworkIsValid: true,
     customNetworkErrorMessage: null,
   },
+  units: undefined,
+  unit: undefined,
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +30,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...{
           network: action.network,
+        },
+      };
+    case Types.FETCH_UNITS:
+      return {
+        ...state,
+        ...{
+          units: action.units,
+        },
+      };
+    case Types.FETCH_UNIT:
+      return {
+        ...state,
+        ...{
+          unit: action.unit,
         },
       };
     case Types.UPDATE_CUSTOM_NETWORK:
@@ -66,6 +83,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...{
           customNetworkSuccess: action.customNetworkSuccess,
+        },
+      };
+    case Types.UPDATE_DEVELOPER_MODE:
+      return {
+        ...state,
+        ...{
+          isDeveloperMode: action.isDeveloperMode,
         },
       };
     default:

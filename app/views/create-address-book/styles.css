@@ -1,0 +1,8 @@
+.create-address-book-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-top: 17px;
+  padding-left: 18px;
+  padding-right: 18px;
+}

@@ -1,6 +1,8 @@
 import * as Types from './action-types';
+import { ACCOUNT_MENU_OPTIONS } from '../../constants/options';
 
 const initialState = {
+  accountMenu: ACCOUNT_MENU_OPTIONS,
   transactions: [],
   pendingTransfers: [],
 };

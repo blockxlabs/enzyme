@@ -8,13 +8,17 @@ export default class FaucetLink extends Component {
     const { network, ...otherProps } = this.props;
     return (
       <div {...otherProps}>
-        <FontRegular
-          className="faucets-message-text"
-          text="If you need test DOTs can grab them at"
-        />
-        <Link style={{ fontSize: 16 }} href={network.faucetUrl}>
-          {network.faucetText}
-        </Link>
+        {network.faucetUrl ? (
+          <div>
+            <FontRegular
+              className="faucets-message-text"
+              text="If you need test DOTs can grab them at"
+            />
+            <Link style={{ fontSize: 16 }} href={network.faucetUrl}>
+              {network.faucetText}
+            </Link>
+          </div>
+        ) : null}
       </div>
     );
   }

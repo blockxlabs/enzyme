@@ -1,13 +1,13 @@
 import * as TransactionWatcherService from '../../../backgroundScript/services/transaction-watcher-service';
 import * as TransactionResult from './__result__/transaction-result';
 import * as API from '../../../backgroundScript/apis/api';
-import { ALEXANDER_NETWORK } from '../../../lib/constants/networks';
+import { DEFAULT_NETWORK } from '../../../lib/constants/networks';
 
-jest.mock('../../../backgroundScript/store/store-provider');
 jest.mock('../../../backgroundScript/apis/tx');
+jest.mock('../../../backgroundScript/services/transaction-watcher-service');
 
 test('Submit Transaction', async () => {
-  API.defineApi(ALEXANDER_NETWORK.networkFullUrl);
+  API.connectToApi(DEFAULT_NETWORK);
   const transaction = await TransactionWatcherService.submitTransaction(
     TransactionResult.CONFIRM_TRANSACTION,
   );

@@ -1,9 +1,7 @@
 import * as Types from './action-types';
-import { units } from '../../../lib/constants/units';
 
 const initialState = {
   confirmDetails: {},
-  units,
   error: null,
   success: false,
   isToAddressError: false,
@@ -42,6 +40,7 @@ const reducer = (state = initialState, action) => {
           error: action.error,
         },
       };
+
     case Types.SET_TRANSFER_VALIDATION_ERROR:
       if (action.error) {
         return {

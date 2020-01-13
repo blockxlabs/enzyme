@@ -2,10 +2,9 @@ import * as AccountActions from './account';
 import * as NavConstants from '../constants/navigation';
 import * as APIConstants from '../../lib/constants/api';
 import * as AppActions from '../containers/actions';
-import { getTransactions } from '../views/dashboard/actions';
 import { verifyTermsVersion } from '../views/terms/actions';
 import { OnBoarding } from '../api';
-import { setNetwork, updateNetworkStatus } from './network';
+import { navigateAndServiceIfDappRequest } from './dapp';
 
 export const onBoard = () => async dispatch => {
   try {
@@ -17,14 +16,8 @@ export const onBoard = () => async dispatch => {
       await dispatch(AccountActions.fetchAndSetAccounts);
       const { result } = await OnBoarding.getIsAppOnBoarded();
       if (Object.prototype.hasOwnProperty.call(result, 'App') && result.App.isAppOnBoarded) {
-        await dispatch(setNetwork);
-        dispatch(updateNetworkStatus(false));
-        dispatch(AccountActions.setInitialBalance);
-        dispatch(AccountActions.fetchAndSetBalances);
-        await dispatch(getTransactions);
-        dispatch(AppActions.updateIsAppOnBoarded(true));
+        dispatch(navigateAndServiceIfDappRequest());
         dispatch(AppActions.updateAppLoading(false));
-        dispatch(AppActions.changePage(NavConstants.DASHBOARD_PAGE));
       } else {
         dispatch(AppActions.updateAppLoading(false));
         dispatch(AppActions.changePage(NavConstants.CREATE_ACCOUNT_PAGE));

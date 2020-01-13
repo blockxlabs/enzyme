@@ -6,10 +6,10 @@ import { styles } from './styles';
 class DropDown extends Component {
   render() {
     const {
-      classes, options, value, onChange
+      classes, options, value, onChange, disabled, ...otherProps
     } = this.props;
     return (
-      <div>
+      <div {...otherProps}>
         <NativeSelect
           className={classes.test}
           classes={{
@@ -20,6 +20,7 @@ class DropDown extends Component {
           onChange={onChange}
           value={value.value}
           disableUnderline
+          disabled={disabled}
         >
           {options.map(opt => (
             <option key={opt.value} value={opt.value}>

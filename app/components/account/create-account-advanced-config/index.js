@@ -6,11 +6,16 @@ import FontRegular from '../../common/fonts/font-regular';
 export default class CreateAccountAdvancedConfig extends Component {
   render() {
     const {
-      classes, keypairType, keypairTypes, onKeypairTypeChange, ...otherProps
+      classes,
+      keypairType,
+      keypairTypes,
+      onKeypairTypeChange,
+      disableAccountSettings,
+      ...otherProps
     } = this.props;
     return (
       <div {...otherProps}>
-        <EnzymeExpansionPanel title="Advanced">
+        <EnzymeExpansionPanel disabled={disableAccountSettings} title="Advanced">
           <FontRegular
             text="Keypair Crypto Type"
             style={{
@@ -23,6 +28,7 @@ export default class CreateAccountAdvancedConfig extends Component {
             options={keypairTypes}
             value={keypairType}
             onChange={onKeypairTypeChange}
+            disabled={disableAccountSettings}
           />
         </EnzymeExpansionPanel>
       </div>

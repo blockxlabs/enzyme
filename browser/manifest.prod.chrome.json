@@ -1,9 +1,5 @@
 {
-  "version": "0.0.4",
-  "background": {
-    "scripts": ["./extension/background.js"],
-    "persistent": false
-  },
+  "version": "0.0.5",
   "background": {
     "page": "background.html"
   },
@@ -19,7 +15,12 @@
     "32": "img/icon-32.png",
     "128": "img/icon-128.png"
   },
-  "web_accessible_resources": ["inject.html", "content-script.js"],
+  "web_accessible_resources": [
+    "inject.html",
+    "content-script.js",
+    "/js/inPageScript.bundle.js",
+    "js/inPageScript.bundle.js"
+  ],
   "permissions": [
     "notifications",
     "storage",

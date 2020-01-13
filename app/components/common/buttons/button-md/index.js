@@ -5,13 +5,13 @@ import Button from '@material-ui/core/Button';
 import './styles.css';
 
 class ButtonMD extends Component {
-  static defaultProps = {
-    disabled: false,
-  };
-
   static propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    disabled: false,
   };
 
   render() {

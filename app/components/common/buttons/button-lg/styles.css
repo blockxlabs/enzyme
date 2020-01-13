@@ -1,0 +1,13 @@
+.button-lg button {
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(215, 95, 160, 1);
+  width: 187.12px;
+  height: 36px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  font-family: "Roboto-Medium";
+}
+
+.button-lg button:hover {
+  background-color: #f5f5f6;
+}

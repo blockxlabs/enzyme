@@ -5,13 +5,16 @@ import * as Transaction from '../../lib/constants/transaction';
 import * as FeeService from './fee-service';
 import { getStore } from '../store/store-provider';
 import * as transactionActions from '../actions/transactions';
-import { updateTransactionsState } from './app-service';
+import { updateTransactionsState } from './store-service';
 import * as Notification from '../../lib/services/extension/notifications';
 import { createTransactionToastMessage } from '../../lib/services/static-message-factory-service';
-import { TRANSACTION_DETAIL_URL } from '../../lib/constants/api';
-import * as Wallet from '../apis/dot-wallet';
-import { convertUnit } from '../../lib/services/unit-converter';
-import { baseUnit } from '../../lib/constants/units';
+import { convertUnit } from './unit-converter';
+import { getBaseUnit } from '../apis/chain';
+import { KUSAMA_NETWORK, ALEXANDER_NETWORK } from '../../lib/constants/networks';
+import { getTxnEncodedLength } from '../apis/tx';
+import { getBalance, valueFormatter } from './balance-service';
+import { isValidAddress } from './account-service';
+import { validateTxnObject } from '../../lib/services/validation-service';
 
 const extension = require('extensionizer');
 
@@ -27,10 +30,23 @@ const updateTransactionObj = (transaction, txnHash, txnStatus) => ({
   txnHash,
 });
 
-const handelTransactionError = txnError => ({ isError: true, ...txnError });
+export const getTxnError = () => ({
+  isError: false,
+  isToAddressError: false,
+  toAddressErrorMessage: null,
+  isAmountError: false,
+  toAmountErrorMessage: null,
+});
 
-const isValidTxnAmount = (balance, totalAmount) => balance.gt(new BN(Transaction.MINIMUM_BALANCE)) && balance.gt(totalAmount);
-
+export const isValidTxnAmount = (balance, totalAmount, network) => {
+  if (network.value === KUSAMA_NETWORK.value) {
+    return balance.gt(new BN(Transaction.KUSAMA_MINIMUM_BALANCE)) && balance.gt(totalAmount);
+  }
+  if (network.value === ALEXANDER_NETWORK.value) {
+    return balance.gt(new BN(Transaction.MINIMUM_BALANCE)) && balance.gt(totalAmount);
+  }
+  return balance.gt(totalAmount);
+};
 export const mergeTransactions = async newTransaction => {
   const { transactionArr } = getStore().getState().transactionState;
   // remove Pending duplicate TXN and overide with new Status
@@ -57,10 +73,10 @@ export const filterTransactions = async (transactions, network, address) => {
   return newTransactions;
 };
 
-export const getTransactionFees = async (txnType, senderAddress, toAddress) => {
+export const getTransactionFees = async (txnType, senderAddress, toAddress, transactionLength) => {
   switch (txnType) {
     case Transaction.TRANSFER_COINS: {
-      const fees = await FeeService.getTransferFees(senderAddress, toAddress);
+      const fees = await FeeService.getTransferFees(senderAddress, toAddress, transactionLength);
       return fees;
     }
     default:
@@ -70,9 +86,7 @@ export const getTransactionFees = async (txnType, senderAddress, toAddress) => {
 
 export const sendOSNotification = async transaction => {
   const { message } = createTransactionToastMessage(transaction);
-  // TODO:KP Update once we have blockchain explore
-  // const txnDetailURl = `${TRANSACTION_DETAIL_URL}/${transaction.txnHash}`;
-  const txnDetailURl = TRANSACTION_DETAIL_URL;
+  const txnDetailURl = `${transaction.internal.network.transactionUrl}/${transaction.txnHash}`;
   await Notification.createNotification('ENZYME', message, txnDetailURl);
 };
 
@@ -104,60 +118,77 @@ const createTransactionObj = transaction => {
       unit,
       fAmount,
       fees,
-      transferFee: Wallet.valueFormatter(fees.totalFee),
-      transferAmount: Wallet.valueFormatter(fAmount),
-      totalTransferAmount: Wallet.valueFormatter(totalAmount),
+      transferFee: valueFormatter(fees.totalFee),
+      transferAmount: valueFormatter(fAmount),
+      totalTransferAmount: valueFormatter(totalAmount),
     },
     internal: { address: account.address, network },
   };
   return newTransactionObject;
 };
 
-export const confirmTransaction = async (senderAddress, network, transaction) => {
-  //TODO KP: Match Transaction Object
+const validateAmount = async (senderAddress, network, transaction, seedWords, keypairType) => {
   const {
     to, account, amount, unit, txnType
   } = transaction;
-  const isValidAddress = Wallet.isValidAddress(to);
+  const fAmount = convertUnit(amount.toString(), unit.text, getBaseUnit().text); // converting in femto
+  const transactionLength = await getTxnEncodedLength(to, fAmount, seedWords, keypairType);
+  const fees = await getTransactionFees(txnType, senderAddress, to, transactionLength); // in femto
+  const { balance } = await getBalance(senderAddress); // in femto
+  const { totalFee } = fees;
+  const totalAmount = new BN(fAmount).add(new BN(totalFee));
+  const balanceInBN = new BN(balance);
+  const isValidAmount = isValidTxnAmount(balanceInBN, totalAmount, network);
+  if (isValidAmount) {
+    return {
+      to,
+      account,
+      unit,
+      amount,
+      fAmount,
+      fees,
+      totalAmount,
+      network,
+      isValidAmount,
+    };
+  }
+  return { isValidAmount };
+};
+export const confirmTransaction = async (
+  senderAddress,
+  network,
+  transaction,
+  seedWords,
+  keypairType,
+) => {
+  // validate transaction object
   let newTransaction;
-  let txnError = {
-    isToAddressError: false,
-    toAddressErrorMessage: null,
-    isAmountError: false,
-    toAmountErrorMessage: null,
-  };
-  if (isValidAddress) {
-    const fees = await getTransactionFees(txnType, senderAddress, to); // in femto
-    const balance = await Wallet.getBalance(senderAddress); // in femto
-    const fAmount = convertUnit(amount.toString(), unit.text, baseUnit.text); // converting in femto
-    const totalAmount = new BN(fAmount).add(new BN(fees.totalFee));
-    const balanceInBN = new BN(balance.balance);
-    const isValidAmount = isValidTxnAmount(balanceInBN, totalAmount);
+  const vTransaction = validateTxnObject(transaction);
+  if (vTransaction !== undefined) return vTransaction;
+
+  const txnError = getTxnError();
+
+  if (isValidAddress(transaction.to)) {
+    // validate amount
+    newTransaction = await validateAmount(
+      senderAddress,
+      network,
+      transaction,
+      seedWords,
+      keypairType,
+    );
+    const { isValidAmount } = newTransaction;
     if (isValidAmount) {
-      newTransaction = {
-        to,
-        account,
-        unit,
-        amount,
-        fAmount,
-        fees,
-        totalAmount,
-        network,
-      };
       newTransaction = createTransactionObj(newTransaction);
     } else {
-      txnError = {
-        ...txnError,
-        ...{ isAmountError: true, toAmountErrorMessage: 'Insufficient Balance' },
-      };
-      newTransaction = handelTransactionError(txnError);
+      txnError.isError = true;
+      txnError.isAmountError = true;
+      txnError.toAmountErrorMessage = 'Insufficient Balance';
     }
   } else {
-    txnError = {
-      ...txnError,
-      ...{ isToAddressError: true, toAddressErrorMessage: 'Invalid Address' },
-    };
-    newTransaction = handelTransactionError(txnError);
+    txnError.isError = true;
+    txnError.isToAddressError = true;
+    txnError.toAddressErrorMessage = 'Invalid Address';
   }
-  return newTransaction;
+  return { ...newTransaction, ...txnError };
 };

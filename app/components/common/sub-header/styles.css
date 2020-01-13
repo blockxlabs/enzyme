@@ -6,7 +6,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  padding: 21px 21px 21px 0px;
+  padding: 21px 16px 21px 0px;
   background-color: rgba(38, 38, 38, 1);
   height: 55.53px;
   color: rgba(255, 255, 255, 1);
@@ -16,10 +16,19 @@
   align-self: center;
   justify-content: flex-start;
   font-size: 18px;
-  margin-left: 36px;
+  margin-left: 35px;
+  width: 240px;
 }
 
 .sub-header-icon {
   align-self: center;
   justify-content: center;
+}
+
+.more-list-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  margin-left: 5px;
 }

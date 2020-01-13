@@ -3,6 +3,7 @@ import { KEYPAIR_EDWARDS, KEYPAIR_TYPES } from '../../../lib/constants/api';
 
 const initialState = {
   success: false,
+  aliasError: null,
   error: null,
   keypairType: KEYPAIR_EDWARDS,
   keypairTypes: KEYPAIR_TYPES,
@@ -22,6 +23,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...{
           error: action.error,
+        },
+      };
+    case Types.CREATE_DUPLICATE_ALIAS_ERROR:
+      return {
+        ...state,
+        ...{
+          aliasError: action.error,
         },
       };
     case Types.UPDATE_KEYPAIR_TYPE:

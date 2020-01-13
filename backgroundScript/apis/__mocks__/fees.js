@@ -1,6 +1,6 @@
 import BN from 'bn.js';
 
-const fees = jest.genMockFromModule('./dot-wallet.js');
+const fees = jest.genMockFromModule('./fees.js');
 
 const checkCreationFee = async (toAddress, creationFee) => {
   // returning mock fees.

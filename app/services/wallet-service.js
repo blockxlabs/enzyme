@@ -51,3 +51,32 @@ export function shortenName(str, limit = 12) {
   }
   return str;
 }
+
+export function trimUrl(url, limit = 40) {
+  if (url.length > limit) {
+    return `${url.substr(0, limit - 10)}...${url.substr(url.length - 10, 10)}`;
+  }
+  return url;
+}
+
+export function createAccountObject(accountArr, address) {
+  return {
+    address,
+    alias: getWalletAlias(accountArr, address),
+  };
+}
+
+export function createTxnUI(result) {
+  return [
+    { label: 'From', value: result.url },
+    { label: 'Chain', value: result.chain },
+    { label: 'Version', value: result.sVersion },
+    { label: 'Nonce', value: result.nonce },
+    { label: 'Method', value: result.method },
+    { label: 'Fees', value: result.transferFee },
+    { label: 'Value', value: result.transferAmount },
+    { label: 'Total Value', value: result.totalTransferAmount },
+    { label: 'Info', value: result.note },
+    { label: 'Lifetime', value: result.mortality },
+  ];
+}
