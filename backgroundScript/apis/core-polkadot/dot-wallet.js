@@ -38,7 +38,9 @@ export const getBalance = async address => {
   try {
     const api = getApi();
     const marketData = await getUSDValue('polkadot-iou');
-    const balance = await api.query.balances.freeBalance(address);
+    const {
+      data: { free: balance },
+    } = await api.query.system.account(address);
     const balanceFormatted = formatBalance(balance, true, 15);
     const dotBalance = formatBalance(balance, { forceUnit: 'dot', withSi: true }, 15);
     const balanceObj = {

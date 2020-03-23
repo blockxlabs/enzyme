@@ -47,7 +47,9 @@ export const getBalance = async address => {
   formatBalance.setDefaults({ unit: 'KSM' });
   try {
     const api = getApi();
-    const balance = await api.query.balances.freeBalance(address);
+    const {
+      data: { free: balance },
+    } = await api.query.system.account(address);
     const marketData = await getUSDValue('kusama');
     const balanceFormatted = formatBalance(balance, true, 12);
     const ksmBalance = formatBalance(balance, { forceUnit: 'ksm', withSi: true }, 12);

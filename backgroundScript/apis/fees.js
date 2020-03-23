@@ -9,10 +9,9 @@ import { getApi } from './api';
 export const checkCreationFee = async (toAddress, creationFee) => {
   try {
     const api = getApi();
-    const [freeBalance, reservedBalance] = await Promise.all([
-      api.query.balances.freeBalance(toAddress),
-      api.query.balances.reservedBalance(toAddress),
-    ]);
+    const {
+      data: { free: freeBalance, reserved: reservedBalance },
+    } = await api.query.system.account(toAddress);
     const votingBalance = new BN(freeBalance).add(new BN(reservedBalance));
     const isCreationFee = votingBalance.gt(new BN(0));
     const newCreationFee = isCreationFee ? new BN(0) : creationFee;
