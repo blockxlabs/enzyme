@@ -1,6 +1,6 @@
 {
   "name": "Enzyme",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "Enzyme - polkadot web extension wallet",
   "scripts": {
     "dev": "node scripts/dev",

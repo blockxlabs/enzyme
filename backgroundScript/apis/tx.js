@@ -17,7 +17,7 @@ export const getTxnEncodedLength = async (to, fAmount, seedWords, keypairType) =
     const api = getApi();
 
     const accountPair = getAccountPair({ seedWords, keypairType });
-    const nonce = await api.query.system.accountNonce(accountPair.address);
+    const { nonce } = await api.query.system.account(accountPair.address);
     const txnExtrinsic = await api.tx.balances
       .transfer(to, new BN(fAmount))
       .sign(accountPair, { nonce });
@@ -36,7 +36,7 @@ export const signTransaction = async (seedWords, keypairType, transaction) => {
   } = transaction.metadata;
 
   const api = getApi();
-  const nonce = await api.query.system.accountNonce(address);
+  const { nonce } = await api.query.system.account(address);
   const keyring = new Keyring({ type: keypairType });
   const accountPair = keyring.addFromUri(seedWords);
 

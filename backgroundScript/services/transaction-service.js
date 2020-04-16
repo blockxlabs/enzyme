@@ -132,7 +132,9 @@ const validateAmount = async (senderAddress, network, transaction, seedWords, ke
     to, account, amount, unit, txnType
   } = transaction;
   const fAmount = convertUnit(amount.toString(), unit.text, getBaseUnit().text); // converting in femto
-  const transactionLength = await getTxnEncodedLength(to, fAmount, seedWords, keypairType);
+  // TODO MM: Take 0 Signature size to show 10 milli fees like polkadot
+  // const transactionLength = await getTxnEncodedLength(to, fAmount, seedWords, keypairType);
+  const transactionLength = Transaction.SIGNATURE_SIZE;
   const fees = await getTransactionFees(txnType, senderAddress, to, transactionLength); // in femto
   const { balance } = await getBalance(senderAddress); // in femto
   const { totalFee } = fees;

@@ -38,7 +38,9 @@ export const getBalance = async address => {
   formatBalance.setDefaults({ unit });
   try {
     const api = getApi();
-    const balance = await api.query.balances.freeBalance(address);
+    const {
+      data: { free: balance },
+    } = await api.query.system.account(address);
     const balanceFormatted = formatBalance(balance, true, ChainApi.getTokenDecimals());
     const balanceObj = {
       address,

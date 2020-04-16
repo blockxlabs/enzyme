@@ -74,8 +74,9 @@ export function createTxnUI(result) {
     { label: 'Nonce', value: result.nonce },
     { label: 'Method', value: result.method },
     { label: 'Fees', value: result.transferFee },
-    { label: 'Value', value: result.transferAmount },
-    { label: 'Total Value', value: result.totalTransferAmount },
+    // TODO MM: Remove for now because we are showing incorrect
+    // { label: 'Value', value: result.transferAmount },
+    // { label: 'Total Value', value: result.totalTransferAmount },
     { label: 'Info', value: result.note },
     { label: 'Lifetime', value: result.mortality },
   ];
