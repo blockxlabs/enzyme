@@ -27,7 +27,7 @@ Once running:
 
 - Go to chrome://extensions
 - Enable 'Developer Mode' (top right corner of window)
-- Click "Load Unpacked" and select the enzyme/dev/ directory
+- Click "Load Unpacked" and select the enzyme/dev/chrome directory
 - Navigate to : https://localhost:3000 and accept the https connection
 
 The Enzyme icon should show up in your Chrome toolbar.
