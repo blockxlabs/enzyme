@@ -9,15 +9,23 @@ import { getApi } from './api';
 export const checkCreationFee = async (toAddress, creationFee) => {
   try {
     const api = getApi();
-    const {
-      data: { free: freeBalance, reserved: reservedBalance },
-    } = await api.query.system.account(toAddress);
-    const votingBalance = new BN(freeBalance).add(new BN(reservedBalance));
-    const isCreationFee = votingBalance.gt(new BN(0));
-    const newCreationFee = isCreationFee ? new BN(0) : creationFee;
-    return newCreationFee;
+    const allBalances = await api.derive.balances.all([toAddress]);
+    return allBalances.votingBalance.isZero() ? creationFee : new BN(0);
   } catch (err) {
     throw new Error('Error in checkCreationFee');
+  }
+};
+
+// How to estimate transaction fees
+// reference:  https://polkadot.js.org/api/cookbook/tx.html#how-do-i-estimate-the-transaction-fees
+export const calculatePartialFees = async (sender, recipient, transaction) => {
+  try {
+    const api = getApi();
+    const result = await api.tx.balances.transfer(recipient, transaction).paymentInfo(sender);
+    const partialFees = new BN(result.partialFee);
+    return partialFees;
+  } catch (error) {
+    throw new Error('Error in calculatePartialFees');
   }
 };
 
@@ -48,14 +56,18 @@ export const transferFees = async (address, toAddress, transactionLength) => {
       transactionLength,
     );
 
-    // check for creation fee
+    // calculate partial fees
+    const partialFees = await calculatePartialFees(address, toAddress, transactionLength);
+
+    // check for creation fees
     const newCreationFee = await checkCreationFee(toAddress, creationFee);
 
     // total of all fees
     const totalFee = transactionBaseFee
       .add(transferFee)
       .add(bytesFee)
-      .add(newCreationFee);
+      .add(newCreationFee)
+      .add(partialFees);
 
     // return fees object
     const fees = {
