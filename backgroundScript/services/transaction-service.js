@@ -40,7 +40,7 @@ export const getTxnError = () => ({
 
 export const isValidTxnAmount = (balance, totalAmount, network) => {
   if (network.value === KUSAMA_NETWORK.value) {
-    return balance.gt(new BN(Transaction.KUSAMA_MINIMUM_BALANCE)) && balance.gt(totalAmount);
+    return balance.gt(new BN(Transaction.KUSAMA_MINIMUM_BALANCE)) && balance.gte(totalAmount);
   }
   if (network.value === ALEXANDER_NETWORK.value) {
     return balance.gt(new BN(Transaction.MINIMUM_BALANCE)) && balance.gt(totalAmount);
