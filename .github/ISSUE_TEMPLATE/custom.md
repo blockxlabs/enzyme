@@ -3,7 +3,7 @@ name: Report End User Bug
 about: Enzyme UX UI issues
 title: ''
 labels: ''
-assignees: kushptlapigarage
+assignees: zadmarbella
 
 ---
 
