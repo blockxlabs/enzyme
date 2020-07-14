@@ -97,10 +97,11 @@ export default class Transfer extends Component {
   };
 
   handleSendButton = () => {
-    const { to, amount, unit } = this.state;
-    if (to !== '' && amount !== '') {
-      this.props.confirmTransaction(to, this.props.account, amount, unit);
-    } else if (to === '') {
+    const { amount, unit } = this.state;
+    const { toAddress } = this.props;
+    if (toAddress !== '' && amount !== '') {
+      this.props.confirmTransaction(toAddress, this.props.account, amount, unit);
+    } else if (toAddress === '') {
       this.toInput.focus();
     } else {
       this.amountInput.focus();

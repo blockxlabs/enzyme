@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Keyring } from '@polkadot/keyring';
 import { BN } from 'bn.js';
-import { createType, TypeRegistry } from '@polkadot/types';
+import { TypeRegistry } from '@polkadot/types';
 import { getApi } from './api';
 
 export const getAccountPair = account => {
@@ -50,9 +50,11 @@ export const getSignature = async (account, txnPayload) => {
   // return to Dapp
   const accountPair = getAccountPair(account);
   const registry = new TypeRegistry();
-
-  const signature = createType(registry, 'ExtrinsicPayload', txnPayload, {
-    version: txnPayload.version,
-  }).sign(accountPair);
+  registry.setSignedExtensions(txnPayload.signedExtensions);
+  const signature = registry
+    .createType('ExtrinsicPayload', txnPayload, {
+      version: txnPayload.version,
+    })
+    .sign(accountPair);
   return signature;
 };
