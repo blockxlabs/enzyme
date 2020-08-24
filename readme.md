@@ -23,7 +23,7 @@ Execute the following to clone, install dependencies, and run a development serv
     yarn install
     yarn run dev
 
-Once running:
+Once running Chrome:
 
 - Go to chrome://extensions
 - Enable 'Developer Mode' (top right corner of window)
@@ -31,6 +31,15 @@ Once running:
 - Navigate to : https://localhost:3000 and accept the https connection
 
 The Enzyme icon should show up in your Chrome toolbar.
+
+Once running Firefox:
+
+- Go to about:debugging#/runtime/this-firefox
+- Click 'Load Temporary Addon' 
+- select the enzyme/dev/firefox directory
+- Navigate to : https://localhost:3000 and accept the https connection
+
+The Enzyme icon should show up in your Firefox toolbar.
 
 ## Getting Started
 

@@ -23,7 +23,7 @@ export default class TransferFromTo extends Component {
     } = this.props;
     return (
       <div className="transfer-from-to-container" {...otherProps}>
-        <TransferFrom alias={alias} address={address} />
+        <TransferFrom alias={alias} theme={theme} address={address} />
         <IconTransferFromTo />
         <TransferToIcon
           className="transfer-to-container"

@@ -1,8 +1,6 @@
 import BN from 'bn.js';
 import { formatNumber, bnToBn } from '@polkadot/util';
-import {
-  GenericCall, Metadata, TypeRegistry, createType
-} from '@polkadot/types';
+import { Metadata, TypeRegistry, createType } from '@polkadot/types';
 import {
   getTransactionFees,
   isValidTxnAmount,
@@ -21,6 +19,8 @@ import * as NetworkService from './network-service';
 export const PERIOD = 10;
 const registry = new TypeRegistry();
 
+//Original Source: https://github.com/polkadot-js/extension
+//Original Author: Jaco Greeff
 const decodeMethod = (data, isDecoded, chain) => {
   let json = null;
   let method = null;
@@ -28,13 +28,12 @@ const decodeMethod = (data, isDecoded, chain) => {
   try {
     if (isDecoded && chain.specVersion) {
       registry.register(chain.types || {});
-
       const metaCalls = getMetaCalls();
       if (metaCalls) {
         // eslint-disable-next-line no-unused-vars
         const metadata = new Metadata(registry, Buffer.from(metaCalls, 'base64'));
       }
-      method = new GenericCall(registry, data);
+      method = registry.createType('Call', data);
       json = method.toJSON();
     }
   } catch (error) {
@@ -94,7 +93,7 @@ const createTxnUIObject = async txnPayload => {
     sectionName,
     method: `${sectionName}.${methodName}`,
     dest,
-    value,
+    value: bnToBn(value),
     note,
   };
 };
@@ -114,10 +113,7 @@ export const validateDappTransaction = async transaction => {
   if (vTransaction !== undefined) return vTransaction;
 
   const txnError = getTxnError();
-  const { url, txnPayload } = transaction;
-
-  // update network connection
-  const network = await setNetwork(txnPayload);
+  const { url, txnPayload, network } = transaction;
 
   // creating txnForUI object
   const txnForUI = await createTxnUIObject(txnPayload);
@@ -128,7 +124,6 @@ export const validateDappTransaction = async transaction => {
   const txnType = Transaction.TRANSFER_COINS;
   const fees = await getTransactionFees(txnType, address, dest, transactionLength); // in femto
   const totalAmount = new BN(value).add(new BN(fees.totalFee));
-
   // get current balance
   const { balance } = await getBalance(address); // in femto
   const balanceInBN = new BN(balance);

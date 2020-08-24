@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
   toAmountErrorMessage: state.transferReducer.toAmountErrorMessage,
   page: state.appStateReducer.page,
   toAddress: state.addressBookReducer.toAddress,
+  network: state.networkReducer.network,
 });
 
 const mapDispatchToProps = {

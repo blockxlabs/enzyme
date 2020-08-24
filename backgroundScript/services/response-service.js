@@ -486,7 +486,6 @@ export const getSignMessage = async (request, sender, sendResponse) => {
   try {
     const { result, requestID, replyData } = await DAppService.getSignMessage(request);
     DAppService.sendPopupResponse({ ...success, result }, sender, sendResponse);
-
     await DAppService.closeRequestAndReplyDApp(requestID, replyData);
   } catch (err) {
     DAppService.sendPopupResponse(

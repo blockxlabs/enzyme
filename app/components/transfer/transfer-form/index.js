@@ -9,6 +9,7 @@ export default class TransferForm extends Component {
   render() {
     const {
       address,
+      theme,
       alias,
       to,
       amount,
@@ -34,6 +35,7 @@ export default class TransferForm extends Component {
       <div className="transfer-form-container">
         <TransferFromTo
           address={address}
+          theme={theme}
           alias={alias}
           isToError={isToError}
           isAddressEncoded={isAddressEncoded}

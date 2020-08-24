@@ -38,22 +38,22 @@ export const accountState = {
 
 export const accountForDapp = [
   {
-    address: 'DpBwnmm8eQtuEReBkY3p7otougXrPD9UFg6BFp1ttxEXKi2',
+    address: '5FPMNegDhvC2wjnYjrpT9dejWidSVRPqFEAZDczCnJvL3tBJ',
     name: 'Account 1',
     meta: { name: 'Account 1', source: 'enzyme' },
   },
   {
-    address: 'DpBwnmm8eQtuEReBkY3p7otougXrPD9UFg6BFp1ttxEXKi2',
+    address: '5Ck3PxgztrtsYs1EECp92VT9BCKCsBe1hECQBCjtt7d4iwCa',
     name: 'Account 2',
     meta: { name: 'Account 2', source: 'enzyme' },
   },
   {
-    address: 'DpBwnmm8eQtuEReBkY3p7otougXrPD9UFg6BFp1ttxEXKi2',
+    address: '5CBnZwkc7zPwaDoGLJRM5yeNoSc2SVw5PgdVpztu3d8JiFWu',
     name: 'Account 3',
     meta: { name: 'Account 3', source: 'enzyme' },
   },
   {
-    address: 'DpBwnmm8eQtuEReBkY3p7otougXrPD9UFg6BFp1ttxEXKi2',
+    address: '5FSGZeAhTmfh2FUFV6fnA6v5mXtgSaXmkEqTkZ7rs3LMi11b',
     name: 'Account 4',
     meta: { name: 'Account 4', source: 'enzyme' },
   },

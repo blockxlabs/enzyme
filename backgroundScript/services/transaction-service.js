@@ -10,7 +10,12 @@ import * as Notification from '../../lib/services/extension/notifications';
 import { createTransactionToastMessage } from '../../lib/services/static-message-factory-service';
 import { convertUnit } from './unit-converter';
 import { getBaseUnit } from '../apis/chain';
-import { KUSAMA_NETWORK, ALEXANDER_NETWORK } from '../../lib/constants/networks';
+import {
+  KUSAMA_NETWORK,
+  WESTEND_NETWORK,
+  EDGEWARE_NETWORK,
+  BERESHEET_NETWORK,
+} from '../../lib/constants/networks';
 import { getTxnEncodedLength } from '../apis/tx';
 import { getBalance, valueFormatter } from './balance-service';
 import { isValidAddress } from './account-service';
@@ -39,10 +44,14 @@ export const getTxnError = () => ({
 });
 
 export const isValidTxnAmount = (balance, totalAmount, network) => {
-  if (network.value === KUSAMA_NETWORK.value) {
+  if (
+    network.value === KUSAMA_NETWORK.value
+    || network.value === EDGEWARE_NETWORK.value
+    || network.value === BERESHEET_NETWORK.value
+  ) {
     return balance.gt(new BN(Transaction.KUSAMA_MINIMUM_BALANCE)) && balance.gte(totalAmount);
   }
-  if (network.value === ALEXANDER_NETWORK.value) {
+  if (network.value === WESTEND_NETWORK.value) {
     return balance.gt(new BN(Transaction.MINIMUM_BALANCE)) && balance.gt(totalAmount);
   }
   return balance.gt(totalAmount);

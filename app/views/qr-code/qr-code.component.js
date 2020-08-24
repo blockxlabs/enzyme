@@ -4,6 +4,7 @@ import SubHeader from '../../components/common/sub-header';
 import { DASHBOARD_PAGE } from '../../constants/navigation';
 import QRCodeForm from '../../components/qr-code/qr-code-form';
 import { copyAccountMessage } from '../../../lib/services/static-message-factory-service';
+import { findChainByName } from '../../../lib/constants/chain';
 
 export default class QRCode extends Component {
   handleSubheaderBackBtn = () => {
@@ -15,7 +16,9 @@ export default class QRCode extends Component {
   };
 
   render() {
-    const { account } = this.props;
+    const { account, network } = this.props;
+    const chain = findChainByName(network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <SubHeader
@@ -24,6 +27,7 @@ export default class QRCode extends Component {
           backBtnOnClick={this.handleSubheaderBackBtn}
         />
         <QRCodeForm
+          theme={theme}
           account={account}
           onCopyAddress={this.onCopy}
           onClick={this.handleSubheaderBackBtn}

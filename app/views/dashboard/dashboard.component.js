@@ -6,6 +6,7 @@ import Transaction from '../../components/transaction/transaction';
 import { copyAccountMessage } from '../../../lib/services/static-message-factory-service';
 import './styles.css';
 import { RENAME } from '../../constants/options';
+import { findChainByName } from '../../../lib/constants/chain';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -69,6 +70,8 @@ export default class Dashboard extends Component {
       unit,
       accountMenu,
     } = this.props;
+    const chain = findChainByName(network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <Wallet
@@ -78,7 +81,7 @@ export default class Dashboard extends Component {
           balances={balances}
           balance={balanceFormatted}
           selectedAccount={account}
-          theme="polkadot"
+          theme={theme}
           onAliasChange={this.handleAliasChange}
           onAliasInputBlur={this.handleAliasInputBlur}
           onAliasInputKeyPress={this.handleOnKeyPress}

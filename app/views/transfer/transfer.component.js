@@ -5,6 +5,7 @@ import SubHeader from '../../components/common/sub-header';
 import TransferForm from '../../components/transfer/transfer-form';
 import * as NavConstants from '../../constants/navigation';
 import { INPUT_NUMBER_REGEX } from '../../../lib/constants/regex';
+import { findChainByName } from '../../../lib/constants/chain';
 
 export default class Transfer extends Component {
   constructor(props) {
@@ -127,11 +128,13 @@ export default class Transfer extends Component {
       isAmountError,
       toAmountErrorMessage,
       toAddress,
+      network,
     } = this.props;
     const {
       to, amount, unit, alias, from, buttonText
     } = this.state;
-
+    const chain = findChainByName(network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <SubHeader
@@ -140,6 +143,7 @@ export default class Transfer extends Component {
           backBtnOnClick={this.handleSubheaderBackBtn}
         />
         <TransferForm
+          theme={theme}
           address={from}
           alias={alias}
           unit={unit}

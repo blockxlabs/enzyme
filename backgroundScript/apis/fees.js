@@ -9,10 +9,8 @@ import { getApi } from './api';
 export const checkCreationFee = async (toAddress, creationFee) => {
   try {
     const api = getApi();
-    const {
-      data: { free: balance },
-    } = await api.query.system.account(toAddress);
-    return balance.isZero() ? creationFee : new BN(0);
+    const { free } = await api.query.balances.account(toAddress);
+    return free.isZero() ? creationFee : new BN(0);
   } catch (err) {
     throw new Error('Error in checkCreationFee');
   }
@@ -27,7 +25,9 @@ export const calculatePartialFees = async (sender, recipient, transaction) => {
     const partialFees = new BN(result.partialFee);
     return partialFees;
   } catch (error) {
-    throw new Error('Error in calculatePartialFees');
+    // eslint-disable-next-line no-console
+    console.log('Error in calculatePartialFees', error);
+    return new BN(0);
   }
 };
 

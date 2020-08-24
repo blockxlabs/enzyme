@@ -1,3 +1,4 @@
+import { decodeAddress } from '@polkadot/keyring';
 import { getWallet } from './wallet-service';
 import { getStore } from '../store/store-provider';
 import * as accountActions from '../actions/accounts';
@@ -202,7 +203,7 @@ export const accountForDapp = accountState => {
   if (accounts !== undefined) {
     const reformattedAccounts = accounts.map(obj => {
       const accountsWithoutSeedWords = {
-        address: getAddress(obj.seedWords, obj.keypairType),
+        address: DotWallet.getAddress(obj.seedWords, obj.keypairType),
         name: obj.alias,
         meta: {
           name: obj.alias,
@@ -238,7 +239,9 @@ export const getAccount = address => {
     };
     return account;
   });
-  const account = accountsWithAddress.find(account => account.address === address);
+  const account = accountsWithAddress.find(
+    account => JSON.stringify(decodeAddress(account.address)) === JSON.stringify(decodeAddress(address)),
+  );
   if (account) {
     return account;
   }

@@ -1,6 +1,6 @@
 import { getStore } from '../store/store-provider';
 import * as networkStateActions from '../actions/networks';
-import { CUSTOM, DOT_NETWORK_LIST } from '../../lib/constants/networks';
+import { CUSTOM, DEV_DOT_NETWORK_LIST } from '../../lib/constants/networks';
 import * as NetworkValidator from '../../lib/services/network-validator';
 import * as Api from '../apis/api';
 import * as ChainApi from '../apis/chain';
@@ -24,7 +24,7 @@ export const updateCurrentNetwork = async network => {
     const { networkFullUrl } = NetworkValidator.createFullNetworkURL(network.networkFullUrl);
     newNetwork = { networkFullUrl, ...network };
   }
-  Api.connectToApi(newNetwork);
+  await Api.connectToApi(newNetwork);
   getStore().dispatch(networkStateActions.updateCurrentNetwork(newNetwork));
   return newNetwork;
 };
@@ -40,7 +40,7 @@ export const isConnected = () => {
 };
 
 export const getNetworkByName = name => {
-  const network = DOT_NETWORK_LIST.find(x => x.value === name);
+  const network = DEV_DOT_NETWORK_LIST.find(x => x.value === name);
   return network;
 };
 export const getUnits = () => ChainApi.getUnits();

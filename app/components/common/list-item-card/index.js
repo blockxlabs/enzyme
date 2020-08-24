@@ -45,6 +45,7 @@ class ListItemCard extends Component {
       handleListItemAvatarClick,
       handleListItemClick,
       isMoreVertIconVisible,
+      theme,
       ...otherProps
     } = this.props;
     const { anchorEl } = this.state;
@@ -56,6 +57,7 @@ class ListItemCard extends Component {
               className="account-avatar"
               onCopyAddress={onCopyAddress}
               value={address}
+              theme={theme}
               style={{ cursor: 'pointer !important' }}
             />
           </ListItemAvatar>

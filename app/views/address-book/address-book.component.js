@@ -13,7 +13,7 @@ import {
   ADD_ADDRESS,
   REMOVE,
 } from '../../constants/options';
-
+import { findChainByName } from '../../../lib/constants/chain';
 import './styles.css';
 
 export default class AddressBook extends Component {
@@ -97,10 +97,12 @@ export default class AddressBook extends Component {
   };
 
   render() {
-    const { addressBook } = this.props;
+    const { addressBook, network } = this.props;
     const {
       isOpen, showSettings, headerText, isMoreVertIconVisible
     } = this.state;
+    const chain = findChainByName(network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <SubHeader
@@ -119,7 +121,7 @@ export default class AddressBook extends Component {
                 addressBook={addressBook}
                 moreMenu={ACCOUNT_MANAGEMENT_OPTIONS}
                 onMoreMenuOptionsChange={this.handleAddressBookOptionsChange}
-                theme="polkadot"
+                theme={theme}
                 isMoreVertIconVisible={isMoreVertIconVisible}
                 onCopyAddress={this.onCopyAddress}
                 handelChangeToAddress={this.handelChangeToAddress}

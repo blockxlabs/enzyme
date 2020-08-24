@@ -14,6 +14,7 @@ export default class Wallet extends Component {
       onAliasInputBlur,
       onAliasInputKeyPress,
       inputRef,
+      theme,
       ...otherProps
     } = this.props;
 
@@ -23,6 +24,7 @@ export default class Wallet extends Component {
           className="account-avatar"
           onCopyAddress={onCopyAddress}
           value={selectedAccount.address}
+          theme={theme}
         />
         <AccountPanel
           inputRef={inputRef}

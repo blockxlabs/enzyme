@@ -6,11 +6,11 @@ import ConfirmTo from '../confirm-to';
 export default class ConfirmFromTo extends Component {
   render() {
     const {
-      to, alias, from, ...otherProps
+      to, alias, from, theme, ...otherProps
     } = this.props;
     return (
       <div {...otherProps}>
-        <TransferFrom address={from} alias={alias} />
+        <TransferFrom address={from} alias={alias} theme={theme} />
         <IconTransferFromTo />
         <ConfirmTo
           style={{
@@ -22,6 +22,7 @@ export default class ConfirmFromTo extends Component {
             height: '54.8px',
           }}
           address={to}
+          theme={theme}
         />
       </div>
     );

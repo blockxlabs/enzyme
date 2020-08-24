@@ -8,6 +8,7 @@ import { updateToAddress } from '../../actions/address-book';
 
 const mapStateToProps = state => ({
   confirmDetails: state.transferReducer.confirmDetails,
+  network: state.networkReducer.network,
 });
 
 const mapDispatchToProps = {

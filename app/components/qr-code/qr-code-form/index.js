@@ -7,17 +7,19 @@ import './styles.css';
 export default class QRCodeForm extends Component {
   render() {
     const {
-      account, onClick, onCopyAddress, ...otherProps
+      account, theme, onClick, onCopyAddress, ...otherProps
     } = this.props;
     return (
       <div {...otherProps}>
         <TransferFrom
+          theme={theme}
           address={account.address}
           canCopy
           onCopyAddress={onCopyAddress}
           alias={account.alias}
         />
         <QR
+          theme={theme}
           className="qr-address"
           onCopyAddress={onCopyAddress}
           size={200}

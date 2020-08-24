@@ -6,6 +6,7 @@ import EnzymeValidator from '../../utils/enzyme-validator';
 import { DASHBOARD_PAGE } from '../../constants/navigation';
 import validator from '../../utils/enzyme-validator/validator';
 import './styles.css';
+import { findChainByName } from '../../../lib/constants/chain';
 
 const FnameRequiredErrorMessage = 'Firstname required';
 const AddressRequiredErrorMessage = 'Address required';
@@ -15,7 +16,6 @@ export default class CreateAddressBook extends Component {
     super(props);
     this.state = {
       address: '',
-      theme: 'polkadot',
       isAddressError: false,
       addressErrorMessage: '',
       addressPropName: 'address',
@@ -180,7 +180,6 @@ export default class CreateAddressBook extends Component {
   render() {
     const {
       address,
-      theme,
       isAddressError,
       addressPropName,
       addressErrorMessage,
@@ -198,6 +197,8 @@ export default class CreateAddressBook extends Component {
       network,
     } = this.state;
     const { networks } = this.props;
+    const chain = findChainByName(this.props.network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <SubHeader

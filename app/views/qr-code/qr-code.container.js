@@ -5,6 +5,7 @@ import { createToast } from '../../constants/toast';
 
 const mapStateToProps = state => ({
   account: state.accountReducer.account,
+  network: state.networkReducer.network,
 });
 
 const mapDispatchToProps = {
@@ -12,7 +13,4 @@ const mapDispatchToProps = {
   createToast,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(QRCode);
+export default connect(mapStateToProps, mapDispatchToProps)(QRCode);

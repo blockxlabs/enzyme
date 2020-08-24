@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { setChain } from './chain';
+import { EDGEWARE_NETWORK, BERESHEET_NETWORK } from '../../lib/constants/networks';
+import { edgeWareTypes, typesAlias } from './core-edgeware/edgeware-types';
 
 const connection = {
   isConnected: false,
@@ -25,6 +27,7 @@ const disconnect = () => {
 };
 
 const connect = async network => {
+  let api;
   const { networkFullUrl, name } = network;
   if (name === 'dotcustom') {
     disconnect();
@@ -33,7 +36,15 @@ const connect = async network => {
     disconnect();
     try {
       const provider = new WsProvider(networkFullUrl);
-      const api = await ApiPromise.create({ provider });
+      if (name === EDGEWARE_NETWORK.name || name === BERESHEET_NETWORK.name) {
+        api = await ApiPromise.create({
+          provider,
+          types: edgeWareTypes,
+          typesAlias,
+        });
+      } else {
+        api = await ApiPromise.create({ provider });
+      }
       api.on('disconnected', () => {
         disconnect();
       });

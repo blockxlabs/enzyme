@@ -1,0 +1,27 @@
+@startuml
+
+actor User
+entity BGSCRIPT
+entity POPUP
+entity BLOCKCHAIN
+
+
+
+POPUP -> BGSCRIPT : Are you ready ?
+group BGSCRIPT IS READY
+POPUP <- BGSCRIPT : Yes
+group TNC Not Accepted
+POPUP -> POPUP : new tnc or tnc not accepted
+POPUP -> POPUP : Redirect to Terms Page
+POPUP -> POPUP : Accept Terms and Conditions
+end
+group TNC Accepted
+POPUP -> BGSCRIPT : Give me Account Details, Txn Details etc
+POPUP <- BGSCRIPT : Account Details, Txn Deatils
+end
+end
+group BGSCRIPT IS NOT READY
+POPUP <- BGSCRIPT : No
+POPUP -> POPUP : Show Spinner
+end
+@enduml

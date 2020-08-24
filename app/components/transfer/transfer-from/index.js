@@ -6,7 +6,7 @@ import './styles.css';
 export default class TransferFrom extends Component {
   render() {
     const {
-      address, alias, canCopy, onCopyAddress, ...otherProps
+      address, alias, theme, canCopy, onCopyAddress, ...otherProps
     } = this.props;
     return (
       <div
@@ -24,7 +24,7 @@ export default class TransferFrom extends Component {
           onCopyAddress={onCopyAddress}
           value={address}
           size={44}
-          theme="polkadot"
+          theme={theme}
         />
         <TransferFromAddress
           canCopy={canCopy}

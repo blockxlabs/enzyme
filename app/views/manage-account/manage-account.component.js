@@ -11,7 +11,7 @@ import {
   ADD_ACCOUNT,
   REMOVE,
 } from '../../constants/options';
-
+import { findChainByName } from '../../../lib/constants/chain';
 import './styles.css';
 
 export default class ManageAccount extends Component {
@@ -71,8 +71,10 @@ export default class ManageAccount extends Component {
   };
 
   render() {
-    const { accounts, account } = this.props;
+    const { accounts, account, network } = this.props;
     const { isOpen } = this.state;
+    const chain = findChainByName(network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <SubHeader
@@ -93,7 +95,7 @@ export default class ManageAccount extends Component {
                 isMoreVertIconVisible={accounts.length > 1}
                 moreMenu={ACCOUNT_MANAGEMENT_OPTIONS}
                 onAccountMenuOptionsChange={this.handleAccountMenuOptionsChange}
-                theme="polkadot"
+                theme={theme}
                 onCopyAddress={this.onCopyAddress}
                 handleChangeAccount={this.handleChangeAccount}
               />

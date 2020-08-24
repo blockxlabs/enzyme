@@ -189,10 +189,11 @@ export const validateTransaction = async (transactionObj, sender) => {
   if (!isDAppAuthorized) {
     throw new Error('Unauthorized access.');
   }
-  const accountState = getAccountState();
-  const accounts = AccountService.accountForDapp(accountState);
+  // update network connection
+  const network = await DappTransactionService.setNetwork(opts);
+
   const { address } = opts;
-  const account = accounts.find(x => x.address === address);
+  const account = AccountService.getAccount(address);
   const transaction = {
     address,
     txnType: 'TRANSFER_COINS',
@@ -200,6 +201,7 @@ export const validateTransaction = async (transactionObj, sender) => {
   const validationObj = {
     url,
     txnPayload: opts,
+    network,
   };
   const result = await DappTransactionService.validateDappTransaction(validationObj);
   await queueDAppRequests(transactionObj, sender, {

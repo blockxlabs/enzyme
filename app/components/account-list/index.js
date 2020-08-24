@@ -31,6 +31,7 @@ class AccountList extends Component {
       handleChangeAccount,
       onAccountMenuOptionsChange,
       isMoreVertIconVisible,
+      theme,
       ...otherProps
     } = this.props;
     return (
@@ -42,6 +43,7 @@ class AccountList extends Component {
         >
           {accounts.map(account => (
             <ListItemCard
+              theme={theme}
               listItem={account}
               handleListItemAvatarClick={handleChangeAccount}
               handleListItemClick={handleChangeAccount}

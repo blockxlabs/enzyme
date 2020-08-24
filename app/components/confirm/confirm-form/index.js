@@ -19,10 +19,11 @@ export default class ConfirmForm extends Component {
       },
       handleSend,
       buttonText,
+      theme,
     } = this.props;
     return (
       <div className="confirm-form-container">
-        <ConfirmFromTo to={to} from={address} alias={alias} />
+        <ConfirmFromTo to={to} theme={theme} from={address} alias={alias} />
         <DarkDivider className="confirm-form-amount-divider" />
         <ConfirmParticular
           className="confirm-form-amount-container"

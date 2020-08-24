@@ -4,6 +4,7 @@ import ConfirmForm from '../../components/confirm/confirm-form';
 import SubHeader from '../../components/common/sub-header';
 import { TRANSFER_PAGE, CREATE_ADDRESS_BOOK_PAGE } from '../../constants/navigation';
 import { shortenAddress } from '../../services/wallet-service';
+import { findChainByName } from '../../../lib/constants/chain';
 
 export default class Confirm extends Component {
   constructor(props) {
@@ -48,7 +49,9 @@ export default class Confirm extends Component {
 
   render() {
     const { buttonText } = this.state;
-    const { confirmDetails } = this.props;
+    const { confirmDetails, network } = this.props;
+    const chain = findChainByName(network.value);
+    const theme = chain.icon || 'polkadot';
     return (
       <div>
         <SubHeader
@@ -60,7 +63,7 @@ export default class Confirm extends Component {
           confirmDetails={confirmDetails}
           handleSend={this.handleSend}
           buttonText={buttonText}
-          theme="polkadot"
+          theme={theme}
         />
       </div>
     );

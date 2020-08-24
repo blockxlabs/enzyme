@@ -4,10 +4,10 @@ import Address from '../../common/address';
 
 export default class ConfirmTo extends Component {
   render() {
-    const { address, ...otherProps } = this.props;
+    const { address, theme, ...otherProps } = this.props;
     return (
       <div {...otherProps}>
-        <Avatar theme="polkadot" size={44} value={address} />
+        <Avatar theme={theme} size={44} value={address} />
         <Address style={{ marginLeft: '22px' }} hash={address} />
       </div>
     );
