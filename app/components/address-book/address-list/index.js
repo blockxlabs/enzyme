@@ -15,6 +15,7 @@ class AddressList extends Component {
       onMoreMenuOptionsChange,
       isMoreVertIconVisible,
       handelChangeToAddress,
+      theme,
       ...otherProps
     } = this.props;
     return (
@@ -27,6 +28,7 @@ class AddressList extends Component {
           {addressBook.map(address => (
             <ListItemCard
               listItem={address}
+              theme={theme}
               primaryText={`${address.fname}  ${address.lname}`}
               address={address.address}
               onCopyAddress={onCopyAddress}

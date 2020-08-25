@@ -12,7 +12,9 @@ export const checkCreationFee = async (toAddress, creationFee) => {
     const { free } = await api.query.balances.account(toAddress);
     return free.isZero() ? creationFee : new BN(0);
   } catch (err) {
-    throw new Error('Error in checkCreationFee');
+    // eslint-disable-next-line no-console
+    console.log('Error in checkCreationFee', err);
+    return new BN(0);
   }
 };
 

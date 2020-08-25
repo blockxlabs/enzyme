@@ -24,20 +24,24 @@ export default class SendToFrom extends Component {
           onCopyAddress={onCopyAddress}
           fontSize="18px"
         />
-        <CaretRight />
-        <Avatar
-          className="account-avatar"
-          onCopyAddress={onCopyAddress}
-          value={toAccount.address}
-          size="32"
-        />
-        <AccountDetails
-          className="account-item-identity-container"
-          alias={toAccount.alias}
-          address={toAccount.address}
-          onCopyAddress={onCopyAddress}
-          fontSize="18px"
-        />
+        {toAccount && (
+          <div>
+            <CaretRight />
+            <Avatar
+              className="account-avatar"
+              onCopyAddress={onCopyAddress}
+              value={toAccount.address}
+              size="32"
+            />
+            <AccountDetails
+              className="account-item-identity-container"
+              alias={toAccount.alias}
+              address={toAccount.address}
+              onCopyAddress={onCopyAddress}
+              fontSize="18px"
+            />
+          </div>
+        )}
       </div>
     );
   }

@@ -10,11 +10,14 @@ export default class TransactionItemStatus extends Component {
     } = this.props;
     return (
       <div {...otherProps}>
-        <Address
-          className="transaction-item-details-status-address"
-          hash={address}
-          text={`• ${moment}`}
-        />
+        {address && (
+          <Address
+            className="transaction-item-details-status-address"
+            hash={address}
+            text={`• ${moment}`}
+          />
+        )}
+
         <StatusPill text={status} backgroundColor={color} color="rgba(255, 255, 255, 1)" />
       </div>
     );
