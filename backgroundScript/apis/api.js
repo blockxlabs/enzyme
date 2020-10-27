@@ -51,7 +51,7 @@ const connect = async network => {
 
       // set connection
       connection.provider = provider;
-      connection.isConnected = provider.isConnected();
+      connection.isConnected = provider.isConnected;
       connection.api = api;
       connection.currentNetwork = network;
       await setChain(api);
